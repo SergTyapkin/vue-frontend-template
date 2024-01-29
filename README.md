@@ -6,13 +6,13 @@
 
 ### 1. Клонируем:
 ```SHELL
-git clone <this_repo>
+git clone git@github.com:SergTyapkin/vue-frontend-template.git
 ```
 
 ### 2. Настраиваем вообще всё.
 В самом начале нужно будет настроить `.env` файл, прописать правильный `DOMAIN_URL`
 ```SHELL
-cd <this_repo>
+cd vue-frontend-template
 make all
 ````
 

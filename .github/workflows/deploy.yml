@@ -22,4 +22,4 @@ jobs:
         key: ${{ secrets.SSH_DEPLOY_KEY }}
         script: |
           cd ${{ vars.PROJECT_PATH }}
-          sudo make update
+          make update

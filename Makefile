@@ -1,5 +1,5 @@
 #TAG ?= $(shell git symbolic-ref -q --short HEAD || git describe --tags --exact-match)
-include docker-deploy/.env
+-include ./docker-deploy/.env
 
 generate-certs:
 	cd docker-deploy && \
@@ -17,7 +17,7 @@ set-auto-renewing-certs:
 	echo "" && \
 	echo "0 0 1 * * cd $$(pwd) && make run renew-certs >> ./certbot-renew.log" && \
 	echo "" && \
-	echo "Copy that command and press [Enter]. Then add this string in end of opened file." && \
+	echo "Copy that command and [press Enter]. Then add this string in end of opened file." && \
 	read ENTER
 	crontab -e
 
@@ -25,6 +25,10 @@ run:
 	cd docker-deploy && \
 	docker compose down && \
 	docker compose up -d nginx
+
+down:
+	cd docker-deploy && \
+	docker compose down
 
 build:
 	cd docker-deploy && \
@@ -64,14 +68,27 @@ setup-ci:
 	sudo cat /tmp/tmp_key.pub >> ~/.ssh/authorized_keys
 	echo '' && \
 	echo 'Add this private rsa key secret deploy variables to SSH_DEPLOY_KEY on your github repo: ' && \
-	echo '[press Enter...]' && \
+	echo '[To see key press Enter...]' && \
 	read ENTER
 	sudo less /tmp/tmp_key
 
+set-docker-not-sudo:
+	# add user to docker group
+	getent group docker || sudo groupadd docker # Add group if not exists
+	sudo usermod -aG docker ${USER}
+	newgrp docker
+	sudo systemctl restart docker
+
 all:
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
+	echo '' && \
+	echo 'Edit .env file. Write right DOMAIN_URL!' && \
+	echo '[press Enter...]' && \
+	read ENTER
 	nano ./docker-deploy/.env
-	make generate-scripts
+	make generate-certs
 	make set-auto-renewing-certs
+	make down
 	make setup-ci
+	sudo chmod ug+rwx -R /home/legend/vue-frontend-template/docker-deploy/certbot/
 	make update
