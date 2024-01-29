@@ -51,10 +51,10 @@ setup-ci:
 	echo "" && \
 	echo 'Add this politics for github user: [press Enter]' && \
 	echo 'AllowUsers github' && \
-         'Match User github' && \
-		 'PasswordAuthentication no' && \
-         'AllowTCPForwarding no' && \
-         'X11Forwarding no' && \
+	echo 'Match User github' && \
+	echo 'PasswordAuthentication no' && \
+    echo 'AllowTCPForwarding no' && \
+    echo 'X11Forwarding no' && \
     echo '[press Enter...]' && \
 	read ENTER
 	edit /etc/ssh/sshd_config
