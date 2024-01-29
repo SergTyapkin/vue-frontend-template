@@ -1,6 +1,17 @@
 #TAG ?= $(shell git symbolic-ref -q --short HEAD || git describe --tags --exact-match)
 -include ./docker-deploy/.env
 
+build:
+	cd docker-deploy && \
+	docker compose build --no-cache --progress=plain nginx
+run:
+	cd docker-deploy && \
+	docker compose down && \
+	docker compose up -d nginx
+down:
+	cd docker-deploy && \
+	docker compose down
+
 generate-certs:
 	cd docker-deploy && \
 	docker compose down && \
@@ -20,19 +31,6 @@ set-auto-renewing-certs:
 	echo "Copy that command and [press Enter]. Then add this string in end of opened file." && \
 	read ENTER
 	crontab -e
-
-run:
-	cd docker-deploy && \
-	docker compose down && \
-	docker compose up -d nginx
-
-down:
-	cd docker-deploy && \
-	docker compose down
-
-build:
-	cd docker-deploy && \
-	docker compose build --no-cache --progress=plain nginx
 
 update:
 	git fetch --all
@@ -72,6 +70,23 @@ setup-ci:
 	read ENTER
 	sudo less /tmp/tmp_key
 
+install-docker-if-not-exists: # fully copied from https://docs.docker.com/engine/install/ubuntu/
+	if command -v docker &> /dev/null; then echo 'docker already installed' && exit 1; fi # exit if docker already exists
+	sudo apt-get update
+	sudo apt-get install ca-certificates curl
+	sudo install -m 0755 -d /etc/apt/keyrings
+	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+	sudo chmod a+r /etc/apt/keyrings/docker.asc
+    # Add the repository to Apt sources:
+	echo \
+	  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+	  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+	  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	sudo apt-get update
+	sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+	make set-docker-not-sudo
+
 set-docker-not-sudo:
 	# add user to docker group
 	getent group docker || sudo groupadd docker # Add group if not exists
@@ -79,7 +94,9 @@ set-docker-not-sudo:
 	newgrp docker
 	sudo systemctl restart docker
 
+
 all:
+	make install-docker-if-not-exists
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
 	echo '' && \
 	echo 'Edit .env file. Write right DOMAIN_URL!' && \

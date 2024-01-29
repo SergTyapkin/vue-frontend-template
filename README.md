@@ -1,12 +1,13 @@
 ![GithubCI](https://github.com/sergtyapkin/vue-frontend-template/actions/workflows/deploy.yml/badge.svg)
 
-# Фронентд с авто-деплоем на _Nginx_ и получением сертификатов _Letsencript_
+# Веб-вервис в докере с авто-деплоем на _Nginx_ и получением сертификатов _Letsencript_
 
 Всё делается через команды `make`
 
-### 1. Клонируем:
+### 1. Клонируем репозиторий:
 ```SHELL
 git clone git@github.com:SergTyapkin/vue-frontend-template.git
+
 ```
 
 ### 2. Настраиваем вообще всё.
