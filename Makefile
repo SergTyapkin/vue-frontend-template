@@ -39,7 +39,8 @@ update:
 	echo "Frontend updated successfully"
 
 setup-ci:
-	sudo adduser github
+	# Add user if not exists
+	id -u github &>/dev/null || sudo adduser github
 	sudo -u github ssh-keygen
 	#ssh-keygen -t ed25519 -a 200 -C "your_email@example.com"\
 	sudo -u github cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
