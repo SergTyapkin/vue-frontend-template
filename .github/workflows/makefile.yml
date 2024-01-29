@@ -12,10 +12,9 @@ jobs:
     environment: build
     steps:
     - uses: actions/checkout@v3
-      with:
-        script: |
-          echo API_PORT=${{ vars.API_PORT }} > docker-deploy/.env
-          echo DOMAIN_URL=${{ vars.DOMAIN_URL }} >> docker-deploy/.env
+
+    - name: env
+      run: touch docker-deploy/.env
 
     - name: build
       run: make build
