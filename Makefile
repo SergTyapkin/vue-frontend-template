@@ -1,17 +1,15 @@
 #TAG ?= $(shell git symbolic-ref -q --short HEAD || git describe --tags --exact-match)
+-include ./docker-deploy/.env
 
 generate-certs:
-	include docker-deploy/.env
 	cd docker-deploy && \
 	docker compose down && \
 	docker compose up -d nginx-certbot && \
 	docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d $(DOMAIN_URL)
 renew-certs:
-	include docker-deploy/.env
 	cd docker-deploy && \
 	docker compose run --rm certbot renew
 set-auto-renewing-certs:
-	include docker-deploy/.env
 	sudo apt-get update
 	sudo apt-get install cron
 	echo "----------------------------------------------------------------------------------------------" && \
