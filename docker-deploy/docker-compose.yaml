@@ -15,7 +15,7 @@ services:
       - API_PORT=${API_PORT}
     volumes:
       - ./dist:/usr/share/nginx/html:rw
-      - ./nginx/locations:/etc/nginx/include_servers:ro
+      - ./nginx/locations:/etc/nginx/include_locations:ro
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     ports:
@@ -35,7 +35,7 @@ services:
     restart: no
 
   # To generate certs:
-  # docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d legends.bmstu.ru
+  # docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d your.domain
   # To renew certs:
   # docker compose run --rm certbot renew
   certbot:

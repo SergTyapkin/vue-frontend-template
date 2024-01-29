@@ -1,13 +1,26 @@
-TAG ?= $(shell git symbolic-ref -q --short HEAD || git describe --tags --exact-match)
+#TAG ?= $(shell git symbolic-ref -q --short HEAD || git describe --tags --exact-match)
 
-build:
-	docker build -t git.sberrobots.ru:8443/shuttle_system/onesimus_web/onesimus-operator-gui-front:$(TAG) .
+generate-certs:
+	cd docker-deploy
+	docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d your.domain
+renew-certs:
+	cd docker-deploy
+	docker compose run --rm certbot renew
+set-auto-renewing-certs:
+	sudo apt-get update
+	sudo apt-get install cron
+	echo "Now you must add this string-command in your crontab to auto executing it each month. Command:"
+	echo "0 0 1 * * cd $(pwd) && make run renew-certs >> ./certbot-renew.log"
 
 run:
-	docker run -d --rm --privileged --ipc host --network host --name wms_gui git.sberrobots.ru:8443/shuttle_system/onesimus_web/onesimus-operator-gui-front:$(TAG)
+	cd docker-deploy
+	docker compose down
+	dcoker compose up -d nginx
 
-stop:
-	docker stop wms_gui
-
-pull:
-	docker pull git.sberrobots.ru:8443/shuttle_system/onesimus_web/onesimus-operator-gui-front:$(TAG)
+update:
+	git fetch --all
+	git reset --hard origin/master
+	git log --oneline -1
+	cd docker-deploy
+	docker compose up -d nginx --build
+	echo "Frontend updated successfully"
