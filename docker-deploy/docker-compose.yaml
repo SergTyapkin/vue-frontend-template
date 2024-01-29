@@ -11,13 +11,14 @@ services:
       args:
         - NGINX_RELEASE
         - NODE_RELEASE
+        - DOMAIN_URL
+        - API_PORT
     environment:
       - DOMAIN_URL
       - API_PORT
     volumes:
       - ./dist:/usr/share/nginx/html:rw
       - ./nginx/locations:/etc/nginx/include_locations:ro
-      - ./nginx/nginx.conf:/etc/nginx/nginx-not-substituted.conf:ro
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     ports:
@@ -25,7 +26,6 @@ services:
       - "443:443"
       - "${API_PORT}:9000"
     restart: unless-stopped
-    command: /bin/bash -c "export DOLLAR="$" && envsubst < /etc/nginx/nginx-not-substituted.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
 
   # Needs to serve only http and get certs when certs is not created yet
   nginx-certbot:
