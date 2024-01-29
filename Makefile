@@ -46,8 +46,8 @@ setup-ci:
 	sudo cat /home/github/.ssh/id_rsa.pub >> /home/github/.ssh/authorized_keys
 	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
 	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys2
-	sudo -u github chmod 700 -R /home/github/.ssh
-	sudo -u github chmod 640 /home/github/.ssh/authorized_keys
+	sudo chmod 777 -R /home/github/.ssh
+	sudo chmod 666 /home/github/.ssh/authorized_keys
 	nano /etc/ssh/sshd_config
 	#AllowUsers github
 	#Match User github
