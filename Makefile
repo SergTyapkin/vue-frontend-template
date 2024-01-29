@@ -13,7 +13,7 @@ set-auto-renewing-certs:
 	sudo apt-get update
 	sudo apt-get install cron
 	echo "----------------------------------------------------------------------------------------------" && \
-	echo "Now you must add this string-command in your crontab to auto executing it each month. Command:" && \
+	echo "Now you must add this string-command in your crontab to auto executing it each 1 month. Command:" && \
 	echo "" && \
 	echo "0 0 1 * * cd $$(pwd) && make run renew-certs >> ./certbot-renew.log" && \
 	echo "" && \

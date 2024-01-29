@@ -20,7 +20,10 @@ RUN yarn
 RUN yarn dist
 
 # substitute env variables into nginx.conf
-RUN export DOLLAR="$" && envsubst < /home/node/front/docker-deploy/nginx/nginx.conf > /home/node/front/docker-deploy/nginx/_nginx-substituted.conf
+# you can add any your variables that you need to substitute into nginx.conf
+RUN export DOMAIN_URL=${DOMAIN_URL} && \
+    export API_URL=${API_URL} && \
+    export DOLLAR="$" && envsubst < /home/node/front/docker-deploy/nginx/nginx.conf > /home/node/front/docker-deploy/nginx/_nginx-substituted.conf
 
 
 # Finally - get only needed files from previous build stage. Static files + config
