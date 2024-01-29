@@ -1,7 +1,5 @@
 ARG NGINX_RELEASE
 ARG NODE_RELEASE
-ARG DOMAIN_URL
-ARG API_PORT
 
 FROM node:${NODE_RELEASE} as build
 ARG DEBIAN_FRONTEND=noninteractive
@@ -21,8 +19,10 @@ RUN yarn dist
 
 # substitute env variables into nginx.conf
 # you can add any your variables that you need to substitute into nginx.conf
+ARG DOMAIN_URL
+ARG API_PORT
 RUN export DOMAIN_URL=${DOMAIN_URL} && \
-    export API_URL=${API_URL} && \
+    export API_PORT=${API_PORT} && \
     export DOLLAR="$" && envsubst < /home/node/front/docker-deploy/nginx/nginx.conf > /home/node/front/docker-deploy/nginx/_nginx-substituted.conf
 
 
