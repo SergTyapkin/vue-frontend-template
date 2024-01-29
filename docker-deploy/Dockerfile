@@ -11,5 +11,5 @@ RUN yarn dist
 
 FROM nginx:${NGINX_RELEASE}
 COPY --from=build /home/node/front/dist /usr/share/nginx/html
-#COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
-#COPY nginx/servers /etc/nginx/conf.d
+#COPY docker-deploy/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+#COPY docker-deploy/nginx/servers /etc/nginx/conf.d
