@@ -57,7 +57,7 @@ setup-ci:
     echo 'X11Forwarding no' && \
     echo '[press Enter...]' && \
 	read ENTER
-	edit /etc/ssh/sshd_config
+	nano /etc/ssh/sshd_config
 	echo "" && \
 	echo 'Add this public rsa key to Deploy keys in your github directory: [press Enter]' && \
 	read ENTER
@@ -65,7 +65,7 @@ setup-ci:
 
 all:
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
-	edit ./docker-deploy/.env
+	nano ./docker-deploy/.env
 	make generate-scripts
 	make set-auto-renewing-certs
 	make setup-ci
