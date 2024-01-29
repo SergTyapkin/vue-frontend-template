@@ -26,6 +26,10 @@ run:
 	docker compose down && \
 	docker compose up -d nginx
 
+build:
+	cd docker-deploy && \
+	docker compose build --no-cache --progress=plain nginx
+
 update:
 	git fetch --all
 	git reset --hard origin/master
