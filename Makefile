@@ -68,12 +68,14 @@ setup-ci:
 	read ENTER
 	sudo less /tmp/tmp_key
 
-all:
+set-not-sudo-docker:
 	# add user to docker group
 	getent group docker || sudo groupadd docker # Add group if not exists
 	sudo usermod -aG docker ${USER}
 	newgrp docker
 	sudo systemctl restart docker
+
+all:
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
 	echo '' && \
 	echo 'Edit .env file. Write right DOMAIN_URL!' && \
