@@ -26,5 +26,5 @@ RUN export DOLLAR="$" && envsubst < /home/node/front/docker-deploy/nginx/nginx.c
 # Finally - get only needed files from previous build stage. Static files + config
 FROM nginx:${NGINX_RELEASE}
 COPY --from=build /home/node/front/dist /frontend-dist
-COPY --from=build docker-deploy/nginx/nginx.conf /etc/nginx/nginx-not-substituted.conf
-COPY --from=build docker-deploy/nginx/_nginx-substituted.conf /etc/nginx/nginx.conf
+COPY --from=build /home/node/front/docker-deploy/nginx/nginx.conf /etc/nginx/nginx-not-substituted.conf
+COPY --from=build /home/node/front/docker-deploy/nginx/_nginx-substituted.conf /etc/nginx/nginx.conf
