@@ -13,11 +13,12 @@ jobs:
       uses: actions/checkout@master
 
     - name: Deploy to server
+      if: ${{ !env.ACT }}
       uses: appleboy/ssh-action@master
       with:
         host: ${{ vars.DEPLOY_HOST }}
-        username: legend
+        username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_DEPLOY_KEY }}
         script: |
-          cd ~/vue-frontend-template
+          cd ${{ vars.PROJECT_PATH }}
           sudo make update
