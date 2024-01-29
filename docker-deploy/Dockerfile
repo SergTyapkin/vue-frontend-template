@@ -10,9 +10,9 @@ COPY .. /home/node/front
 WORKDIR /home/node/front
 RUN yarn
 RUN yarn dist
-RUN export DOLLAR="$" && envsubst < /home/node/front/docker-deploy/nginx/nginx.conf > /etc/nginx/nginx-substituted.conf
+RUN export DOLLAR="$" && envsubst < /home/node/front/docker-deploy/nginx/nginx.conf > /home/node/front/docker-deploy/nginx/_nginx-substituted.conf
 
 FROM nginx:${NGINX_RELEASE}
 COPY --from=build /home/node/front/dist /frontend-dist
 COPY docker-deploy/nginx/nginx.conf /etc/nginx/nginx-not-substituted.conf
-COPY /etc/nginx/nginx-substituted.conf /etc/nginx/nginx.conf
+COPY docker-deploy/nginx/_nginx-substituted.conf /etc/nginx/nginx.conf
