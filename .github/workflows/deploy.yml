@@ -1,15 +1,18 @@
 name: Makefile CI
 
 on:
-  pull_request:
-    branches: [ "*" ]
+  push:
+    branches: [ "master" ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-
-    - name: update
-      run: make update
+      with:
+        host: ${{ vars.DOMAIN_URL}}
+        username: github
+        key: ${{ secrets.SSH_DEPLOY_KEY }}
+        script: |
+          cd /home/vue-frontend-template
+          sudo make update
