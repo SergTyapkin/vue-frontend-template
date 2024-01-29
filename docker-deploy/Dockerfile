@@ -6,15 +6,25 @@ ARG API_PORT
 FROM node:${NODE_RELEASE} as build
 ARG DEBIAN_FRONTEND=noninteractive
 USER root
+
+# copy project to workdir
 COPY .. /home/node/front
 WORKDIR /home/node/front
+
+# install envsubst
 RUN apt-get update -y && apt-get install --no-install-recommends -y \
-    envsubst \
-    && rm -rf /var/lib/apt/lists/*
+    gettext-base \
+    && rm -rf /var/lib/apt/lists/* \
+
+# build project - create static dist files
 RUN yarn
 RUN yarn dist
+
+# substitute env variables into nginx.conf
 RUN export DOLLAR="$" && envsubst < /home/node/front/docker-deploy/nginx/nginx.conf > /home/node/front/docker-deploy/nginx/_nginx-substituted.conf
 
+
+# Finally - get only needed files from previous build stage. Static files + config
 FROM nginx:${NGINX_RELEASE}
 COPY --from=build /home/node/front/dist /frontend-dist
 COPY --from=build docker-deploy/nginx/nginx.conf /etc/nginx/nginx-not-substituted.conf
