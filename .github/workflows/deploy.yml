@@ -19,5 +19,5 @@ jobs:
         username: legend
         key: ${{ secrets.SSH_DEPLOY_KEY }}
         script: |
-          cd /home/vue-frontend-template
+          cd ~/vue-frontend-template
           sudo make update
