@@ -69,6 +69,10 @@ setup-ci:
 	sudo less /tmp/tmp_key
 
 all:
+	# add user to docker group
+	sudo groupadd docker
+	sudo usermod -aG docker $USER
+	newgrp docker
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
 	echo '' && \
 	echo 'Edit .env file. Write right DOMAIN_URL!' && \
