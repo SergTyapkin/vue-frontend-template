@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        host: ${{ vars.DOMAIN_URL}}
+        host: ${{ vars.DEPLOY_HOST }}
         username: github
         key: ${{ secrets.SSH_DEPLOY_KEY }}
         script: |
