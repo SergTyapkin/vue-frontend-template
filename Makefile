@@ -39,29 +39,34 @@ update:
 	echo "Frontend updated successfully"
 
 setup-ci:
-	sudo chown -R github:legend .
-	# Add user if not exists
-	id -u github &>/dev/null || sudo adduser github
-	sudo -u github ssh-keygen
-	#ssh-keygen -t ed25519 -a 200 -C "your_email@example.com"\
-	sudo cat /home/github/.ssh/id_rsa.pub >> /home/github/.ssh/authorized_keys
-	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
-	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys2
-	sudo chmod 777 -R /home/github/.ssh
-	sudo chmod 666 /home/github/.ssh/authorized_keys
-	echo "" && \
-	echo 'Add this politics for github user: [press Enter]' && \
-	echo 'AllowUsers github' && \
-	echo 'Match User github' && \
-	echo 'PasswordAuthentication no' && \
-    echo 'AllowTCPForwarding no' && \
-    echo 'X11Forwarding no' && \
-    echo '[press Enter...]' && \
+	#id -u github &>/dev/null || sudo adduser github # Add user if not exists
+	#sudo chown -R github:legend .
+	#sudo -u github ssh-keygen
+	#sudo cat /home/github/.ssh/id_rsa.pub >> /home/github/.ssh/authorized_keys
+	#sudo chmod 777 -R /home/github/.ssh
+	#sudo chmod 666 /home/github/.ssh/authorized_keys
+	#sudo -u github ssh-keygen
+	#echo "" && \
+#	echo 'Add this politics for github user: [press Enter]' && \
+#	echo 'AllowUsers github' && \
+#	echo 'Match User github' && \
+#	echo 'PasswordAuthentication no' && \
+#    echo 'AllowTCPForwarding no' && \
+#    echo 'X11Forwarding no' && \
+#    echo '[press Enter...]' && \
+#	read ENTER
+	#nano /etc/ssh/sshd_config
+	#echo "" && \
+#	echo 'Add this public rsa key to Deploy keys in your github directory: ' && \
+#	sudo cat /home/github/.ssh/id_rsa.pub
+	ssh-keygen -f /tmp/tmp_key
+	sudo mkdir -r ~/.ssh
+	sudo cat /tmp/tmp_key.pub >> ~/.ssh/authorized_keys
+	echo '' && \
+	echo 'Add this private rsa key secret deploy variables to SSH_DEPLOY_KEY on your github repo: ' && \
+	echo '[press Enter...]' && \
 	read ENTER
-	nano /etc/ssh/sshd_config
-	echo "" && \
-	echo 'Add this public rsa key to Deploy keys in your github directory: ' && \
-	sudo cat /home/github/.ssh/id_rsa.pub
+	sudo less /tmp/tmp_key
 
 all:
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
