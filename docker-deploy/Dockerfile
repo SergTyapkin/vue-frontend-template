@@ -1,7 +1,7 @@
 ARG NGINX_RELEASE
 ARG NODE_RELEASE
 
-FROM node:${NODE_RELEASE:18} as build
+FROM node:${NODE_RELEASE:-18} as build
 ARG DEBIAN_FRONTEND=noninteractive
 USER root
 
@@ -27,7 +27,7 @@ RUN export DOMAIN_URL=${DOMAIN_URL} && \
 
 
 # Finally - get only needed files from previous build stage. Static files + config
-FROM nginx:${NGINX_RELEASE:1.23}
+FROM nginx:${NGINX_RELEASE:-1.23}
 COPY --from=build /home/node/front/dist /frontend-dist
 COPY --from=build /home/node/front/docker-deploy/nginx/nginx.conf /etc/nginx/nginx-not-substituted.conf
 COPY --from=build /home/node/front/docker-deploy/nginx/_nginx-substituted.conf /etc/nginx/nginx.conf
