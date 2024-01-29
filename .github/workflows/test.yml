@@ -4,10 +4,13 @@ on:
   pull_request:
     branches: [ "*" ]
 
+env:
+  API_PORT: 0
+  DOMAIN_URL: example.com
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: build
     steps:
     - uses: actions/checkout@v3
 

@@ -65,7 +65,7 @@ setup-ci:
 	sudo mkdir -p ~/.ssh
 	sudo cat /tmp/tmp_key.pub >> ~/.ssh/authorized_keys
 	echo '' && \
-	echo 'Add this private rsa key secret deploy variables to SSH_DEPLOY_KEY on your github repo: ' && \
+	echo 'Add this private rsa key secret deploy environment variables to SSH_DEPLOY_KEY on your github repo: ' && \
 	echo '[To see key press Enter...]' && \
 	read ENTER
 	sudo less /tmp/tmp_key
@@ -94,18 +94,25 @@ set-docker-not-sudo:
 	newgrp docker
 	sudo systemctl restart docker
 
-
-all:
-	make install-docker-if-not-exists
+setup-env-file:
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
 	echo '' && \
 	echo 'Edit .env file. Write right DOMAIN_URL!' && \
 	echo '[press Enter...]' && \
 	read ENTER
 	nano ./docker-deploy/.env
+
+all:
+	make install-docker-if-not-exists
+	make setup-env-file
 	make generate-certs
 	make set-auto-renewing-certs
 	make down
 	make setup-ci
 	sudo chmod ug+rwx -R /home/legend/vue-frontend-template/docker-deploy/certbot/
 	make update
+	echo 'Now read README.md and setup another deploy environments variables.' && \
+	echo 'It seems like values must be:' && \
+	echo 'SERVER_USERNAME=$$(whoami) # ! MUST BE SECRET VARIABLE !' && \
+	echo 'DEPLOY_HOST=$$(cat ./docker-deploy/.env | grep DOMAIN_URL | sed "s/.*=//") # NOT SECURE' && \
+	echo 'PROJECT_PATH=$$(pwd) # NOT SECURE'
