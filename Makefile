@@ -60,7 +60,7 @@ setup-ci:
 #	echo 'Add this public rsa key to Deploy keys in your github directory: ' && \
 #	sudo cat /home/github/.ssh/id_rsa.pub
 	ssh-keygen -f /tmp/tmp_key
-	sudo mkdir -r ~/.ssh
+	sudo mkdir -p ~/.ssh
 	sudo cat /tmp/tmp_key.pub >> ~/.ssh/authorized_keys
 	echo '' && \
 	echo 'Add this private rsa key secret deploy variables to SSH_DEPLOY_KEY on your github repo: ' && \
