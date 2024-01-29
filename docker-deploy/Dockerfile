@@ -13,8 +13,7 @@ WORKDIR /home/node/front
 
 # install envsubst
 RUN apt-get update -y && apt-get install --no-install-recommends -y \
-    gettext-base \
-    && rm -rf /var/lib/apt/lists/* \
+    gettext-base
 
 # build project - create static dist files
 RUN yarn
