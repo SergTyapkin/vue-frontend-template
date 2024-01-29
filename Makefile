@@ -42,6 +42,7 @@ setup-ci:
 	# Add user if not exists
 	id -u github &>/dev/null || sudo adduser github
 	sudo -u github ssh-keygen
+	chown -R github $$(pwd)
 	#ssh-keygen -t ed25519 -a 200 -C "your_email@example.com"\
 	sudo cat /home/github/.ssh/id_rsa.pub >> /home/github/.ssh/authorized_keys
 	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
@@ -59,9 +60,8 @@ setup-ci:
 	read ENTER
 	nano /etc/ssh/sshd_config
 	echo "" && \
-	echo 'Add this public rsa key to Deploy keys in your github directory: [press Enter]' && \
-	read ENTER
-	sudo less /home/github/.ssh/id_rsa
+	echo 'Add this public rsa key to Deploy keys in your github directory: ' && \
+	sudo cat /home/github/.ssh/id_rsa.pub
 
 all:
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
