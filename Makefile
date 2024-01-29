@@ -72,8 +72,12 @@ setup-ci:
 
 all:
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
+	echo '' && \
+	echo 'Edit .env file. Write right DOMAIN_URL!' && \
+	echo '[press Enter...]' && \
+	read ENTER
 	nano ./docker-deploy/.env
-	make generate-scripts
+	make generate-certs
 	make set-auto-renewing-certs
 	make setup-ci
 	make update
