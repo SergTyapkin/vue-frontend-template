@@ -42,7 +42,7 @@ setup-ci:
 	# Add user if not exists
 	id -u github &>/dev/null || sudo adduser github
 	sudo -u github ssh-keygen
-	chown -R github $$(pwd)
+	sudo chown -R github $$(pwd)
 	#ssh-keygen -t ed25519 -a 200 -C "your_email@example.com"\
 	sudo cat /home/github/.ssh/id_rsa.pub >> /home/github/.ssh/authorized_keys
 	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
