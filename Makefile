@@ -37,3 +37,33 @@ update:
 	cd docker-deploy && \
 	docker compose up -d nginx --build
 	echo "Frontend updated successfully"
+
+setup-ci:
+	sudo adduser github
+	su github
+	ssh-keygen
+	#ssh-keygen -t ed25519 -a 200 -C "your_email@example.com"\
+	cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys2
+	chmod 700 -R ~/.ssh
+	chmod 640 ~/.ssh/authorized_keys
+	exit
+	nano /etc/ssh/sshd_config
+	#AllowUsers github
+	#Match User github
+	#PasswordAuthentication no
+	#AllowTCPForwarding no
+	#X11Forwarding no
+	echo "" && \
+	echo 'Add this public rsa key to Deploy keys in your github directory: [press Enter]' && \
+	read ENTER && \
+	sudo less /home/github/.ssh/id_rsa
+
+all:
+	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
+	edit ./docker-deploy/.env
+	make generate-scripts
+	make set-auto-renewing-certs
+	make setup-ci
+	make update
