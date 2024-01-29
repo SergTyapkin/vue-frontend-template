@@ -73,6 +73,7 @@ all:
 	getent group docker || sudo groupadd docker # Add group if not exists
 	sudo usermod -aG docker ${USER}
 	newgrp docker
+	sudo systemctl restart docker
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
 	echo '' && \
 	echo 'Edit .env file. Write right DOMAIN_URL!' && \
