@@ -48,15 +48,19 @@ setup-ci:
 	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys2
 	sudo chmod 777 -R /home/github/.ssh
 	sudo chmod 666 /home/github/.ssh/authorized_keys
-	nano /etc/ssh/sshd_config
-	#AllowUsers github
-	#Match User github
-	#PasswordAuthentication no
-	#AllowTCPForwarding no
-	#X11Forwarding no
+	echo "" && \
+	echo 'Add this politics for github user: [press Enter]' && \
+	echo 'AllowUsers github' && \
+         'Match User github' && \
+		 'PasswordAuthentication no' && \
+         'AllowTCPForwarding no' && \
+         'X11Forwarding no' && \
+    echo '[press Enter...]' && \
+	read ENTER
+	edit /etc/ssh/sshd_config
 	echo "" && \
 	echo 'Add this public rsa key to Deploy keys in your github directory: [press Enter]' && \
-	read ENTER && \
+	read ENTER
 	sudo less /home/github/.ssh/id_rsa
 
 all:
