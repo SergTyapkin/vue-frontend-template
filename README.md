@@ -7,7 +7,6 @@
 ### 1. Клонируем репозиторий:
 ```SHELL
 git clone git@github.com:SergTyapkin/vue-frontend-template.git
-
 ```
 
 ### 2. Настраиваем вообще всё.
