@@ -10,6 +10,6 @@ RUN yarn
 RUN yarn dist
 
 FROM nginx:${NGINX_RELEASE}
-COPY --from=build /home/node/front/dist /usr/share/nginx/html
+COPY --from=build /home/node/front/dist /frontend-dist
 #COPY docker-deploy/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 #COPY docker-deploy/nginx/servers /etc/nginx/conf.d
