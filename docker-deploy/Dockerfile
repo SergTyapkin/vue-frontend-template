@@ -8,6 +8,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 USER root
 COPY .. /home/node/front
 WORKDIR /home/node/front
+RUN apt-get update -y && apt-get install --no-install-recommends -y \
+    envsubst \
+    && rm -rf /var/lib/apt/lists/*
 RUN yarn
 RUN yarn dist
 RUN export DOLLAR="$" && envsubst < /home/node/front/docker-deploy/nginx/nginx.conf > /home/node/front/docker-deploy/nginx/_nginx-substituted.conf
