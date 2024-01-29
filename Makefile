@@ -43,11 +43,11 @@ setup-ci:
 	id -u github &>/dev/null || sudo adduser github
 	sudo -u github ssh-keygen
 	#ssh-keygen -t ed25519 -a 200 -C "your_email@example.com"\
-	sudo -u github cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+	sudo cat /home/github/.ssh/id_rsa.pub >> /home/github/.ssh/authorized_keys
 	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
 	#cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys2
-	sudo -u github chmod 700 -R ~/.ssh
-	sudo -u github chmod 640 ~/.ssh/authorized_keys
+	sudo -u github chmod 700 -R /home/github/.ssh
+	sudo -u github chmod 640 /home/github/.ssh/authorized_keys
 	nano /etc/ssh/sshd_config
 	#AllowUsers github
 	#Match User github
