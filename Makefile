@@ -1,6 +1,17 @@
 #TAG ?= $(shell git symbolic-ref -q --short HEAD || git describe --tags --exact-match)
 -include ./docker-deploy/.env
 
+build:
+	cd docker-deploy && \
+	docker compose build --no-cache --progress=plain nginx
+run:
+	cd docker-deploy && \
+	docker compose down && \
+	docker compose up -d nginx
+down:
+	cd docker-deploy && \
+	docker compose down
+
 generate-certs:
 	cd docker-deploy && \
 	docker compose down && \
@@ -20,19 +31,6 @@ set-auto-renewing-certs:
 	echo "Copy that command and [press Enter]. Then add this string in end of opened file." && \
 	read ENTER
 	crontab -e
-
-run:
-	cd docker-deploy && \
-	docker compose down && \
-	docker compose up -d nginx
-
-down:
-	cd docker-deploy && \
-	docker compose down
-
-build:
-	cd docker-deploy && \
-	docker compose build --no-cache --progress=plain nginx
 
 update:
 	git fetch --all
@@ -67,10 +65,29 @@ setup-ci:
 	sudo mkdir -p ~/.ssh
 	sudo cat /tmp/tmp_key.pub >> ~/.ssh/authorized_keys
 	echo '' && \
-	echo 'Add this private rsa key secret deploy variables to SSH_DEPLOY_KEY on your github repo: ' && \
+	echo 'Add this private rsa key secret deploy environment variables to SSH_DEPLOY_KEY on your github repo: ' && \
 	echo '[To see key press Enter...]' && \
 	read ENTER
 	sudo less /tmp/tmp_key
+
+install-docker-if-not-exists: # fully copied from https://docs.docker.com/engine/install/ubuntu/
+	if ! command -v docker; then \
+		sudo apt-get update; \
+		sudo apt-get install -y --no-install-recommended ca-certificates curl; \
+		sudo install -m 0755 -d /etc/apt/keyrings; \
+		sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc; \
+		sudo chmod a+r /etc/apt/keyrings/docker.asc; \
+		# Add the repository to Apt sources: \
+		echo \
+		  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+		  $(. /etc/os-release && echo "$${VERSION_CODENAME}") stable" | \
+		  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null; \
+		sudo apt-get update; \
+		sudo apt-get install -y --no-install-recommended docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin; \
+		make set-docker-not-sudo; \
+	else \
+	  echo "Docker already installed!"; \
+	fi
 
 set-docker-not-sudo:
 	# add user to docker group
@@ -79,16 +96,25 @@ set-docker-not-sudo:
 	newgrp docker
 	sudo systemctl restart docker
 
-all:
+setup-env-file:
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
 	echo '' && \
 	echo 'Edit .env file. Write right DOMAIN_URL!' && \
 	echo '[press Enter...]' && \
 	read ENTER
 	nano ./docker-deploy/.env
+
+all:
+	make install-docker-if-not-exists
+	make setup-env-file
 	make generate-certs
 	make set-auto-renewing-certs
 	make down
 	make setup-ci
 	sudo chmod ug+rwx -R /home/legend/vue-frontend-template/docker-deploy/certbot/
 	make update
+	echo 'Now read README.md and setup another deploy environments variables.' && \
+	echo 'It seems like values must be:' && \
+	echo 'SERVER_USERNAME=$$(whoami) \# ! MUST BE SECRET VARIABLE !' && \
+	echo 'DEPLOY_HOST=$$(cat ./docker-deploy/.env | grep DOMAIN_URL | sed "s/.*=//") \# NOT SECURE' && \
+	echo 'PROJECT_PATH=$$(pwd) \# NOT SECURE'
