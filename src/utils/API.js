@@ -17,14 +17,14 @@ export default class MY_API extends REST_API {
     authCode = (secretCode, clientBrowser, clientOS) => this.post('/api/user/auth/code', {_model: Models.User, secretCode, clientBrowser, clientOS});
 
 
-    modelParsedRequest(func, path, data = {}) {
+    async modelParsedRequest(requestFunc, path, data = {}) {
         if (!data._model) {
             throw SyntaxError(`Model for request '${path}' not specified`);
         }
         data = Object.assign({}, data);
         const _model = data._model;
         delete data._model;
-        const {ok, data: dataRes, status} = func.bind(this.__proto__)(path, data);
+        const {ok, data: dataRes, status} = await requestFunc.bind(this.__proto__)(path, data);
         if (!ok) {
             return {ok, data: dataRes, status};
         }
