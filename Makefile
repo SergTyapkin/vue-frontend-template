@@ -34,7 +34,7 @@ set-auto-renewing-certs:
 
 update:
 	git fetch --all
-	git reset --hard origin/master
+	git reset --hard origin/$$(sed -n "s/^DEPLOY_BRANCH=//p" "docker-deploy/.env")
 	git log --oneline -1
 	cd docker-deploy && \
 	docker compose up -d nginx --build
@@ -99,7 +99,7 @@ set-docker-not-sudo:
 setup-env-file:
 	cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
 	echo '' && \
-	echo 'Edit .env file. Write right DOMAIN_URL!' && \
+	echo 'Edit .env file. Write right DOMAIN_URL without https:// and url paths!' && \
 	echo '[press Enter...]' && \
 	read ENTER
 	nano ./docker-deploy/.env
