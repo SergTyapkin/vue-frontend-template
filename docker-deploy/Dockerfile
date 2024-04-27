@@ -30,8 +30,8 @@ RUN export DOMAIN_URL=${DOMAIN_URL} && \
 FROM nginx:${NGINX_RELEASE:-1.23}
 
 #install nginx modules
-RUN apt-get update -y && apt-get install  --no-install-recommends -y \
-    nginx-plus-module-brotli
+#RUN apt-get update -y && apt-get install  --no-install-recommends -y \
+#    nginx-plus-module-brotli
 
 COPY --from=build /home/node/front/dist /frontend-dist
 COPY --from=build /home/node/front/docker-deploy/nginx/nginx.conf /etc/nginx/nginx-not-substituted.conf
