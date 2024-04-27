@@ -42,6 +42,6 @@ all:
 	make setup-auto-renewing-certs
 	make down
 	make setup-ci
-	sudo chmod ugo+rwx -R ~/docker-deploy/certbot/
+	sudo chmod ugo+rwx -R ./docker-deploy/certbot/
 	make update
 	bash ./docker-deploy/scripts/show-variables-to-github-ci.sh
