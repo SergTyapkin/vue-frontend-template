@@ -1,6 +1,6 @@
 ![GithubCI](https://github.com/sergtyapkin/vue-frontend-template/actions/workflows/deploy.yml/badge.svg)
 
-# Фронтенд на Vue.js с авто-деплоем на _Nginx_ в докере и автоматическим получением сертификатов _Letsencript_
+# Фронтенд на Vue.js с авто-деплоем на _Nginx_ в докере и автоматическим получением сертификатов _Letsencrypt_
 В общем все, чтобы раскатить фронтенд за 10 минут на чистой машине с Ubuntu
 
 ## Развертка для разработки
