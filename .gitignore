@@ -134,4 +134,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# JetBrains project files
 .idea
+
+# Generates dynamically:
+docker-deploy/docker-compose.yaml

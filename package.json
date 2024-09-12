@@ -1,10 +1,11 @@
 {
-  "name": "loza_frontend",
+  "name": "frontend",
   "version": "0.0.1",
   "private": true,
   "author": {
     "name": "Sergey Tyapkin"
   },
+  "license": "MIT",
   "scripts": {
     "dev": "vite --open",
     "dev host": "vite --open --host --port 443",
