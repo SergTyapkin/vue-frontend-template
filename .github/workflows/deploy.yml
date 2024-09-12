@@ -2,7 +2,7 @@ name: Makefile CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   repository_dispatch:
 
 jobs:
