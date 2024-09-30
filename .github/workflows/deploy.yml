@@ -3,7 +3,6 @@ name: Makefile CI
 on:
   push:
     branches: [ "main" ]
-  repository_dispatch:
 
 jobs:
   deploy:

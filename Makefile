@@ -1,5 +1,5 @@
-#TAG ?= $(shell git symbolic-ref -q --short HEAD || git describe --tags --exact-match)
 -include ./docker-deploy/.env
+
 
 build:
 	echo "[Make]: Running 'build' target in Makefile..." && \
@@ -54,6 +54,5 @@ all:
 	make setup-auto-renewing-certs
 	make down
 	make setup-ci
-	sudo chmod ugo+rwx -R ./docker-deploy/certbot/
 	make update
 	bash ./docker-deploy/scripts/show-variables-to-github-ci.sh

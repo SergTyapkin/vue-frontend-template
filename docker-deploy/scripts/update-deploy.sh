@@ -1,5 +1,5 @@
 git fetch --all
-git reset --hard "origin/$(sed -n "s/^DEPLOY_BRANCH=//p" "docker-deploy/.env")"
+git reset --hard "origin/$(. "docker-deploy/.env"; echo "$DEPLOY_BRANCH")"
 echo "Deploying last commit:"
 git log --oneline -1
 cd docker-deploy || exit

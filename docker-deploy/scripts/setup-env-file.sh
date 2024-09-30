@@ -9,7 +9,7 @@ read ENTER
 nano ./docker-deploy/.env
 
 echo ""
-echo "Is your backend deployed on this computer? (Y/n): "
+echo "Is your backend deployed on this computer or docker-cluster in docker container? (Y/n): "
 read USER_ANSWER
 cat ./docker-deploy/docker-compose.template.yaml > ./docker-deploy/docker-compose.yaml
 if [[ -z $USER_ANSWER ]] || [[ $USER_ANSWER == "Y" ]] || [[ $USER_ANSWER == "y" ]]
