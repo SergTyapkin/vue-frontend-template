@@ -33,6 +33,7 @@ update:
 setup-ci:
 	echo "[Make]: Running 'setup-ci' target in Makefile..." && \
 	bash ./docker-deploy/scripts/setup-ci.sh
+	bash ./docker-deploy/scripts/show-variables-to-github-ci.sh
 
 install-docker-if-not-exists:
 	echo "[Make]: Running 'install-docker-if-not-exists' target in Makefile..." && \
@@ -55,4 +56,3 @@ all:
 	make down
 	make setup-ci
 	make update
-	bash ./docker-deploy/scripts/show-variables-to-github-ci.sh
