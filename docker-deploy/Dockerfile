@@ -36,7 +36,7 @@ RUN export DOMAIN_URL=${DOMAIN_URL} && \
 
 
 # Finally - get only needed files from previous build stage. Static files + config
-FROM nginx:${NGINX_RELEASE:-1.23}
+FROM nginx:${NGINX_RELEASE:-1.27-alpine-slim}
 
 #install nginx modules
 #RUN apt-get update -y && apt-get install  --no-install-recommends -y \
