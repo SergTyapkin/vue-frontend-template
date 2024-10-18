@@ -1,5 +1,9 @@
-@require 'scrollbars.styl'
-@require 'constants.styl'
+@require "constants.styl"
+@require "scrollbars.styl"
+@require "fonts.styl"
+
+@require "fontsLoader.styl"
+
 
 html
     overflow-x hidden
@@ -11,7 +15,7 @@ html
     padding 0
 
 body
-    scrollable()
+    height 100%
     margin 0
     padding 0
     border none
@@ -19,18 +23,26 @@ body
     -webkit-overflow-scrolling touch
     width 100vw
     min-height 100vh
-    height 100%
     position relative
     overflow-x hidden
-    font-family Arial, monospace
     background colorBg
+    scrollable()
+    font-medium()
+    font-normal()
     color colorText1
+
+    color-scheme dark
+    font-synthesis none
+    text-rendering optimizeLegibility
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
 
 #app
     width 100%
     height 100%
 
 a
+    color inherit
     text-decoration none
 a:visited
     color inherit
