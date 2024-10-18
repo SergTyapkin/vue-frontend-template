@@ -1,24 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Registration from "./views/User/Registration.vue";
-import Login from "./views/User/Login.vue";
-import Profile from "./views/User/Profile.vue";
-import ChangePassword from "./views/User/ChangePassword.vue";
+import PageRegistration from "./views/User/PageRegistration.vue";
+import PageLogin from "./views/User/PageLogin.vue";
+import PageProfile from "./views/User/PageProfile.vue";
+import PageChangePassword from "./views/User/PageChangePassword.vue";
+import PageRestorePassword from "./views/User/PageRestorePassword.vue";
 import Page404 from "./views/Page404.vue";
-import RestorePassword from "./views/User/RestorePassword.vue";
 import Page from "~/views/Page.vue";
 
 export default function createVueRouter(Store) {
     const routes = [
         {path: '/', name: 'default', component: Page, meta: {noLoginRequired: true}},
 
-        {path: '/register', name: 'register', component: Registration, meta: {noLoginRequired: true}},
-        {path: '/login', name: 'login', component: Login, meta: {noLoginRequired: true}},
-        {path: '/login/email', name: 'signInByEmail', component: Login, meta: {noLoginRequired: true}},
-        {path: '/profile', name: 'profile', component: Profile, meta: {loginRequired: true}},
-        {path: '/password/change', name: 'changePassword', component: ChangePassword, meta: {loginRequired: true}},
-        {path: '/password/restore', name: 'restorePassword', component: RestorePassword, meta: {noLoginRequired: true}},
-        // {path: '/admin', name: 'admin', component: Admin, meta: {adminRequired: true}},
+        {path: '/register', name: 'register', component: PageRegistration, meta: {noLoginRequired: true}},
+        {path: '/login', name: 'login', component: PageLogin, meta: {noLoginRequired: true}},
+        {path: '/login/email', name: 'signInByEmail', component: PageLogin, meta: {noLoginRequired: true}},
+        {path: '/profile', name: 'profile', component: PageProfile, meta: {loginRequired: true}},
+        {path: '/password/change', name: 'changePassword', component: PageChangePassword, meta: {loginRequired: true}},
+        {path: '/password/restore', name: 'restorePassword', component: PageRestorePassword, meta: {noLoginRequired: true}},
+        // {path: '/admin', name: 'admin', component: PageAdmin, meta: {adminRequired: true}},
 
         {path: '/:pathMatch(.*)*', name: 'page404', component: Page404},
     ];
