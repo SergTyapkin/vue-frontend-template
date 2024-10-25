@@ -12,10 +12,6 @@ services:
         - DOMAIN_URL
         - API_HOST
         - API_PORT
-    environment:
-      - DOMAIN_URL
-      - API_HOST
-      - API_PORT
     volumes:
       - ./dist:/usr/share/nginx/html:rw
       - ./certbot/www:/var/www/certbot/:ro
