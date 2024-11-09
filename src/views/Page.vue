@@ -1,10 +1,3 @@
-<style scoped lang="stylus">
-@require '../styles/constants.styl'
-@require '../styles/buttons.styl'
-@require '../styles/fonts.styl'
-
-</style>
-
 <template>
   <div class="root-page">
     <!-- ... -->
@@ -12,8 +5,7 @@
   </div>
 </template>
 
-
-<script>
+<script lang="ts">
 export default {
   components: {},
 
@@ -29,3 +21,11 @@ export default {
   }
 }
 </script>
+
+
+<style scoped lang="stylus">
+@import '../styles/constants.styl'
+@import '../styles/buttons.styl'
+@import '../styles/fonts.styl'
+
+</style>

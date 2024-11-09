@@ -1,14 +1,9 @@
-<style lang="stylus" scoped>
-
-</style>
-
 <template>
   <div class="root-confirm-email">
     Подтверждаем ваш E-mail...
-    <CircleLoading></CircleLoading>
+    <CircleLoading />
   </div>
 </template>
-
 
 <script>
 import CircleLoading from "~/components/CircleLoading.vue";
@@ -56,3 +51,8 @@ export default {
   }
 }
 </script>
+
+
+<style lang="stylus" scoped>
+
+</style>

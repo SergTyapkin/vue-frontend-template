@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue'
 import basicSsl from '@vitejs/plugin-basic-ssl'
-import eslint from 'vite-plugin-eslint'
 import path from 'path';
+import stylelint from 'vite-plugin-stylelint';
 
 export default defineConfig({
   plugins: [
@@ -10,19 +10,14 @@ export default defineConfig({
       include: [/\.vue$/],
     }),
     basicSsl(),
-    // { // do not fail on linter while serve (local development)
-    //   ...eslint({
-    //     failOnWarning: false,
-    //     failOnError: false,
-    //     fix: true,
-    //   }),
-    //   apply: 'serve',
-    //   enforce: 'post'
-    // },
+    {
+      name: 'prettier',
+    },
+    stylelint(),
   ],
   define: {
     BUILD_TIMESTAMP: Date.now(),
-    VERSION: JSON.stringify(require('./package.json').version),
+    VERSION: JSON.stringify(import('./package.json').version),
   },
   server: {
     https: true,

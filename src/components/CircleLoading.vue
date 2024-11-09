@@ -1,5 +1,34 @@
+<template>
+  <div
+    class="circle-loading"
+    :style="`height: ${size}; width: ${size};`"
+  >
+    <div
+      class="lds-default"
+      :class="{light}"
+    >
+      <div /><div /><div /><div /><div /><div /><div /><div /><div /><div /><div /><div />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    size: {
+      type: String,
+      default: '60px'
+    },
+    light: {
+      type: Boolean,
+      default: false,
+    }
+  }
+};
+</script>
+
 <style lang="stylus" scoped>
-@require '../styles/constants.styl'
+@import '../styles/constants.styl'
 
 .circle-loading
   //width 60px //in props
@@ -96,23 +125,3 @@
 }
 
 </style>
-
-<template>
-  <div class="circle-loading" :style="`height: ${size}; width: ${size};`">
-    <div class="lds-default" :class="{light}"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-  </div>
-</template>
-
-<script>
-export default {
-  props: {
-    size: {
-      default: '60px'
-    },
-    light: {
-      type: Boolean,
-      default: false,
-    }
-  }
-};
-</script>

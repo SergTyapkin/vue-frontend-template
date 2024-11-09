@@ -1,46 +1,39 @@
-<style lang="stylus" scoped>
-
-</style>
-
 <template>
   <div class="root-restore-password">
-<!--    <div v-if="!code">-->
-<!--      <Form v-if="!emailSent"-->
-<!--            ref="formEmail"-->
-<!--            title="Восстановление пароля" description="Теперь осталось вспомнить почту. Она ведь указана, правда?"-->
-<!--            :fields="[-->
-<!--              { title: 'E-mail', autocomplete: 'on', jsonName: 'email', type: 'email', info: 'А я ведь предупреждал, что ты его забудешь'},-->
-<!--            ]"-->
-<!--            submit-text="Выслать письмо"-->
-<!--            @submit="sendRestorePasswordEmail"-->
-<!--      >Неожиданно вспомнился старый пароль? <br> <router-link :to="base_url_path + `/signin`" class="link">Войти как нормальный человек</router-link>-->
-<!--      </Form>-->
+    <!--    <div v-if="!code">-->
+    <!--      <Form v-if="!emailSent"-->
+    <!--            ref="formEmail"-->
+    <!--            title="Восстановление пароля" description="Теперь осталось вспомнить почту. Она ведь указана, правда?"-->
+    <!--            :fields="[-->
+    <!--              { title: 'E-mail', autocomplete: 'on', jsonName: 'email', type: 'email', info: 'А я ведь предупреждал, что ты его забудешь'},-->
+    <!--            ]"-->
+    <!--            submit-text="Выслать письмо"-->
+    <!--            @submit="sendRestorePasswordEmail"-->
+    <!--      >Неожиданно вспомнился старый пароль? <br> <router-link :to="base_url_path + `/signin`" class="link">Войти как нормальный человек</router-link>-->
+    <!--      </Form>-->
 
-<!--      <Form v-else :no-submit="true" title="Письмо на твоей почте">-->
-<!--        Не забудь проверить папку <b><big>спам</big></b>. <br> Перейди по ссылке из письма, и будет тебе счастье-->
-<!--      </Form>-->
-<!--    </div>-->
+    <!--      <Form v-else :no-submit="true" title="Письмо на твоей почте">-->
+    <!--        Не забудь проверить папку <b><big>спам</big></b>. <br> Перейди по ссылке из письма, и будет тебе счастье-->
+    <!--      </Form>-->
+    <!--    </div>-->
 
-<!--    <Form v-else-->
-<!--          ref="formPassword"-->
-<!--          title="Восстановление пароля" description="Давай хотя бы в этот раз ты его не забудешь, ладно?"-->
-<!--          :fields="[-->
-<!--            { title: 'НОВЫЙ ПАРОЛЬ', autocomplete: 'on', jsonName: 'password', type: 'password', info: 'Забудешь второй раз? А по жопе?'},-->
-<!--            { title: 'НОВЫЙ ПАРОЛЬ ЕЩЁ РАЗ', jsonName: 'passwordConfirm', type: 'password', info: 'Не ошибись'},-->
-<!--          ]"-->
-<!--          submit-text="Сменить пароль"-->
-<!--          @submit="restorePassword"-->
-<!--    >Неожиданно вспомнился старый пароль? <br> <router-link :to="base_url_path + `/signin`" class="link">Войти как нормальный человек</router-link>-->
-<!--    </Form>-->
+    <!--    <Form v-else-->
+    <!--          ref="formPassword"-->
+    <!--          title="Восстановление пароля" description="Давай хотя бы в этот раз ты его не забудешь, ладно?"-->
+    <!--          :fields="[-->
+    <!--            { title: 'НОВЫЙ ПАРОЛЬ', autocomplete: 'on', jsonName: 'password', type: 'password', info: 'Забудешь второй раз? А по жопе?'},-->
+    <!--            { title: 'НОВЫЙ ПАРОЛЬ ЕЩЁ РАЗ', jsonName: 'passwordConfirm', type: 'password', info: 'Не ошибись'},-->
+    <!--          ]"-->
+    <!--          submit-text="Сменить пароль"-->
+    <!--          @submit="restorePassword"-->
+    <!--    >Неожиданно вспомнился старый пароль? <br> <router-link :to="base_url_path + `/signin`" class="link">Войти как нормальный человек</router-link>-->
+    <!--    </Form>-->
   </div>
 </template>
 
-
 <script>
-import FormWithErrors from "~/components/FormWithErrors.vue";
-
 export default {
-  components: {FormWithErrors},
+  components: {},
 
   data() {
     return {
@@ -105,3 +98,8 @@ export default {
   }
 }
 </script>
+
+
+<style lang="stylus" scoped>
+
+</style>

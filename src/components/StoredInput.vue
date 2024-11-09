@@ -1,16 +1,12 @@
-<style lang="stylus" scoped>
-@require '../../styles/constants.styl'
-
-
-</style>
-
 <template>
-  <input v-model="modelValue" @input="onInput"/>
+  <input
+    v-model="modelValue"
+    @input="onInput"
+  >
 </template>
 
 <script>
 export default {
-  emits: ['update:modelValue'],
 
   props: {
     modelValue: undefined,
@@ -19,6 +15,7 @@ export default {
       required: true,
     }
   },
+  emits: ['update:modelValue'],
 
   mounted() {
     const savedData = localStorage.getItem(this.uniqueName);
@@ -35,3 +32,9 @@ export default {
   }
 };
 </script>
+
+<style lang="stylus" scoped>
+@import '../../styles/constants.styl'
+
+
+</style>

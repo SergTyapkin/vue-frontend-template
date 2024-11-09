@@ -1,6 +1,50 @@
+<template>
+  <div
+    class="float-button "
+    :class="{green}"
+  >
+    <router-link
+      v-if="to"
+      class="fields"
+      :to="to"
+    >
+      <span class="hover-text">{{ title }}</span>
+      <span class="image">
+        <slot />
+      </span>
+    </router-link>
+
+    <div
+      v-else
+      class="fields"
+    >
+      <span class="hover-text">{{ title }}</span>
+      <span class="image">
+        <slot />
+      </span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    title: {
+      type: String,
+      default: undefined,
+    },
+    to: {
+      type: String,
+      default: undefined,
+    },
+    green: Boolean,
+  }
+};
+</script>
+
 <style lang="stylus" scoped>
-@require '../styles/constants.styl'
-@require '../styles/utils.styl'
+@import '../styles/constants.styl'
+@import '../styles/utils.styl'
 
 float-button-height = 50px
 image-width = 30px
@@ -58,31 +102,3 @@ padding = 5px
   .float-button
     transition opacity 0.3s ease, right 0.3s ease !important
 </style>
-
-<template>
-  <div class="float-button " :class="{green}">
-    <router-link class="fields" :to="to" v-if="to">
-      <span class="hover-text">{{ title }}</span>
-      <span class="image">
-        <slot></slot>
-      </span>
-    </router-link>
-
-    <div class="fields" v-else>
-      <span class="hover-text">{{ title }}</span>
-      <span class="image">
-        <slot></slot>
-      </span>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  props: {
-    title: String,
-    to: String,
-    green: Boolean,
-  }
-};
-</script>

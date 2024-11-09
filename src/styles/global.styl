@@ -1,48 +1,47 @@
-@require "constants.styl"
-@require "scrollbars.styl"
-@require "fonts.styl"
-
-@require "fontsLoader.styl"
+@import "constants.styl"
+@import "scrollbars.styl"
+@import "fonts.styl"
+@import "fontsLoader.styl"
 
 
 html
-    overflow-x hidden
-    min-height 100%
+  overflow-x hidden
+  min-height 100%
 
 *
-    box-sizing border-box
-    margin 0
-    padding 0
+  box-sizing border-box
+  margin 0
+  padding 0
 
 body
-    height 100%
-    margin 0
-    padding 0
-    border none
-    outline none
-    -webkit-overflow-scrolling touch
-    width 100vw
-    min-height 100vh
-    position relative
-    overflow-x hidden
-    background colorBg
-    scrollable()
-    font-medium()
-    font-normal()
-    color colorText1
+  height 100%
+  margin 0
+  padding 0
+  border none
+  outline none
+  -webkit-overflow-scrolling touch
+  width 100vw
+  min-height 100vh
+  position relative
+  overflow-x hidden
+  background colorBg
+  scrollable()
+  font-medium()
+  font-normal()
+  color colorText1
 
-    color-scheme dark
-    font-synthesis none
-    text-rendering optimizeLegibility
-    -webkit-font-smoothing antialiased
-    -moz-osx-font-smoothing grayscale
+  color-scheme dark
+  font-synthesis none
+  text-rendering optimizeLegibility
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
 
 #app
-    width 100%
-    height 100%
+  width 100%
+  height 100%
 
 a
-    color inherit
-    text-decoration none
+  color inherit
+  text-decoration none
 a:visited
-    color inherit
+  color inherit

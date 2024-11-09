@@ -1,6 +1,25 @@
+<template>
+  <div class="root-404">
+    <div class="form">
+      <div class="title">
+        404 Страница не найдена
+      </div>
+      <div class="info">
+        Запрошенной страницы не существует
+      </div>
+      <router-link :to="{name: 'default'}" />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+}
+</script>
+
 <style lang="stylus" scoped>
-@require '../styles/constants.styl'
-@require '../styles/fonts.styl'
+@import '../styles/constants.styl'
+@import '../styles/fonts.styl'
 
 .root-404
   width 100%
@@ -21,19 +40,4 @@
       font-medium()
       margin-bottom 15px
 </style>
-
-<template>
-  <div class="root-404">
-    <div class="form">
-      <div class="title">404 Страница не найдена</div>
-      <div class="info">Запрошенной страницы не существует</div>
-      <router-link :to="{name: 'default'}"></router-link>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-}
-</script>
 

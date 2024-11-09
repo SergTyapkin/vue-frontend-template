@@ -1,41 +1,3 @@
-<style scoped lang="stylus">
-@require '../../styles/constants.styl'
-@require '../../styles/buttons.styl'
-
-.root-signin
-  width 100%
-  padding 20px
-  .form
-    margin 20px auto
-    max-width 600px
-    background-color colorBg
-    border-radius borderRadiusM
-    padding 20px
-    padding-top 10px
-    text-align center
-    font-large()
-    font-bold()
-    color colorText1
-    .profile-link
-      text-decoration none
-      text-align left
-    .profile-button
-      button()
-    .signin-links
-      display flex
-      width 100%
-      margin-top 20px
-      font-small()
-      text-decoration none
-      justify-content space-between
-      .signin-by-email-link
-        color colorText1
-        text-decoration none
-      .restore-password-link
-        color colorText1
-        text-decoration none
-</style>
-
 <template>
   <div class="root-signin">
     <div class="form">
@@ -43,18 +5,23 @@
       <FormWithErrors
         ref="form"
         :fields="fields"
-        submitText="Вход"
-        @success="login"
+        submit-text="Вход"
         :loading="loading"
-      ></FormWithErrors>
-      <router-link class="profile-link" :to="{name: 'register'}">
-        <button class="profile-button">Зарегистрироваться</button>
+        @success="login"
+      />
+      <router-link
+        class="profile-link"
+        :to="{name: 'register'}"
+      >
+        <button class="profile-button">
+          Зарегистрироваться
+        </button>
       </router-link>
 
-<!--      <div class="signin-links">-->
-<!--        <router-link class="signin-by-email-link" :to="{name: 'signInByEmail'}">Войти по почте</router-link>-->
-<!--        <router-link class="restore-password-link" :to="{name: 'restorePassword'}">Восстановить пароль</router-link>-->
-<!--      </div>-->
+      <!--      <div class="signin-links">-->
+      <!--        <router-link class="signin-by-email-link" :to="{name: 'signInByEmail'}">Войти по почте</router-link>-->
+      <!--        <router-link class="restore-password-link" :to="{name: 'restorePassword'}">Восстановить пароль</router-link>-->
+      <!--      </div>-->
     </div>
   </div>
 </template>
@@ -62,12 +29,11 @@
 <script>
 import FormWithErrors from "~/components/FormWithErrors.vue";
 import {detectBrowser, detectOS} from "~/utils/utils";
-import CircleLoading from "~/components/CircleLoading.vue";
 import {Validators} from "~/utils/validators";
 
 
 export default {
-  components: {CircleLoading, FormWithErrors},
+  components: {FormWithErrors},
   data() {
     return {
       fields: {
@@ -112,4 +78,42 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="stylus">
+@import '../../styles/constants.styl'
+@import '../../styles/buttons.styl'
+
+.root-signin
+  width 100%
+  padding 20px
+  .form
+    margin 20px auto
+    max-width 600px
+    background-color colorBg
+    border-radius borderRadiusM
+    padding 20px
+    padding-top 10px
+    text-align center
+    font-large()
+    font-bold()
+    color colorText1
+    .profile-link
+      text-decoration none
+      text-align left
+    .profile-button
+      button()
+    .signin-links
+      display flex
+      width 100%
+      margin-top 20px
+      font-small()
+      text-decoration none
+      justify-content space-between
+      .signin-by-email-link
+        color colorText1
+        text-decoration none
+      .restore-password-link
+        color colorText1
+        text-decoration none
+</style>
 

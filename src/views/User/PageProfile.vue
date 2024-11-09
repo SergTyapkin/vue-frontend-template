@@ -1,73 +1,139 @@
-<style lang="stylus" scoped>
-@require '../../styles/constants.styl'
-@require '../../styles/buttons.styl'
-@require '../../styles/fonts.styl'
-@require '../../styles/utils.styl'
-
-</style>
-
 <template>
   <div class="root-profile">
     <div class="content-block">
-      <header class="header">ПРОФИЛЬ</header>
+      <header class="header">
+        ПРОФИЛЬ
+      </header>
       <div class="box user-block">
         <div class="user-name-row">
           <div class="user-name-id-block">
-            <div class="user-name">{{ $user.name }}</div>
-            <div class="user-id">#{{ String($user.id || '').padStart(4, '0') }}</div>
+            <div class="user-name">
+              {{ $user.name }}
+            </div>
+            <div class="user-id">
+              #{{ String($user.id || '').padStart(4, '0') }}
+            </div>
           </div>
-          <button class="copy-id-button" @click="copyToClipboard($user.id, 'Твоё ID')"><img src="../../../res/icons/copy.svg" alt=""></button>
+          <button
+            class="copy-id-button"
+            @click="copyToClipboard($user.id, 'Твоё ID')"
+          >
+            <img
+              src="../../../res/icons/copy.svg"
+              alt=""
+            >
+          </button>
 
-          <CircleLoading v-if="loadingProfile" size="30px" light></CircleLoading>
-          <button v-else class="button-edit" @click="changeUserParam('name')">Изменить</button>
+          <CircleLoading
+            v-if="loadingProfile"
+            size="30px"
+            light
+          />
+          <button
+            v-else
+            class="button-edit"
+            @click="changeUserParam('name')"
+          >
+            Изменить
+          </button>
         </div>
         <div class="data-row">
-          <div class="field">Группа:</div>
-          <div class="data">{{ $user.group }}</div>
-          <button class="button-edit" @click="changeUserParam('group')">Изменить</button>
+          <div class="field">
+            Группа:
+          </div>
+          <div class="data">
+            {{ $user.group }}
+          </div>
+          <button
+            class="button-edit"
+            @click="changeUserParam('group')"
+          >
+            Изменить
+          </button>
         </div>
         <div class="data-row">
-          <div class="field">Email:</div>
-          <div class="data">{{ $user.email }}</div>
-          <button class="button-edit" @click="changeUserParam('email')">Изменить</button>
+          <div class="field">
+            Email:
+          </div>
+          <div class="data">
+            {{ $user.email }}
+          </div>
+          <button
+            class="button-edit"
+            @click="changeUserParam('email')"
+          >
+            Изменить
+          </button>
         </div>
         <div class="data-row">
-          <div class="field">Telegram:</div>
-          <div class="data">@{{ $user.tg }}</div>
-          <button class="button-edit" @click="changeUserParam('telegram', 'tg')">Изменить</button>
+          <div class="field">
+            Telegram:
+          </div>
+          <div class="data">
+            @{{ $user.tg }}
+          </div>
+          <button
+            class="button-edit"
+            @click="changeUserParam('telegram', 'tg')"
+          >
+            Изменить
+          </button>
         </div>
         <div class="data-row">
-          <div class="field">Вконтакте:</div>
-          <div class="data">vk.com/{{ $user.vk }}</div>
-          <button class="button-edit" @click="changeUserParam('vk')">Изменить</button>
+          <div class="field">
+            Вконтакте:
+          </div>
+          <div class="data">
+            vk.com/{{ $user.vk }}
+          </div>
+          <button
+            class="button-edit"
+            @click="changeUserParam('vk')"
+          >
+            Изменить
+          </button>
         </div>
         <div class="data-row">
-          <div class="field">Номер телефона:</div>
-          <div class="data">{{ $user.phone }}</div>
-          <button class="button-edit" @click="changeUserParam('phone_number', 'phone')">Изменить</button>
+          <div class="field">
+            Номер телефона:
+          </div>
+          <div class="data">
+            {{ $user.phone }}
+          </div>
+          <button
+            class="button-edit"
+            @click="changeUserParam('phone_number', 'phone')"
+          >
+            Изменить
+          </button>
         </div>
 
         <div class="buttons-row">
           <router-link :to="{name: 'changePassword'}">
-            <button class="change-password">Сменить пароль</button>
+            <button class="change-password">
+              Сменить пароль
+            </button>
           </router-link>
 
-          <button class="logout-button" @click="logout">Выйти</button>
+          <button
+            class="logout-button"
+            @click="logout"
+          >
+            Выйти
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
 import CircleLoading from "~/components/CircleLoading.vue";
-import FloatingButton from "~/components/FloatingButton.vue";
 import {Validators} from "~/utils/validators";
 
 
 export default {
-  components: { FloatingButton, Range, CircleLoading },
+  components: { CircleLoading },
 
   data() {
     return {
@@ -77,7 +143,6 @@ export default {
   },
 
   async mounted() {
-    await this.init();
   },
 
   methods: {
@@ -113,7 +178,7 @@ export default {
 
     async logout() {
       this.loadingProfile = true;
-      const {data, code, ok} = await this.$api.logout();
+      const {ok} = await this.$api.logout();
       this.loadingProfile = true;
 
       if (!ok) {
@@ -131,3 +196,12 @@ export default {
   },
 }
 </script>
+
+
+<style lang="stylus" scoped>
+@import '../../styles/constants.styl'
+@import '../../styles/buttons.styl'
+@import '../../styles/fonts.styl'
+@import '../../styles/utils.styl'
+
+</style>

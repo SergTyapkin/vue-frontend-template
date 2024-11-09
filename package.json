@@ -6,23 +6,26 @@
     "name": "Sergey Tyapkin"
   },
   "license": "MIT",
+  "browserslist": [
+    "> 0.5%, last 2 versions, Firefox ESR, not dead"
+  ],
   "scripts": {
-    "dev": "vite --open",
+    "prepare": "husky",
+    "dev": "vite --open --debug",
     "dev host": "vite --open --host --port 443",
-    "preview": "vite preview --open --host --port 443",
-    "dist": "vite build --out-dir dist"
+    "preview": "tsc && vite build && vite preview --open --host --port 443",
+    "dist": "tsc && vite build"
   },
   "dependencies": {
-    "@sergtyapkin/modals-popups": "^1.1.1",
-    "@sergtyapkin/models-validator": "^1.0.7",
-    "@sergtyapkin/rest-api": "^1.0.7",
     "@sergtyapkin/image-uploader": "^1.0.0",
     "@sergtyapkin/markdown": "^1.0.2",
+    "@sergtyapkin/modals-popups": "^1.1.1",
+    "@sergtyapkin/models-validator": "^1.0.8",
     "@sergtyapkin/reconnecting-websocket": "^1.0.5",
+    "@sergtyapkin/rest-api": "^1.0.7",
     "@sergtyapkin/scroll-restore": "^1.0.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "file-loader": "^6.2.0",
-    "simpleheat": "^0.4.0",
     "stylus": "^0.54.7",
     "typescript": "^4.6.2",
     "vite": "^4.3.9",
@@ -33,9 +36,34 @@
     "vuex": "4.0.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@types/history": "^5.0.0",
+    "@types/vue": "^2.0.0",
+    "@types/vue-router": "^2.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
-    "eslint": "^8.44.0",
-    "eslint-plugin-vue": "^9.15.1",
-    "vite-plugin-eslint": "^1.8.1"
+    "eslint": "^9.14.0",
+    "eslint-plugin-vue": "^9.30.0",
+    "eslint-plugin-compat": "^6.0.1",
+    "eslint-plugin-no-loops": "^0.4.0",
+    "eslint-plugin-no-use-extend-native": "^0.7.2",
+    "eslint-plugin-optimize-regex": "^1.2.1",
+    "eslint-plugin-promise": "^7.1.0",
+    "eslint-plugin-sonarjs": "^2.0.4",
+    "globals": "^15.12.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "pre-commit": "^1.2.2",
+    "prettier": "^3.3.3",
+    "stylelint": "^16.10.0",
+    "stylelint-stylus": "^1.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript-eslint": "^8.13.0",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-stylelint": "^5.3.1"
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint --fix",
+    "*.{md}": "prettier --write",
+    "*.styl": "stylelint --fix"
   }
 }

@@ -1,30 +1,3 @@
-<style scoped lang="stylus">
-@require '../../styles/constants.styl'
-@require '../../styles/buttons.styl'
-
-bg = colorBgDark
-
-.root-register
-  width 100%
-  padding 20px
-  .form
-    max-width 600px
-    margin 20px auto
-    background-color colorBg
-    border-radius borderRadiusM
-    padding 20px
-    padding-top 10px
-    text-align center
-    font-large()
-    font-bold()
-    color colorText1
-    .signin-link
-      text-align left
-      text-decoration none
-    .signin-button
-      button()
-</style>
-
 <template>
   <div class="root-register">
     <div class="form">
@@ -32,12 +5,17 @@ bg = colorBgDark
       <FormWithErrors
         ref="form"
         :fields="fields"
-        submitText="Зарегистрироваться"
-        @success="register"
+        submit-text="Зарегистрироваться"
         :loading="loading"
-      ></FormWithErrors>
-      <router-link class="signin-link" :to="{name: 'login'}">
-        <button class="signin-button">Войти</button>
+        @success="register"
+      />
+      <router-link
+        class="signin-link"
+        :to="{name: 'login'}"
+      >
+        <button class="signin-button">
+          Войти
+        </button>
       </router-link>
     </div>
   </div>
@@ -46,12 +24,11 @@ bg = colorBgDark
 <script>
 import FormWithErrors from "~/components/FormWithErrors.vue";
 import {detectBrowser, detectOS} from "~/utils/utils";
-import CircleLoading from "~/components/CircleLoading.vue";
 import {Validators} from "~/utils/validators";
 
 
 export default {
-  components: {CircleLoading, FormWithErrors},
+  components: {FormWithErrors},
   data() {
     return {
       fields: {
@@ -157,4 +134,31 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="stylus">
+@import '../../styles/constants.styl'
+@import '../../styles/buttons.styl'
+
+bg = colorBgDark
+
+.root-register
+  width 100%
+  padding 20px
+  .form
+    max-width 600px
+    margin 20px auto
+    background-color colorBg
+    border-radius borderRadiusM
+    padding 20px
+    padding-top 10px
+    text-align center
+    font-large()
+    font-bold()
+    color colorText1
+    .signin-link
+      text-align left
+      text-decoration none
+    .signin-button
+      button()
+</style>
 
