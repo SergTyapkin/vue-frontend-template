@@ -1,19 +1,15 @@
 <template>
-  <input
-    v-model="modelValue"
-    @input="onInput"
-  >
+  <input v-model="modelValue" @input="onInput">
 </template>
 
 <script>
 export default {
-
   props: {
     modelValue: undefined,
     uniqueName: {
       type: String,
       required: true,
-    }
+    },
   },
   emits: ['update:modelValue'],
 
@@ -28,13 +24,11 @@ export default {
     onInput() {
       localStorage.setItem(this.uniqueName, this.modelValue);
       this.$emit('update:modelValue', this.modelValue);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="stylus" scoped>
 @import '../../styles/constants.styl'
-
-
 </style>

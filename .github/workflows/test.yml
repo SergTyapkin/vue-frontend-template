@@ -2,7 +2,7 @@ name: Makefile CI
 
 on:
   pull_request:
-    branches: [ "*" ]
+    branches: ['*']
 
 env:
   API_PORT: 0
@@ -12,10 +12,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: env
-      run: touch docker-deploy/.env
+      - name: env
+        run: touch docker-deploy/.env
 
-    - name: build
-      run: make build
+      - name: build
+        run: make build
+
+      - name: test
+        run: npm run test

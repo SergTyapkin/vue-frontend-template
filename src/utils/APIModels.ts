@@ -3,4 +3,4 @@ export const UserModel = {
   username: String,
   email: String,
   role: new Set(['admin', 'user']),
-}
+};

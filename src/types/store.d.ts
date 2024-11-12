@@ -1,27 +1,31 @@
-import {Store as VuexStore} from "vuex";
-import App from "../App.vue";
+import { type Store as VuexStore } from 'vuex';
+import App from '~/App.vue';
+import { type Commit, type Dispatch } from '@node_modules/vuex';
 
 interface Store extends VuexStore<any> {
-  $app: App
+  $app: App;
+  readonly state: any;
+  dispatch: Dispatch;
+  commit: Commit;
 }
 
 interface User {
-  id?: string
-  username?: string
-  email?: string
+  id?: string;
+  username?: string;
+  email?: string;
 
-  isSignedIn: boolean
+  isSignedIn: boolean;
 }
 
 // declare my own store state
 interface State {
-  user: User
-  commit: (event: string, data?: any) => void
+  user: User;
+  commit: (event: string, data?: any) => void;
 }
 
 declare module 'vue' {
   interface ComponentCustomProperties {
-    $store: Store
-    $user: User
+    $store: Store;
+    $user: User;
   }
 }

@@ -8,5 +8,6 @@
   "bracketSameLine": true,
   "trailingComma": "all",
   "endOfLine": "lf",
-  "vueIndentScriptAndStyle": false
+  "vueIndentScriptAndStyle": true,
+  "parser": "typescript"
 }

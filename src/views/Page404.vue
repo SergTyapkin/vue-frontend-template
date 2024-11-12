@@ -1,20 +1,15 @@
 <template>
   <div class="root-404">
     <div class="form">
-      <div class="title">
-        404 Страница не найдена
-      </div>
-      <div class="info">
-        Запрошенной страницы не существует
-      </div>
-      <router-link :to="{name: 'default'}" />
+      <div class="title">404 Страница не найдена</div>
+      <div class="info">Запрошенной страницы не существует</div>
+      <router-link :to="{ name: 'default' }" />
     </div>
   </div>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style lang="stylus" scoped>
@@ -25,19 +20,20 @@ export default {
   width 100%
   padding 20px
   .form
-    margin 20px auto
     max-width 600px
-    background-color colorBg
-    border-radius borderRadiusM
+    margin 20px auto
     padding 20px
     padding-top 10px
-    text-align center
     color colorText1
+    text-align center
+    background-color colorBg
+    border-radius borderRadiusM
     .title
       font-large()
+
       margin-bottom 10px
     .info
       font-medium()
+
       margin-bottom 15px
 </style>
-

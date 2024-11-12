@@ -18,17 +18,17 @@ shadow-color = mix(black, transparent, 70%)
 
 
 button()
-  color text-color
-  font-medium()
-  font-bold()
-  padding 10px
-  border colorBorder solid 1px
-  border-radius 999999999px
-  text-shadow none
-  transition all 0.2s ease
   cursor pointer
   box-sizing border-box
+  padding 10px
+  color text-color
+  text-shadow none
   background bg-color
+  border colorBorder solid 1px
+  border-radius 999999999px
+  transition all 0.2s ease
+  font-medium()
+  font-bold()
   centered-margin()
   centered-flex-container()
 
@@ -37,7 +37,7 @@ button()
     border-color border-color-hover
   // box-shadow 5px 5px 15px shadow-color
 
-  &[disabled]:not([disabled=false])
+  &[disabled]:not([disabled="false"])
     pointer-events none
     color text-color-disabled
     background bg-color-disabled
@@ -45,32 +45,40 @@ button()
 
 button-no-fill()
   button()
-  padding 10px 20px
+
   min-height 40px
+  padding 10px 20px
+  color colorText1
   background transparent
   border bg-color solid 2px
-  color colorText1
+
   &:hover
-    background bg-color
     color colorTextDark1
+    background bg-color
     border-color bg-color
-  &[disabled]:not([disabled=false])
+
+  &[disabled]:not([disabled="false"])
     color colorText3
     background mix(bg-color, transparent, 40%)
 
 button-danger()
   button()
+
   background mix(colorError, transparent)
   border-color colorError
+
   &:hover
-    border-color mix(colorError, white)
     color colorText1
+    border-color mix(colorError, white)
+
 button-success()
   button()
+
+  color colorText3
   background mix(colorSuccess, transparent)
   border-color colorSuccess
-  color colorText3
+
   &:hover
-    border-color mix(colorSuccess, white)
     color colorText1
+    border-color mix(colorSuccess, white)
 

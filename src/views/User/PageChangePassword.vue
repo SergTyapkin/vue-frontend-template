@@ -10,25 +10,19 @@
         @success="changePassword"
       />
 
-      <router-link
-        class="profile-link"
-        :to="{name: 'profile'}"
-      >
-        <button class="profile-button">
-          Назад
-        </button>
+      <router-link class="profile-link" :to="{ name: 'profile' }">
+        <button class="profile-button">Назад</button>
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import FormWithErrors from "~/components/FormWithErrors.vue";
-import {Validators} from "~/utils/validators";
-
+import FormWithErrors from '~/components/FormWithErrors.vue';
+import Validators from '~/utils/validators';
 
 export default {
-  components: {FormWithErrors},
+  components: { FormWithErrors },
   data() {
     return {
       fields: {
@@ -59,7 +53,7 @@ export default {
         },
       },
       loading: false,
-    }
+    };
   },
 
   methods: {
@@ -70,7 +64,7 @@ export default {
       }
 
       this.loading = true;
-      const {ok} = await this.$api.changePassword(data.oldPassword, data.newPassword);
+      const { ok } = await this.$api.changePassword(data.oldPassword, data.newPassword);
       this.loading = false;
 
       if (!ok) {
@@ -82,10 +76,10 @@ export default {
       this.loading = true;
       await this.$store.dispatch('GET_USER');
       this.loading = false;
-      this.$router.push({name: 'profile'});
-    }
-  }
-}
+      this.$router.push({ name: 'profile' });
+    },
+  },
+};
 </script>
 
 <style scoped lang="stylus">
@@ -96,28 +90,28 @@ export default {
   width 100%
   padding 20px
   .form
-    margin 20px auto
     max-width 600px
-    background-color colorBg
-    border-radius borderRadiusM
+    margin 20px auto
     padding 20px
     padding-top 10px
+    color colorText1
     text-align center
+    background-color colorBg
+    border-radius borderRadiusM
     font-large()
     font-bold()
-    color colorText1
     .profile-link
-      text-decoration none
       text-align left
+      text-decoration none
     .profile-button
       button()
     .signin-links
       display flex
+      justify-content space-between
       width 100%
       margin-top 20px
-      font-small()
       text-decoration none
-      justify-content space-between
+      font-small()
       .signin-by-email-link
         color colorText1
         text-decoration none
@@ -125,4 +119,3 @@ export default {
         color colorText1
         text-decoration none
 </style>
-

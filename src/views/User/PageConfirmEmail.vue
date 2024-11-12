@@ -6,21 +6,21 @@
 </template>
 
 <script>
-import CircleLoading from "~/components/CircleLoading.vue";
+import CircleLoading from '~/components/CircleLoading.vue';
 
 export default {
-  components: {CircleLoading},
+  components: { CircleLoading },
 
   data() {
     return {
       code: this.$route.query.code,
-    }
+    };
   },
 
   async mounted() {
-    const {ok} = await this.confirmEmail();
+    const { ok } = await this.confirmEmail();
     if (ok) {
-      this.$router.push({name: 'profile'});
+      this.$router.push({ name: 'profile' });
       return;
     }
     this.$popups.error('Ошибка', 'Неизвестная ошибка');
@@ -34,11 +34,11 @@ export default {
       }
 
       this.$refs.form.loading = true;
-      const {data, ok} = await this.$api.confirmEmailByCode(this.code);
+      const { data, ok } = await this.$api.confirmEmailByCode(this.code);
       this.$refs.form.loading = false;
 
       if (!ok) {
-        this.$popups.error("Не удалось подтвердить E-mail", data || "Произошла неизвестная ошибка");
+        this.$popups.error('Не удалось подтвердить E-mail', data || 'Произошла неизвестная ошибка');
         return;
       }
 
@@ -47,12 +47,9 @@ export default {
       this.$refs.form.loading = true;
       await this.$store.dispatch('GET_USER');
       this.$refs.form.loading = false;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-
-<style lang="stylus" scoped>
-
-</style>
+<style lang="stylus" scoped></style>

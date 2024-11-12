@@ -1,2 +1,1 @@
-export const SomeEnum = {
-}
+export const SomeEnum = {};

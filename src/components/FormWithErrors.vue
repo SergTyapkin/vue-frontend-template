@@ -2,13 +2,17 @@
   <div
     class="root-form"
     @keydown.enter="submit"
-    @input="() => {isSubmittedAlready ? checkFormat() : null}"
+    @input="
+      () => {
+        isSubmittedAlready ? checkFormat() : null;
+      }
+    "
   >
     <div
       v-for="([fieldName, field], i) in Object.entries(fields)"
       :key="i"
       class="input-container"
-      :class="{error: field.__error, success: field.__success}"
+      :class="{ error: field.__error, success: field.__success }"
     >
       <input
         v-bind="field"
@@ -19,42 +23,23 @@
         placeholder="-"
       >
       <label :for="`${uid}-${fieldName}`">{{ field.title }}</label>
-      <div
-        v-if="field.info"
-        class="info"
-      >
+      <div v-if="field.info" class="info">
         {{ field.info }}
       </div>
       <div class="placeholder">
         {{ field.placeholder }}
       </div>
-      <div
-        class="error"
-        :class="{hidden: !errorSuccessShowed}"
-      >
+      <div class="error" :class="{ hidden: !errorSuccessShowed }">
         {{ field.overrideErrorText || field.errorText || 'Неверный формат' }}
       </div>
-      <div
-        class="success"
-        :class="{hidden: !errorSuccessShowed}"
-      >
+      <div class="success" :class="{ hidden: !errorSuccessShowed }">
         {{ field.successText || 'Успех' }}
       </div>
     </div>
 
-    <button
-      class="submit"
-      @click="submit"
-    >
-      <transition
-        name="opacity"
-        mode="out-in"
-        duration="200"
-      >
-        <CircleLoading
-          v-if="loading"
-          size="1.2em"
-        />
+    <button class="submit" @click="submit">
+      <transition name="opacity" mode="out-in" duration="200">
+        <CircleLoading v-if="loading" size="1.2em" />
         <span v-else>{{ submitText || 'Отправить' }}</span>
       </transition>
     </button>
@@ -62,10 +47,10 @@
 </template>
 
 <script>
-import CircleLoading from "./CircleLoading.vue";
+import CircleLoading from './CircleLoading.vue';
 
 export default {
-  components: {CircleLoading},
+  components: { CircleLoading },
 
   props: {
     fields: {
@@ -87,12 +72,12 @@ export default {
           placeholder: String(),
           autocomplete: String(), // default: 'off'
           //other <input> attributes: String()
-        }
-      })
+        },
+      }),
     },
     submitText: {
       type: String,
-      default: 'Отправить'
+      default: 'Отправить',
     },
     setSuccesses: Boolean, // Can set on fields only errors
     loading: Boolean,
@@ -105,7 +90,7 @@ export default {
       errorSuccessShowed: false,
 
       isSubmittedAlready: false,
-    }
+    };
   },
 
   methods: {
@@ -130,7 +115,8 @@ export default {
       let res = true;
       Object.values(this.fields).forEach(field => {
         field.value = field.value || '';
-        const validationText = field.type === 'text' ? (field.noTrimValue ? field.value : field.value.trim()) : field.value;
+        const validationText =
+          field.type === 'text' ? (field.noTrimValue ? field.value : field.value.trim()) : field.value;
         if (field.validationRegExp) {
           field.__error = !field.validationRegExp.test(validationText);
         } else if (field.validator) {
@@ -157,9 +143,9 @@ export default {
         return;
       }
       this.__setErrorOnField(fields, errorText);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -177,62 +163,62 @@ input-border = 2px solid border-color
 
     label
     .placeholder
+      pointer-events none
+      user-select none
       position absolute
       top 22px
       left 10px
-      text-align left
       padding-left 10px
-      font-medium()
-      opacity .5
+      text-align left
+      opacity 0.5
       transition all 0.2s ease
-      pointer-events none
-      user-select none
+      font-medium()
     label
       opacity 1
 
     input
       all unset
-      box-sizing border-box
       display block
+      box-sizing border-box
       width 100%
-      border input-border
-      border-top-width 0
-      text-align left
       padding-top 10px
       padding-bottom 10px
       padding-left 17px
+      text-align left
+      border input-border
+      border-top-width 0
       border-radius borderRadiusL
       outline input-border
       outline-offset -2px
       transition all 0.2s ease, background-size 0.1s ease
       font-medium()
       &::placeholder
-        opacity 0
         visibility hidden
+        opacity 0
       &:focus
       &:not(:placeholder-shown)
         outline-color transparent
         outline-offset 5px
       &:not(:placeholder-shown) ~ label
       &:focus ~ label
-        left 15px
         top 2px
+        left 15px
         opacity 0.3
       &:not(:focus) ~ .placeholder
       &:not(:placeholder-shown) ~ .placeholder
-        opacity 0
         left 40px
+        opacity 0
 
     .error
     .success
+      pointer-events none
+      user-select none
       position absolute
       top 26px
       right 20px
-      font-small-extra()
       opacity 0
       transition opacity 0.2s ease
-      pointer-events none
-      user-select none
+      font-small-extra()
       &.hidden
         opacity 0
     .error
@@ -240,12 +226,12 @@ input-border = 2px solid border-color
     .success
       color colorSuccess
     .info
-      text-align left
+      user-select none
       margin-top 2px
       padding-left 20px
-      font-small-extra()
+      text-align left
       opacity 0.5
-      user-select none
+      font-small-extra()
 
     &.error
       color colorError
@@ -258,6 +244,7 @@ input-border = 2px solid border-color
 
   .submit
     button-submit()
+
     margin-top 10px
     margin-bottom 10px
 </style>

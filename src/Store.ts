@@ -1,6 +1,5 @@
 import Vuex from 'vuex';
-import {type User, type State, type Store} from "~/types/store";
-
+import { type User, type State, type Store } from '~/types/store';
 
 export default new Vuex.Store({
   state: {
@@ -21,7 +20,7 @@ export default new Vuex.Store({
   },
   actions: {
     async GET_USER(this: Store, state: State) {
-      const {data, ok}: {data: any, ok: boolean} = await this.$app.$api.getUser();
+      const { data, ok }: { data: any; ok: boolean } = await this.$app.$api.getUser();
       if (!ok) {
         state.commit('DELETE_USER');
         return;
@@ -31,5 +30,5 @@ export default new Vuex.Store({
     DELETE_USER(state: State) {
       state.commit('DELETE_USER');
     },
-  }
+  },
 });

@@ -1,33 +1,18 @@
 <template>
   <div class="root-restore-password">
-    <!--    <div v-if="!code">-->
-    <!--      <Form v-if="!emailSent"-->
-    <!--            ref="formEmail"-->
-    <!--            title="Восстановление пароля" description="Теперь осталось вспомнить почту. Она ведь указана, правда?"-->
-    <!--            :fields="[-->
-    <!--              { title: 'E-mail', autocomplete: 'on', jsonName: 'email', type: 'email', info: 'А я ведь предупреждал, что ты его забудешь'},-->
-    <!--            ]"-->
-    <!--            submit-text="Выслать письмо"-->
-    <!--            @submit="sendRestorePasswordEmail"-->
-    <!--      >Неожиданно вспомнился старый пароль? <br> <router-link :to="base_url_path + `/signin`" class="link">Войти как нормальный человек</router-link>-->
-    <!--      </Form>-->
+    <div v-if="!code">
+      <h1>Восстановление пароля</h1>
+      <input v-model="email" placeholder="email">
+      <button @click="sendRestorePasswordEmail">Выслать письмо</button>
+    </div>
+    <div v-else>
+      <h1>Установить новый пароль</h1>
+      <input v-model="newPassword" placeholder="Пароль">
+      <input v-model="newPasswordConfirm" placeholder="Подтверждение">
+      <button @click="restorePassword">Сменить пароль</button>
+    </div>
 
-    <!--      <Form v-else :no-submit="true" title="Письмо на твоей почте">-->
-    <!--        Не забудь проверить папку <b><big>спам</big></b>. <br> Перейди по ссылке из письма, и будет тебе счастье-->
-    <!--      </Form>-->
-    <!--    </div>-->
-
-    <!--    <Form v-else-->
-    <!--          ref="formPassword"-->
-    <!--          title="Восстановление пароля" description="Давай хотя бы в этот раз ты его не забудешь, ладно?"-->
-    <!--          :fields="[-->
-    <!--            { title: 'НОВЫЙ ПАРОЛЬ', autocomplete: 'on', jsonName: 'password', type: 'password', info: 'Забудешь второй раз? А по жопе?'},-->
-    <!--            { title: 'НОВЫЙ ПАРОЛЬ ЕЩЁ РАЗ', jsonName: 'passwordConfirm', type: 'password', info: 'Не ошибись'},-->
-    <!--          ]"-->
-    <!--          submit-text="Сменить пароль"-->
-    <!--          @submit="restorePassword"-->
-    <!--    >Неожиданно вспомнился старый пароль? <br> <router-link :to="base_url_path + `/signin`" class="link">Войти как нормальный человек</router-link>-->
-    <!--    </Form>-->
+    <router-link :to="{name: 'signin'}" class="link">Войти как нормальный человек</router-link>
   </div>
 </template>
 
@@ -39,7 +24,10 @@ export default {
     return {
       code: this.$route.query.code,
       emailSent: false,
-    }
+      email: '',
+      newPassword: '',
+      newPasswordConfirm: '',
+    };
   },
 
   methods: {
@@ -57,10 +45,9 @@ export default {
       return ok;
     },
 
-
-    async sendRestorePasswordEmail({email}) {
+    async sendRestorePasswordEmail() {
       this.$refs.formEmail.loading = true;
-      const response = await this.$api.sendRestorePasswordEmail(email);
+      const response = await this.$api.sendRestorePasswordEmail(this.email);
       this.$refs.formEmail.loading = false;
 
       if (response.ok_) {
@@ -75,19 +62,18 @@ export default {
         return;
       }
 
-      this.$popups.error("Не удалось выслать письмо", response.info || "Произошла неизвестная ошибка");
+      this.$popups.error('Не удалось выслать письмо', response.info || 'Произошла неизвестная ошибка');
     },
 
-    async restorePassword({password, passwordConfirm}) {
-      if (!this.validatePasswords(password, passwordConfirm))
-        return;
+    async restorePassword() {
+      if (!this.validatePasswords(this.newPassword, this.newPasswordConfirm)) return;
 
       this.$refs.formPassword.loading = true;
-      const response = await this.$api.restorePassword(this.code, password);
+      const response = await this.$api.restorePassword(this.code, this.newPassword);
       this.$refs.formPassword.loading = false;
 
       if (!response.ok_) {
-        this.$popups.error("Не удалось изменить пароль", response.info || "Произошла неизвестная ошибка");
+        this.$popups.error('Не удалось изменить пароль', response.info || 'Произошла неизвестная ошибка');
         return;
       }
 
@@ -95,11 +81,8 @@ export default {
       this.$refs.formPassword.errors = {};
       this.$router.push({name: 'signin'});
     },
-  }
-}
+  },
+};
 </script>
 
-
-<style lang="stylus" scoped>
-
-</style>
+<style lang="stylus" scoped></style>

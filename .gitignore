@@ -90,7 +90,7 @@ web_modules/
 
 # Next.js build output
 .next
-out
+docs
 
 # Nuxt.js build / generate output
 .nuxt
@@ -139,3 +139,6 @@ dist
 
 # Generates dynamically:
 docker-deploy/docker-compose.yaml
+
+# Jest tests reports
+test-report.html

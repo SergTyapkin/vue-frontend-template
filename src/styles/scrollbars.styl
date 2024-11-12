@@ -10,42 +10,49 @@ scrollbar-border = 2px
 scroll-track-radius = 0
 
 scrollable()
+  scrollbar-color scroll-thumb-color scroll-bg-color
+  scrollbar-width scrollbar-width-worded
   overflow-y auto
 
-  scrollbar-width scrollbar-width-worded
-  scrollbar-color scroll-thumb-color scroll-bg-color
-  &:hover
-    scrollbar-color scroll-thumb-color-hover scroll-bg-color
-  &:hover::-webkit-scrollbar-thumb
-    background-color scroll-thumb-color-hover
   &::-webkit-scrollbar
     width scrollbar-width
     height scrollbar-width
+
   &::-webkit-scrollbar-track
     background scroll-bg-color
     border-radius scroll-track-radius
+
   &::-webkit-scrollbar-thumb
     background-color scroll-thumb-color
-    border-radius (scrollbar-width / 2)
     border scrollbar-border solid scroll-bg-color
+    border-radius (scrollbar-width / 2)
 
   &::-webkit-scrollbar-corner
     background scroll-bg-color
 
+  &:hover
+    scrollbar-color scroll-thumb-color-hover scroll-bg-color
+
+  &:hover::-webkit-scrollbar-thumb
+    background-color scroll-thumb-color-hover
+
 hidden-scrollbar()
+  scrollbar-width none
   overflow-y auto
+
+  -ms-overflow-style none
+
   &::-webkit-scrollbar
     display none
-  -ms-overflow-style none
-  scrollbar-width none
 
 no-scrollbar()
+  scrollbar-width none
+
   &::-webkit-scrollbar
-  &::-webkit-scrollbar-thumb  .randomftkare9cb8bzgbre,  .randomjlw9lae9sx49pdpm
-  .random9ejs6urtx41d069g,  .randommmojxarx3kpxxbpl  .randomge8sv41z35j9k1wd,  .randomujtyqnfe3sqsrlcz
-  .random6lqy0m90b9ooikfq,  &::-webkit-scrollbar-track  .randomi4oozxdaajnqsdji,  .random1p5qgbxxc56xsjns
-  .randomzqa4et091opklhzw,  .randomwknxtnu9qoz34dh6  .randoma6e6v49fp42tamo3,  .random8mdvk4o8m7c95p9f
-  .randomif3nukdv45vov7r9,  &::-webkit-scrollbar-corner
-    all unset
+  &::-webkit-scrollbar-corner
+    width 0
+    height 0
+
+  &::-webkit-scrollbar-thumb
     width 0
     height 0

@@ -25,3 +25,7 @@ dist-ssr
 
 # Package files
 package-lock.json
+
+# Dirs
+coverage
+docs

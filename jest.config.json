@@ -1,0 +1,5 @@
+{
+  "testMatch": ["**/*.(spec|test).?(m)(js|ts)?(x)"],
+  "reporters": ["default", "jest-html-reporter"],
+  "moduleFileExtensions": ["js","ts","mjs","mts"]
+}

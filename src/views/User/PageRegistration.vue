@@ -9,26 +9,20 @@
         :loading="loading"
         @success="register"
       />
-      <router-link
-        class="signin-link"
-        :to="{name: 'login'}"
-      >
-        <button class="signin-button">
-          Войти
-        </button>
+      <router-link class="signin-link" :to="{ name: 'login' }">
+        <button class="signin-button">Войти</button>
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import FormWithErrors from "~/components/FormWithErrors.vue";
-import {detectBrowser, detectOS} from "~/utils/utils";
-import {Validators} from "~/utils/validators";
-
+import FormWithErrors from '~/components/FormWithErrors.vue';
+import { detectBrowser, detectOS } from '~/utils/utils';
+import Validators from '~/utils/validators';
 
 export default {
-  components: {FormWithErrors},
+  components: { FormWithErrors },
   data() {
     return {
       fields: {
@@ -50,7 +44,7 @@ export default {
           prettifyResult: Validators.group.prettifyResult,
           autocomplete: 'group',
         },
-        tg:{
+        tg: {
           title: 'Telegram',
           name: 'telegram',
           type: 'text',
@@ -105,10 +99,10 @@ export default {
           placeholder: '●●●●●●',
           validationRegExp: Validators.password.regExp,
           prettifyResult: Validators.password.prettifyResult,
-        }
+        },
       },
       loading: false,
-    }
+    };
   },
 
   methods: {
@@ -119,7 +113,17 @@ export default {
       }
 
       this.loading = true;
-      const {ok} = await this.$api.register(data.name, data.group, data.tg, data.vk, data.email, data.phone, data.password, detectBrowser(), detectOS());
+      const { ok } = await this.$api.register(
+        data.name,
+        data.group,
+        data.tg,
+        data.vk,
+        data.email,
+        data.phone,
+        data.password,
+        detectBrowser(),
+        detectOS(),
+      );
       this.loading = false;
 
       if (!ok) {
@@ -129,10 +133,10 @@ export default {
       this.loading = true;
       await this.$store.dispatch('GET_USER');
       this.loading = true;
-      this.$router.push({name: 'profile'});
-    }
-  }
-}
+      this.$router.push({ name: 'profile' });
+    },
+  },
+};
 </script>
 
 <style scoped lang="stylus">
@@ -147,18 +151,17 @@ bg = colorBgDark
   .form
     max-width 600px
     margin 20px auto
-    background-color colorBg
-    border-radius borderRadiusM
     padding 20px
     padding-top 10px
+    color colorText1
     text-align center
+    background-color colorBg
+    border-radius borderRadiusM
     font-large()
     font-bold()
-    color colorText1
     .signin-link
       text-align left
       text-decoration none
     .signin-button
       button()
 </style>
-

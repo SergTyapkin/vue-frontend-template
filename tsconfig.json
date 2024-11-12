@@ -1,7 +1,5 @@
 {
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  },
+  "ts-node": {},
   "compilerOptions": {
     "target": "esnext",
     "useDefineForClassFields": true,
@@ -11,32 +9,28 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-
     /* Bundler mode */
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
     "baseUrl": "./",
     "paths": {
       "~/*": ["./src/*"],
       "@node_modules/*": ["./node_modules/*"]
     },
-
     "typeRoots": ["./node_modules"],
-    "types": [
-      "vue",
-      "vuex/types"
-    ]
+    "types": ["vue", "vuex/types", "jest"],
   },
-  "include": ["src"],
+  "include": [
+    "src",
+//    "tests"
+  ],
   "exclude": ["vite.config.{js,ts}"]
 }

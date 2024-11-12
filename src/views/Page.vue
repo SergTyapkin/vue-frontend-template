@@ -10,22 +10,17 @@ export default {
   components: {},
 
   data() {
-    return {
-    }
+    return {};
   },
 
-  mounted() {
-  },
+  mounted() {},
 
-  methods: {
-  }
-}
+  methods: {},
+};
 </script>
-
 
 <style scoped lang="stylus">
 @import '../styles/constants.styl'
 @import '../styles/buttons.styl'
 @import '../styles/fonts.styl'
-
 </style>
