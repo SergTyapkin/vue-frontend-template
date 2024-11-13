@@ -11,6 +11,7 @@ import pluginPromise from 'eslint-plugin-promise';
 import pluginJest from 'eslint-plugin-jest';
 import pluginPrettierVue from 'eslint-plugin-prettier-vue';
 // import pluginImport from 'eslint-plugin-import';
+// import pluginImportConfig from 'eslint-plugin-import/config/flat/recommended.js';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -20,22 +21,23 @@ export default [
   ...pluginVue.configs['flat/strongly-recommended'],
   pluginCompat.configs['flat/recommended'],
   pluginNoUseExtendNative.configs['recommended'],
-  // pluginImport.configs['recommended'], // Not working with .vue files
   pluginPromise.configs['flat/recommended'],
   pluginJest.configs['flat/recommended'],
+  // pluginImportConfig, // Not working with .vue files
   {
     plugins: {
       'optimize-regex': pluginOptimizeRegex,
       sonarjs: pluginSonarjs,
       'no-loops': pluginNoLoops,
       'prettier-vue': pluginPrettierVue,
+      // 'import': pluginImport,
     },
     settings: {
       'prettier-vue': {
         SFCBlocks: {
           template: true,
           script: true,
-          style: false,
+          style: false, // lints by stylelint
         },
       },
     },

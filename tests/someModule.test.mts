@@ -1,5 +1,6 @@
-import Validators from '../src/utils/validators';
 import '@types/jest';
+
+import Validators from '~/utils/validators';
 
 
 describe('Validating emails. Positive', () => {
