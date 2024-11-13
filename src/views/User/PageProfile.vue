@@ -1,3 +1,10 @@
+<style lang="stylus" scoped>
+@import '../../styles/constants.styl'
+@import '../../styles/buttons.styl'
+@import '../../styles/fonts.styl'
+@import '../../styles/utils.styl'
+</style>
+
 <template>
   <div class="root-profile">
     <div class="content-block">
@@ -5,9 +12,7 @@
       <div class="box user-block">
         <div class="user-name-row">
           <div class="user-name-id-block">
-            <div class="user-name">
-              {{ $user.name }}
-            </div>
+            <div class="user-name">{{ $user.name }}</div>
             <div class="user-id">#{{ String($user.id || '').padStart(4, '0') }}</div>
           </div>
           <button class="copy-id-button" @click="copyToClipboard($user.id, 'Твоё ID')">
@@ -19,16 +24,12 @@
         </div>
         <div class="data-row">
           <div class="field">Группа:</div>
-          <div class="data">
-            {{ $user.group }}
-          </div>
+          <div class="data">{{ $user.group }}</div>
           <button class="button-edit" @click="changeUserParam('group')">Изменить</button>
         </div>
         <div class="data-row">
           <div class="field">Email:</div>
-          <div class="data">
-            {{ $user.email }}
-          </div>
+          <div class="data">{{ $user.email }}</div>
           <button class="button-edit" @click="changeUserParam('email')">Изменить</button>
         </div>
         <div class="data-row">
@@ -43,9 +44,7 @@
         </div>
         <div class="data-row">
           <div class="field">Номер телефона:</div>
-          <div class="data">
-            {{ $user.phone }}
-          </div>
+          <div class="data">{{ $user.phone }}</div>
           <button class="button-edit" @click="changeUserParam('phone_number', 'phone')">Изменить</button>
         </div>
 
@@ -62,7 +61,7 @@
 </template>
 
 <script>
-import CircleLoading from '~/components/CircleLoading.vue';
+import CircleLoading from '~/components/loaders/CircleLoading.vue';
 import Validators from '~/utils/validators';
 
 export default {
@@ -137,10 +136,3 @@ export default {
   },
 };
 </script>
-
-<style lang="stylus" scoped>
-@import '../../styles/constants.styl'
-@import '../../styles/buttons.styl'
-@import '../../styles/fonts.styl'
-@import '../../styles/utils.styl'
-</style>

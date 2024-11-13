@@ -1,3 +1,30 @@
+<style scoped lang="stylus">
+@import '../../styles/constants.styl'
+@import '../../styles/buttons.styl'
+
+bg = colorBgDark
+
+.root-register
+  width 100%
+  padding 20px
+  .form
+    max-width 600px
+    margin 20px auto
+    padding 20px
+    padding-top 10px
+    color colorText1
+    text-align center
+    background-color colorBg
+    border-radius borderRadiusM
+    font-large()
+    font-bold()
+    .signin-link
+      text-align left
+      text-decoration none
+    .signin-button
+      button()
+</style>
+
 <template>
   <div class="root-register">
     <div class="form">
@@ -138,30 +165,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="stylus">
-@import '../../styles/constants.styl'
-@import '../../styles/buttons.styl'
-
-bg = colorBgDark
-
-.root-register
-  width 100%
-  padding 20px
-  .form
-    max-width 600px
-    margin 20px auto
-    padding 20px
-    padding-top 10px
-    color colorText1
-    text-align center
-    background-color colorBg
-    border-radius borderRadiusM
-    font-large()
-    font-bold()
-    .signin-link
-      text-align left
-      text-decoration none
-    .signin-button
-      button()
-</style>

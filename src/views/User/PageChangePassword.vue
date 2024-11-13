@@ -1,3 +1,41 @@
+<style scoped lang="stylus">
+@import '../../styles/constants.styl'
+@import '../../styles/buttons.styl'
+
+.root-signin
+  width 100%
+  padding 20px
+  .form
+    max-width 600px
+    margin 20px auto
+    padding 20px
+    padding-top 10px
+    color colorText1
+    text-align center
+    background-color colorBg
+    border-radius borderRadiusM
+    font-large()
+    font-bold()
+    .profile-link
+      text-align left
+      text-decoration none
+    .profile-button
+      button()
+    .signin-links
+      display flex
+      justify-content space-between
+      width 100%
+      margin-top 20px
+      text-decoration none
+      font-small()
+      .signin-by-email-link
+        color colorText1
+        text-decoration none
+      .restore-password-link
+        color colorText1
+        text-decoration none
+</style>
+
 <template>
   <div class="root-signin">
     <div class="form">
@@ -81,41 +119,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="stylus">
-@import '../../styles/constants.styl'
-@import '../../styles/buttons.styl'
-
-.root-signin
-  width 100%
-  padding 20px
-  .form
-    max-width 600px
-    margin 20px auto
-    padding 20px
-    padding-top 10px
-    color colorText1
-    text-align center
-    background-color colorBg
-    border-radius borderRadiusM
-    font-large()
-    font-bold()
-    .profile-link
-      text-align left
-      text-decoration none
-    .profile-button
-      button()
-    .signin-links
-      display flex
-      justify-content space-between
-      width 100%
-      margin-top 20px
-      text-decoration none
-      font-small()
-      .signin-by-email-link
-        color colorText1
-        text-decoration none
-      .restore-password-link
-        color colorText1
-        text-decoration none
-</style>

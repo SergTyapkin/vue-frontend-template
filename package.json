@@ -9,7 +9,10 @@
   },
   "license": "MIT",
   "browserslist": [
-    "> 0.5%, last 2 versions, Firefox ESR, not dead"
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead"
   ],
   "scripts": {
     "prepare": "husky",
@@ -23,13 +26,13 @@
     "lint:code:fix": "eslint --fix",
     "lint:styles": "stylelint --quiet-deprecation-warnings 'src/**/*.{css,styl,vue}'",
     "lint:styles:fix": "stylelint --quiet-deprecation-warnings --fix 'src/**/*.{css,styl,vue}'",
-    "lint:other": "prettier 'src/**/*.{yaml,json,html,md}'",
-    "lint:other:fix": "prettier --write 'src/**/*.{yaml,json,html,md}'",
+    "lint:other": "prettier '**/*.{yaml,json,html,md}'",
+    "lint:other:fix": "prettier --write '**/*.{yaml,json,html,md}'",
     "lint": "npm run lint:code && npm run lint:styles && npm run lint:other",
     "lint:fix": "npm run lint:code:fix && npm run lint:styles:fix && npm run lint:other:fix"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,vue}": "npm run lint:code:fix && npm run test",
+    "*.{js,ts,jsx,tsx,vue}": "npm run lint:code:fix",
     "*.{md,html,yaml,json}": "npm run lint:other:fix",
     "*.{css,styl}": "npm run lint:styles:fix"
   },
@@ -42,7 +45,6 @@
     "@sergtyapkin/rest-api": "^1.0.7",
     "@sergtyapkin/scroll-restore": "^1.0.0",
     "@vitejs/plugin-vue": "^4.2.3",
-    "eslint-config-prettier": "^9.1.0",
     "file-loader": "^6.2.0",
     "stylus": "^0.54.7",
     "typescript": "^4.6.2",
@@ -64,12 +66,12 @@
     "@types/vue-router": "^2.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "eslint": "^9.14.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-compat": "^6.0.1",
     "eslint-plugin-jest": "^28.9.0",
     "eslint-plugin-no-loops": "^0.4.0",
     "eslint-plugin-no-use-extend-native": "^0.7.2",
     "eslint-plugin-optimize-regex": "^1.2.1",
-    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-prettier-vue": "^5.0.0",
     "eslint-plugin-promise": "^7.1.0",
     "eslint-plugin-sonarjs": "^2.0.4",
@@ -88,7 +90,6 @@
     "stylelint-stylus": "^1.0.0",
     "taffydb": "^2.7.3",
     "tsconfig-paths": "^4.2.0",
-    "tui-jsdoc-template": "^1.2.2",
     "typedoc": "^0.26.11",
     "typedoc-plugin-vue": "^1.2.0",
     "typescript-eslint": "^8.13.0",

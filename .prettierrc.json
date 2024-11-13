@@ -8,6 +8,20 @@
   "bracketSameLine": true,
   "trailingComma": "all",
   "endOfLine": "lf",
-  "vueIndentScriptAndStyle": true,
-  "parser": "typescript"
+  "printWidth": 120,
+  "vueIndentScriptAndStyle": false,
+  "overrides": [
+    {
+      "files": ["**/*.?(m){js,ts}?(x)"],
+      "options": {
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": ["**/*.vue"],
+      "options": {
+        "parser": "vue"
+      }
+    }
+  ]
 }

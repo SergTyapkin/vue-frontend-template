@@ -1,70 +1,3 @@
-<template>
-  <div class="wrapper">
-    <router-view #default="{ Component }">
-      <transition name="scale-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
-  </div>
-
-  <Popups ref="popups" />
-  <Modals ref="modals" />
-</template>
-
-<script lang="ts">
-import { getCurrentInstance } from 'vue';
-import { Modals, Popups } from '@sergtyapkin/modals-popups';
-import CircleLoading from './components/CircleLoading.vue';
-import API from './utils/API';
-
-export default {
-  components: { CircleLoading, Modals, Popups },
-
-  data(): {
-    transitionName: string,
-    global?: Record<string, any>
-  } {
-    return {
-      transitionName: '',
-      global: undefined,
-    };
-  },
-
-  mounted() {
-    this.global = getCurrentInstance()!.appContext.config.globalProperties;
-
-    this.global.$user = this.$store.state.user;
-    this.global.$modal = this.$refs.modals;
-    this.global.$popups = this.$refs.popups;
-    this.global.$app = this;
-    this.global.$api = new API(`/api`);
-
-    this.checkMobileScreen();
-    window.addEventListener('resize', () => {
-      this.checkMobileScreen();
-    });
-  },
-
-  methods: {
-    checkMobileScreen() {
-      if (window.innerWidth <= 700) {
-        this.global!.$isMobile = true;
-        return;
-      }
-      this.global!.$isMobile = false;
-    },
-  },
-
-  watch: {
-    $route(to, from) {
-      this.transitionName = 'scale-in';
-
-      console.log(from.path, 'TO', to.path);
-    },
-  },
-};
-</script>
-
 <style lang="stylus" scoped>
 @import 'styles/constants.styl'
 @import 'styles/buttons.styl'
@@ -128,3 +61,70 @@ export default {
   100%
     opacity 1
 </style>
+
+<template>
+  <div class="wrapper">
+    <router-view #default="{ Component }">
+      <transition name="scale-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </div>
+
+  <Popups ref="popups" />
+  <Modals ref="modals" />
+</template>
+
+<script lang="ts">
+import { getCurrentInstance } from 'vue';
+import { Modals, Popups } from '@sergtyapkin/modals-popups';
+import CircleLoading from '~/components/loaders/CircleLoading.vue';
+import API from './utils/API';
+
+export default {
+  components: { CircleLoading, Modals, Popups },
+
+  data(): {
+    transitionName: string;
+    global?: Record<string, any>;
+  } {
+    return {
+      transitionName: '',
+      global: undefined,
+    };
+  },
+
+  mounted() {
+    this.global = getCurrentInstance()!.appContext.config.globalProperties;
+
+    this.global.$user = this.$store.state.user;
+    this.global.$modal = this.$refs.modals;
+    this.global.$popups = this.$refs.popups;
+    this.global.$app = this;
+    this.global.$api = new API(`/api`);
+
+    this.checkMobileScreen();
+    window.addEventListener('resize', () => {
+      this.checkMobileScreen();
+    });
+  },
+
+  methods: {
+    checkMobileScreen() {
+      if (window.innerWidth <= 700) {
+        this.global!.$isMobile = true;
+        return;
+      }
+      this.global!.$isMobile = false;
+    },
+  },
+
+  watch: {
+    $route(to, from) {
+      this.transitionName = 'scale-in';
+
+      console.log(from.path, 'TO', to.path);
+    },
+  },
+};
+</script>

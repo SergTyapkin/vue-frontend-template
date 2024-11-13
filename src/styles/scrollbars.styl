@@ -36,17 +36,10 @@ scrollable()
   &:hover::-webkit-scrollbar-thumb
     background-color scroll-thumb-color-hover
 
-hidden-scrollbar()
-  scrollbar-width none
-  overflow-y auto
 
+scrollbars-hidden()
+  scrollbar-width none
   -ms-overflow-style none
-
-  &::-webkit-scrollbar
-    display none
-
-no-scrollbar()
-  scrollbar-width none
 
   &::-webkit-scrollbar
   &::-webkit-scrollbar-corner

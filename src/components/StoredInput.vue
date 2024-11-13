@@ -1,3 +1,7 @@
+<style lang="stylus" scoped>
+@import '../../styles/constants.styl'
+</style>
+
 <template>
   <input v-model="modelValue" @input="onInput">
 </template>
@@ -28,7 +32,3 @@ export default {
   },
 };
 </script>
-
-<style lang="stylus" scoped>
-@import '../../styles/constants.styl'
-</style>
