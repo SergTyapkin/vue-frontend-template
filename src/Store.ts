@@ -4,7 +4,6 @@ import { type State, type Store } from '~/types/store';
 export default new Vuex.Store({
   state: {
     user: {},
-    workspace: {},
   },
   mutations: {
     SET_USER(state: State, userData: User) {
