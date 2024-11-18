@@ -1,5 +1,5 @@
 import Vuex from 'vuex';
-import { type User, type State, type Store } from '~/types/store';
+import { type State, type Store } from '~/types/store';
 
 export default new Vuex.Store({
   state: {

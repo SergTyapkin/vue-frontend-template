@@ -9,14 +9,6 @@ interface Store extends VuexStore<any> {
   commit: Commit;
 }
 
-interface User {
-  id?: string;
-  username?: string;
-  email?: string;
-
-  isSignedIn: boolean;
-}
-
 // declare my own store state
 interface State {
   user: User;

@@ -41,7 +41,7 @@
     <div class="form">
       ВХОД<br>
       <FormWithErrors ref="form" :fields="fields" submit-text="Вход" :loading="loading" @success="login" />
-      <router-link class="profile-link" :to="{ name: 'register' }">
+      <router-link class="profile-link" :to="{ name: 'signup' }">
         <button class="profile-button">Зарегистрироваться</button>
       </router-link>
 

@@ -14,7 +14,7 @@
       <button @click="restorePassword">Сменить пароль</button>
     </div>
 
-    <router-link :to="{ name: 'signin' }" class="link">Войти как нормальный человек</router-link>
+    <router-link :to="{ name: 'login' }" class="link">Войти как нормальный человек</router-link>
   </div>
 </template>
 
@@ -81,7 +81,7 @@ export default {
 
       this.$popups.success('Пароль изменен!');
       this.$refs.formPassword.errors = {};
-      this.$router.push({ name: 'signin' });
+      this.$router.push({ name: 'login' });
     },
   },
 };

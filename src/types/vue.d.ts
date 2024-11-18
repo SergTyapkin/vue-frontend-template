@@ -1,12 +1,12 @@
-import App from '~/App.vue';
-import API from '~/utils/API';
-import { VueElement } from 'vue';
+import App from "~/App.vue";
+import API from "~/Api";
+import {VueElement} from "vue";
 
 declare module 'vue' {
   interface ComponentCustomProperties {
-    $app: App;
-    $api: API;
-    $modals: VueElement;
-    $popups: VueElement;
+    $app: App,
+    $api: API,
+    $modals: VueElement,
+    $popups: VueElement,
   }
 }

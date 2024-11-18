@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 
-import App from './App.vue';
+import App from '~/App.vue';
 import WS from '@sergtyapkin/reconnecting-websocket';
 import Store from '~/Store';
 import createVueRouter from '~/Router';

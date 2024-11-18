@@ -9,14 +9,24 @@ import PageLogin from '~/views/User/PageLogin.vue';
 import PageProfile from '~/views/User/PageProfile.vue';
 import PageRestorePassword from '~/views/User/PageRestorePassword.vue';
 import PageConfirmEmail from '~/views/User/PageConfirmEmail.vue';
+import routes from '~/routes';
+import { RouteRecordRaw } from 'vue-router';
+
+type MyRoute = RouteRecordRaw & {
+  path: keyof typeof routes,
+  meta?: {
+    noLoginRequired?: boolean
+    loginRequired?: boolean
+  }
+}
 
 export default function createVueRouter(Store: Store): Router {
-  const routes = [
+  const routesList: MyRoute[] = [
     { path: '/', name: 'default', component: Page },
 
     { path: '/profile', name: 'profile', component: PageProfile },
     { path: '/login', name: 'login', component: PageLogin },
-    { path: '/signin', name: 'signin', component: PageRegistration },
+    { path: '/signup', name: 'signup', component: PageRegistration },
     { path: '/password/restore', name: 'restorePassword', component: PageRestorePassword },
     { path: '/password/change', name: 'changePassword', component: PageRestorePassword },
     { path: '/email/confirm', name: 'confirmEmail', component: PageConfirmEmail },
@@ -26,7 +36,7 @@ export default function createVueRouter(Store: Store): Router {
 
   const Router = createRouter({
     history: createWebHistory(),
-    routes: routes,
+    routes: routesList,
   });
 
   let router_got_user = false;

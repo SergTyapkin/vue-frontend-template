@@ -3,4 +3,6 @@ interface User {
   username: string;
   email: string;
   role: 'admin' | 'user';
+
+  isSignedIn: boolean;
 }
