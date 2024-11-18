@@ -46,7 +46,7 @@
       </router-link>
 
       <div class="signin-links">
-        <!--        <router-link class="signin-by-email-link" :to="{name: 'signInByEmail'}">Войти по почте</router-link>-->
+        <!--<router-link class="signin-by-email-link" :to="{name: 'signInByEmail'}">Войти по почте</router-link>-->
         <router-link class="restore-password-link" :to="{name: 'restorePassword'}">Восстановить пароль</router-link>
       </div>
     </div>
