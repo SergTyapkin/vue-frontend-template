@@ -9,11 +9,6 @@ const Validators = {
     regExp: /^(([а-я]+-)*[a-я]+) +(([а-я]+-)*[a-я]+)( +(([а-я]+-)*[a-я]+))?$/i,
     prettifyResult: (str: string): string => str.replaceAll(/ {2,}/g, ' '),
   },
-  group: {
-    regExp:
-      /(^(иу|ибм|мт|см|бмт|рл|э|рк|фн|л|сгн|вуц|гуимц|уц|фмоп|фоф|исот|ркт|ак|пс|рт|лт|оэ|оэп)\d\d?и?-1\d[АМБамб]?$)|(^юр-1\d$)/i,
-    prettifyResult: (str: string): string => str.toUpperCase(),
-  },
   tg: {
     regExp: /^((https:\/\/)?(t\.me\/)|@)?\w{5,}$/i,
     prettifyResult: (str: string): string =>
@@ -41,10 +36,6 @@ const Validators = {
   },
   password: {
     regExp: /^.{6,}$/i,
-  },
-  id: {
-    regExp: /^#?[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i,
-    prettifyResult: (str: string): string => str.replace('#', '').toLowerCase(),
   },
 } as unknown as { [key: string]: Validator };
 Object.entries(Validators).forEach(([, validator]) => {
