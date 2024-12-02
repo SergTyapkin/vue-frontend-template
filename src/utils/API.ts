@@ -1,9 +1,15 @@
 import REST_API from '@sergtyapkin/rest-api';
 import validateModel, { type Model } from '@sergtyapkin/models-validator';
-import { UserModel } from '~/utils/APIModels';
+import {UserModel, UserModelMockData} from '~/utils/APIModels';
 
 type RequestFunc = (url: string, data?: object) => Promise<{ data: object; status: number; ok: boolean }>;
 type MyResponse<T> = Promise<{ data: T; status: number; ok: boolean }> | { data: T; status: number; ok: boolean };
+
+const Response200 = (data: any) => ({
+  status: 200,
+  ok: true,
+  data: data,
+});
 
 export default class API extends REST_API {
   constructor(baseUrl?: string) {
@@ -48,25 +54,19 @@ export default class API extends REST_API {
   // Api configuration
   // User
   getUser = () =>
-    this.#GET(`/user`, {}, UserModel, {
-      ok: true,
-      status: 200,
-      data: validateModel(UserModel, {
-        id: 'USER_ID',
-        username: 'SergTyapkin',
-        email: 'Tyapkin2002@mail.ru',
-        role: 'user',
-      }),
-    }) as MyResponse<User>;
+    this.#GET(`/user`, {}, UserModel, Response200(UserModelMockData)) as MyResponse<User>;
   updateProfile = (id: string, profileData: { username?: string; email?: string; password?: string }) =>
     this.#PUT(`/user/${id}`, profileData, UserModel) as MyResponse<User>;
   register = (username: string, email: string, password: string) =>
     this.#POST(`/user`, { username, email, password }, UserModel) as MyResponse<User>;
-  deleteProfile = () => this.#DELETE(`/user`) as MyResponse<unknown>;
+  deleteProfile = () =>
+    this.#DELETE(`/user`) as MyResponse<unknown>;
   login = (usernameOrEmail: string, password: string) =>
     this.#POST(`/auth`, { username_or_email: usernameOrEmail, password }, UserModel) as MyResponse<User>;
-  logout = () => this.#DELETE(`/auth`) as MyResponse<unknown>;
-  sendPasswordRestorationLetter = () => this.#POST(`/auth/password/restore`) as MyResponse<unknown>;
+  logout = () =>
+    this.#DELETE(`/auth`) as MyResponse<unknown>;
+  sendPasswordRestorationLetter = () =>
+    this.#POST(`/auth/password/restore`) as MyResponse<unknown>;
   restorePasswordByCode = (code: string, newPassword: string): MyResponse<unknown> =>
     this.#PUT(`/auth/password/restore`, { code, new_password: newPassword }) as MyResponse<unknown>;
 }

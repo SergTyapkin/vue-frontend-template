@@ -78,11 +78,10 @@
 <script lang="ts">
 import { getCurrentInstance } from 'vue';
 import { Modals, Popups } from '@sergtyapkin/modals-popups';
-import CircleLoading from '~/components/loaders/CircleLoading.vue';
 import API from '~/utils/API';
 
 export default {
-  components: { CircleLoading, Modals, Popups },
+  components: { Modals, Popups },
 
   data(): {
     transitionName: string;
