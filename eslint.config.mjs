@@ -87,6 +87,7 @@ export default [
       'vue/multi-word-component-names': 'off',
       'vue/no-mutating-props': 'off',
       // 'vue/v-for-delimiter-style': ['error', 'of'],
+      'vue/require-v-for-key': 'off',
       'vue/next-tick-style': ['error', 'promise'],
       'vue/require-prop-types': 'error',
       'vue/prop-name-casing': ['error', 'camelCase'],
@@ -119,7 +120,7 @@ export default [
       'vue/v-bind-style': 'error',
       'vue/v-slot-style': ['error', 'shorthand'],
       'vue/no-unused-properties': [
-        'error',
+        'warn',
         {
           groups: ['props', 'data', 'computed', 'setup'], // 'methods'
           ignorePublicMembers: true,
@@ -127,7 +128,7 @@ export default [
       ],
       'max-len': [
         'warn',
-        120,
+        140,
         2,
         {
           ignoreComments: true,
