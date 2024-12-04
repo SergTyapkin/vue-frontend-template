@@ -105,6 +105,10 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
     },
     build: {
       // chunkSizeWarningLimit: 600,
+      modulePreload: false,
+      target: 'esnext',
+      minify: true,
+      sourcemap: true,
       cssCodeSplit: false,
     },
   };

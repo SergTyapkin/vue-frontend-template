@@ -75,3 +75,18 @@ export function detectOS() {
   if (window.navigator.userAgent.indexOf('Linux') !== -1) return 'Linux';
   return 'Unknown OS';
 }
+
+export function deepClone<T extends object>(obj: T): T {
+  const ret = (obj instanceof Array ? [] : {}) as T;
+  for (const key in obj) {
+    if (obj[key] === undefined) {
+      continue;
+    }
+    let val = obj[key];
+    if (val && typeof (val) == 'object') {
+      val = deepClone(val);
+    }
+    ret[key] = val;
+  }
+  return ret;
+}
