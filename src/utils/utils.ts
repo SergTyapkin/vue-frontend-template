@@ -76,7 +76,7 @@ export function detectOS() {
   return 'Unknown OS';
 }
 
-export function deepClone<T extends object>(obj: T): T {
+export function deepClone<T>(obj: T): T {
   const ret = (obj instanceof Array ? [] : {}) as T;
   for (const key in obj) {
     if (obj[key] === undefined) {
