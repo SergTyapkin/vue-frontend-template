@@ -10,6 +10,7 @@ services:
         - NGINX_RELEASE
         - NODE_RELEASE
     volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./container-dist:/frontend-dist:rw
       - ./certbot/www:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
