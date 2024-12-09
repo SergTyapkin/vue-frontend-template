@@ -1,6 +1,6 @@
 import { type Store as VuexStore } from 'vuex';
 import App from '~/App.vue';
-import { type Commit, type Dispatch } from '@node_modules/vuex';
+import { type Commit, type Dispatch } from 'vuex';
 
 interface Store extends VuexStore<any> {
   $app: App;

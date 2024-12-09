@@ -96,11 +96,7 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
         {
           find: '#', // to use # as static root like: "import SomeResource from '#/icons/SomeResource.png'"
           replacement: path.resolve(__dirname, 'static'),
-        },
-        {
-          find: '@node_modules', // to use @node_modules as node_modules root like: "import Some from '@node_modules/Some'"
-          replacement: path.resolve(__dirname, 'node_modules'),
-        },
+        }
       ],
     },
     build: {

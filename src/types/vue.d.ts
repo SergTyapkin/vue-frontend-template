@@ -1,12 +1,14 @@
 import App from "~/App.vue";
 import API from "~/Api";
-import {VueElement} from "vue";
+import { Modals, Popups } from '@sergtyapkin/modals-popups';
+import { WS } from '@sergtyapkin/reconnecting-websocket';
 
 declare module 'vue' {
   interface ComponentCustomProperties {
     $app: App,
     $api: API,
-    $modals: VueElement,
-    $popups: VueElement,
+    $ws: WS,
+    $modals: typeof Modals,
+    $popups: typeof Popups,
   }
 }
