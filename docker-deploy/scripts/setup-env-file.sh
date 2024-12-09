@@ -1,12 +1,12 @@
-cp --no-clobber ./docker-deploy/.env.example ./docker-deploy/.env
+cp --no-clobber .env.example .env
 echo ""
 echo "Edit .env file."
-echo "Write right DOMAIN_URL without https:// and url paths!"
+echo "Write right VITE_DEPLOY_HOSTNAME without https:// and url paths!"
 echo "Set right API_HOST - it's host of backend. If backend deployed in local docker - it's the name of docker container"
 echo "Set right API_PORT - it's port of backend"
 echo "[press Enter...]"
 read ENTER
-nano ./docker-deploy/.env
+nano .env
 
 echo ""
 echo "Is your backend deployed on this computer or docker-cluster in docker container? (y/N): "
