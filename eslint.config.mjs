@@ -45,7 +45,7 @@ export default [
 
   {
     name: 'Global ignores',
-    ignores: ['dist/', 'container-dist/', 'certbot/', 'coverage/', 'docs/'],
+    ignores: ['dist/', 'certbot/', 'coverage/', 'docs/'],
   },
 
   // Custom setup

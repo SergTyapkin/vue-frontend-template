@@ -95,7 +95,6 @@ docs
 # Nuxt.js build / generate output
 .nuxt
 dist
-container-dist
 
 # Gatsby files
 .cache/
