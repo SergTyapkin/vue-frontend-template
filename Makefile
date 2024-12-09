@@ -1,6 +1,10 @@
 -include .env
 
 
+info:
+	echo "[!! You runs make command with no targets. You must specify target after 'make'. For example 'make all' !!]" && \
+	echo "Available targets: all; update; build; run; down; generate-certs; renew-certs; generate-certs; setup-ci; install-docker-if-not-exists; set-docker-not-sudo; setup-env-file."
+
 build:
 	echo "[Make]: Running 'build' target in Makefile..." && \
   cd docker-deploy && \
