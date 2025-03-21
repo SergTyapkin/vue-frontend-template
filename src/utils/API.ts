@@ -21,13 +21,13 @@ export default class API extends REST_API {
     path: string,
     data = {},
     model?: Model,
-    mockData?: object,
+    mockData?: { ok: boolean; data: object; status: number },
   ): Promise<{ ok: boolean; data: object; status: number }> {
     if (!model) {
       throw SyntaxError(`Model for request '${path}' not specified`);
     }
     if (mockData && import.meta.env.MODE !== 'production') {
-      return { ok: true, data: mockData, status: 200 };
+      return mockData;
     }
 
     data = Object.assign({}, data);
