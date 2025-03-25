@@ -36,7 +36,7 @@
 npm run dev
 ```
 
-_У вас должна быть установлена `node`. [Установка Node.js](;https://nodejs.org/en/download)_
+_У вас должна быть установлена `node`. [Установка Node.js](https://nodejs.org/en/download)_
 
 # Развертка в деплой
 
@@ -50,7 +50,13 @@ git clone git@github.com:SergTyapkin/vue-frontend-template.git
 
 ## 2. Настраиваем вообще всё.
 
-В самом начале нужно будет настроить `.env` файл, прописать правильный `VITE_DEPLOY_HOSTNAME` без https:// вначале
+В самом начале нужно будет настроить `.env` файл:
+
+> - `EXTERNAL_DOCKER_NETWORK_NAME` - если указано, подключается к существующей сети докера (какой-то прокси), как к external сети
+> - `API_HOST`, `API_PORT` - адрес проксирования на API. Если проксируется внутри сети докера, указывается _название контейнера_ как хост и его _внутренний_ порт
+> - `VITE_DEPLOY_HOSTNAME` - хост сайта без https:// в начале
+> - `VITE_HTTPS` - раздавать ли сайт по HTTPS, и получать ли для этого сертификаты. В случае, если _false_, раздача осуществляется только по HTTP, и DEPLOY_NGINX_PORT_HTTPS можно не указывать
+> - `DEPLOY_NGINX_PORT_HTTP`, `DEPLOY_NGINX_PORT_HTTPS` - порты для раздачи сайта по HTTP и HTTPS. Если `VITE_HTTPS` в значении _false_, то раздача осуществляется только по HTTP
 
 ```SHELL
 cd vue-frontend-template

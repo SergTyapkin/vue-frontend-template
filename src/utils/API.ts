@@ -21,7 +21,7 @@ export default class API extends REST_API {
     path: string,
     data = {},
     model?: Model,
-    mockData?: { ok: boolean; data: object; status: number },
+    mockData?: MyResponse<object>,
   ): Promise<{ ok: boolean; data: object; status: number }> {
     if (!model) {
       throw SyntaxError(`Model for request '${path}' not specified`);
@@ -38,16 +38,16 @@ export default class API extends REST_API {
 
     return { ok, data: validateModel(model, dataRes), status };
   }
-  #POST(path: string, data = {}, model?: Model, mockData?: object) {
+  #POST(path: string, data = {}, model?: Model, mockData?: MyResponse<object>) {
     return this.modelParsedRequest(super.post, path, data, model, mockData);
   }
-  #GET(path: string, data = {}, model?: Model, mockData?: object) {
+  #GET(path: string, data = {}, model?: Model, mockData?: MyResponse<object>) {
     return this.modelParsedRequest(super.get, path, data, model, mockData);
   }
-  #PUT(path: string, data = {}, model?: Model, mockData?: object) {
+  #PUT(path: string, data = {}, model?: Model, mockData?: MyResponse<object>) {
     return this.modelParsedRequest(super.put, path, data, model, mockData);
   }
-  #DELETE(path: string, data = {}, model?: Model, mockData?: object) {
+  #DELETE(path: string, data = {}, model?: Model, mockData?: MyResponse<object>) {
     return this.modelParsedRequest(super.delete, path, data, model, mockData);
   }
 
