@@ -1,4 +1,4 @@
-external_docker_network_name="$(. "./.env"; echo "EXTERNAL_DOCKER_NETWORK_NAME" | tr -dc "a-zA-Z0-9_.-")"
+external_docker_network_name="$(. "./.env"; echo "$EXTERNAL_DOCKER_NETWORK_NAME" | tr -dc "a-zA-Z0-9_.-")"
 cat ./docker-deploy/docker-compose.template.yaml > ./docker-deploy/docker-compose.yaml
 if [[ -n "${external_docker_network_name}" ]]
 then
