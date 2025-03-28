@@ -18,7 +18,7 @@
 #echo "" && \
 #echo 'Add this public rsa key to Deploy keys in your github directory: ' && \
 #sudo cat /home/github/.ssh/id_rsa.pub
-key_name="$(. ".env"; eval "echo \${DOMAIN_URL}" | tr -dc "a-zA-Z0-9_.-")"
+key_name="$(. ".env"; eval "echo \${VITE_DEPLOY_HOSTNAME}" | tr -dc "a-zA-Z0-9_.-")"
 ssh-keygen -f "/tmp/${key_name}"
 sudo mkdir -p ~/.ssh
 sudo cat "/tmp/${key_name}.pub" | sudo tee -a ~/.ssh/authorized_keys > /dev/null
