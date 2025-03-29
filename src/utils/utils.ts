@@ -1,3 +1,5 @@
+import swAPI from '~/serviceWorker/swAPI';
+
 export function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)'),
@@ -89,4 +91,36 @@ export function deepClone<T>(obj: T): T {
     ret[key] = val;
   }
   return ret;
+}
+
+export async function saveAllAssetsByServiceWorker(
+  callbackEach?: (data: {current: string, progress: number, total: number}) => void,
+  callbackFinish?: () => void,
+  callbackError?: (errUrl: string | null) => void,
+) {
+  let allCachableResources: string[] = [];
+  try {
+    allCachableResources = await import(`${'/assetsList.js'}`);
+  } catch {
+    console.info('Cannot find assetsList.js. Nothing to cache. Maybe we are in develompent mode' )
+  }
+
+  async function saveAllSite() {
+    try {
+      await swAPI.cacheUrls(allCachableResources, callbackEach);
+      callbackFinish ? callbackFinish() : null;
+    } catch (errUrl) {
+      callbackError ? callbackError(errUrl as unknown as string | null) : null;
+    }
+  }
+
+  async function saveAllIfNotSaved() {
+    if (await swAPI.isFilesCached(allCachableResources)) {
+      callbackFinish ? callbackFinish() : null;
+      return;
+    }
+    await saveAllSite();
+  }
+
+  await saveAllIfNotSaved();
 }

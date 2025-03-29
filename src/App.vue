@@ -79,6 +79,7 @@
 import { getCurrentInstance } from 'vue';
 import { Modals, Popups } from '@sergtyapkin/modals-popups';
 import API from '~/utils/API';
+import { saveAllAssetsByServiceWorker } from '~/utils/utils';
 
 export default {
   components: { Modals, Popups },
@@ -106,6 +107,8 @@ export default {
     window.addEventListener('resize', () => {
       this.checkMobileScreen();
     });
+
+    saveAllAssetsByServiceWorker();
   },
 
   methods: {
