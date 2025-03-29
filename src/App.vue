@@ -108,7 +108,9 @@ export default {
       this.checkMobileScreen();
     });
 
-    saveAllAssetsByServiceWorker();
+    saveAllAssetsByServiceWorker(({current, total, progress}) => {
+      console.log(`Saved resource by SW: ${current}. Progress: ${progress}/${total}`);
+    });
   },
 
   methods: {
