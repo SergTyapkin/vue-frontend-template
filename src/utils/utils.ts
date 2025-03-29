@@ -100,7 +100,8 @@ export async function saveAllAssetsByServiceWorker(
 ) {
   let allCachableResources: string[] = [];
   try {
-    allCachableResources = await import(`${'/assetsList.js'}`);
+    const module = await import(`${'/assetsList.js'}`);
+    allCachableResources = module.default; // list of all cachable resources urls
   } catch {
     console.info('Cannot find assetsList.js. Nothing to cache. Maybe we are in develompent mode' )
   }
