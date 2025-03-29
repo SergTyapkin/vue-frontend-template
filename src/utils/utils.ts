@@ -108,15 +108,21 @@ export async function saveAllAssetsByServiceWorker(
   async function saveAllSite() {
     try {
       await swAPI.cacheUrls(allCachableResources, callbackEach);
-      callbackFinish ? callbackFinish() : null;
+      if (callbackFinish) {
+        callbackFinish();
+      }
     } catch (errUrl) {
-      callbackError ? callbackError(errUrl as unknown as string | null) : null;
+      if (callbackError) {
+        callbackError(errUrl as unknown as string | null);
+      }
     }
   }
 
   async function saveAllIfNotSaved() {
     if (await swAPI.isFilesCached(allCachableResources)) {
-      callbackFinish ? callbackFinish() : null;
+      if (callbackFinish) {
+        callbackFinish();
+      }
       return;
     }
     await saveAllSite();

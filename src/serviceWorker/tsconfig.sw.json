@@ -8,7 +8,5 @@
     "target": "ESNext",
     "isolatedModules": false
   },
-  "include": [
-    "sw"
-  ],
+  "include": ["sw"]
 }

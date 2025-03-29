@@ -1,5 +1,7 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
+import type { SWCallbackEach } from '~/serviceWorker/swAPI';
+
 const sw = self as unknown as ServiceWorkerGlobalScope & typeof globalThis;
 export {};
 
@@ -57,7 +59,9 @@ function broadcastPostMessage(message: object) {
         // array is ordered by last focused
         clients[0].postMessage(message);
       }
-    });
+      return;
+    })
+    .catch(err => console.error("Unknown error when sending broadcast message:", err));
 }
 
 console.log('SW file initialized');
@@ -121,7 +125,7 @@ async function setCached(url: string, response: Response, openedCache?: Cache) {
   await cache.put(url, newResponse);
 }
 
-async function downloadAll(urls: string[], callbackEach: Function, openedCache = undefined) {
+async function downloadAll(urls: string[], callbackEach: SWCallbackEach, openedCache = undefined) {
   const cache = openedCache || (await caches.open(CACHE_KEYNAME));
   const promises: Promise<any>[] = [];
   let finishedCount = 0;
@@ -135,7 +139,8 @@ async function downloadAll(urls: string[], callbackEach: Function, openedCache =
         .then(async response => {
           await setCached(url, response.clone(), cache);
           finishedCount++;
-          callbackEach({ current: url, progress: finishedCount });
+          callbackEach({ current: url, progress: finishedCount, total: urls.length });
+          return;
         })
         .catch(err => {
           errorUrl = url;
@@ -156,7 +161,7 @@ sw.addEventListener('message', async event => {
     }
     const errorUrl = await downloadAll(
       event.data.payload,
-      (data: { current: string; progress: number; total: number }) => {
+      data => {
         broadcastPostMessage(
           PostMessage(
             PostMessagesNames.swCacheProgress,
@@ -212,7 +217,7 @@ sw.addEventListener('fetch', function (event) {
         return response.clone();
       }
       return null;
-    } catch (err) {
+    } catch {
       return null;
     }
   };

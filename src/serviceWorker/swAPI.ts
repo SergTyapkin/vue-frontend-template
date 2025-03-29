@@ -2,9 +2,9 @@ const DEFAULT_SW_FILE_PATH = 'sw.js';
 const DEFAULT_SCOPE = '.';
 const DEFAULT_REGISTER_SW_OVERWRITING = true; // Регистрировать ли новую версию Service Worker'а если ещё активна старая
 
-type CallbackEach = (data: { current: string; total: number; progress: number }) => void;
-type CallbackError = (errUrl: string) => void;
-type CallbackIsUrlCached = (result: boolean) => void;
+export type SWCallbackEach = (data: { current: string; total: number; progress: number }) => void;
+export type SWCallbackError = (errUrl: string) => void;
+export type SWCallbackIsUrlCached = (result: boolean) => void;
 
 
 // Типы PostMessage для общения приложения с service worker'ом
@@ -76,7 +76,7 @@ function onServiceWorkerStateChanged(e: Event) {
 }
 
 // ------ MESSAGES HANDLING ---------
-const SWMessagesHandlers: { [key: string]: { [key: string]: CallbackEach | CallbackError | CallbackIsUrlCached } } = {};
+const SWMessagesHandlers: { [key: string]: { [key: string]: SWCallbackEach | SWCallbackError | SWCallbackIsUrlCached } } = {};
 
 function handleSWMessage(e: MessageEvent) {
   // console.log('MESSAGE', e.data.type, e.data.uid, e.data.payload);
@@ -91,7 +91,7 @@ function handleSWMessage(e: MessageEvent) {
   }
 }
 
-function setMessageEventListenerOnSW(messageType: keyof typeof SWMessagesHandlers, uid: string, callback?: CallbackEach | CallbackError | CallbackIsUrlCached) {
+function setMessageEventListenerOnSW(messageType: keyof typeof SWMessagesHandlers, uid: string, callback?: SWCallbackEach | SWCallbackError | SWCallbackIsUrlCached) {
   if (!callback) {
     return;
   }
@@ -141,7 +141,7 @@ async function onServiceWorkerStateChangedSW(_sw = navigator.serviceWorker.contr
 // ------------ API -------------
 async function cacheUrls(
   urls: string[],
-  callbackEach?: CallbackEach,
+  callbackEach?: SWCallbackEach,
 ): Promise<string[] | string | null> {
   if (!SW) {
     console.error("SW: Error. Can't cache urls because SW is not initialized yet");
