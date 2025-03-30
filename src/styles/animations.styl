@@ -30,18 +30,20 @@ animation-float(time=0.5s, translateX=0, translateY=-20px)
   opacity 0
   animation float time ease forwards
   animation-index-delay()
+
   @keyframes float
     from
-      opacity 0
       transform translate(translateX, translateY)
+      opacity 0
     to
+      transform translate(0, 0)
       opacity 1
-      transform translateY(0, 0)
 
 animation-opacity(time=0.5s)
   opacity 0
   animation opacity time ease forwards
   animation-index-delay()
+
   @keyframes float
     from
       opacity 0
