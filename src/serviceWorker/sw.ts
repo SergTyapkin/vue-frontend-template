@@ -22,8 +22,12 @@ const STRATEGY_CACHE_FIRST = true;
 const DISABLE_CACHING_URLS_REGEXPS = [/sw\.js/];
 
 // для страниц слева будут несмотря на url отдаваться ресурсы справа
+const word = '[\\w-~!*\'()<>"{}|^`]+';
+const baseUrl = `(http(s)?://${word}(\\.${word})+)`;
+const anyEnding = `([?/].*)?`;
 const OVERRIDE_RESOURCE_MAPPING_REGEXPS = {
-  '^(http(s)?://\\w+(\\.\\w+)+)/?$': '$1/index.html',
+  [`^${baseUrl}/?$`]: '$1/index.html',
+  [`^${baseUrl}/some-path${anyEnding}$`]: '$1/index.html',
 };
 
 // Типы PostMessage для общения приложения с service worker'ом
