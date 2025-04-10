@@ -1,5 +1,5 @@
 import App from "~/App.vue";
-import API from "~/Api";
+import API from "~/utils/API";
 import { Modals, Popups } from '@sergtyapkin/modals-popups';
 import { WS } from '@sergtyapkin/reconnecting-websocket';
 
