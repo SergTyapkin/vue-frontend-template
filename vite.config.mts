@@ -118,7 +118,7 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
       modulePreload: false,
       target: 'esnext',
       minify: true,
-      sourcemap: true,
+      sourcemap: mode != 'production',
       cssCodeSplit: false,
     },
   };
