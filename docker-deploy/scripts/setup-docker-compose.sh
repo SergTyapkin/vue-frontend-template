@@ -3,8 +3,8 @@ cat ./docker-deploy/docker-compose.template.yaml > ./docker-deploy/docker-compos
 if [[ -n "${external_docker_network_name}" ]]
 then
   echo "Setted up external docker network with name: ${external_docker_network_name}"
-  echo "    external:
-      name: ${external_docker_network_name}" >> ./docker-deploy/docker-compose.yaml
+  echo "    external: true
+    name: ${external_docker_network_name}" >> ./docker-deploy/docker-compose.yaml
 fi
 
 enable_https="$(. "./.env"; echo "$VITE_HTTPS" | tr -dc "a-zA-Z")"
