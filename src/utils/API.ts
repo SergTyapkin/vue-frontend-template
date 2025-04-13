@@ -27,6 +27,7 @@ export default class API extends REST_API {
       throw SyntaxError(`Model for request '${path}' not specified`);
     }
     if (mockData && import.meta.env.MODE !== 'production') {
+      console.info(`Request mocked: ${requestFunc.name}, ${path},`, mockData);
       return mockData;
     }
 
