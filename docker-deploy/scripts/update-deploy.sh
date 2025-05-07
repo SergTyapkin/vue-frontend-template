@@ -4,4 +4,5 @@ echo "Deploying last commit:"
 git log --oneline -1
 make build &&
 make run &&
-echo "Frontend updated successfully"
+echo "✅ Frontend updated successfully" ||
+echo "❌ Errors when updating"

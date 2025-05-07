@@ -1,4 +1,4 @@
-enable_https="$(. "./.env"; echo "$VITE_HTTPS" | tr -dc "a-zA-Z")"
+enable_https="$(. "./.env"; echo "$VITE_HTTPS" | tr -dc "a-zA-Z")" &&
 if [[ $enable_https == "true" ]] || [[ $enable_https == "True" ]] || [[ $enable_https == "TRUE" ]]
     then
       HTTP_NGINX_CONFIG="
@@ -32,8 +32,10 @@ if [[ $enable_https == "true" ]] || [[ $enable_https == "True" ]] || [[ $enable_
 
   include /etc/nginx/conf.d/locations/https/*.conf;"
       HTTPS_NGINX_CONFIG=""
-fi
+fi &&
 
-cd ./docker-deploy || exit
-docker compose --env-file ../.env --progress=plain build --build-arg HTTP_NGINX_CONFIG="${HTTP_NGINX_CONFIG}" --build-arg HTTPS_NGINX_CONFIG="${HTTPS_NGINX_CONFIG}" nginx
+cd ./docker-deploy &&
+docker compose --env-file ../.env --progress=plain build --build-arg HTTP_NGINX_CONFIG="${HTTP_NGINX_CONFIG}" --build-arg HTTPS_NGINX_CONFIG="${HTTPS_NGINX_CONFIG}" nginx &&
+echo "✅ Docker image built" ||
+echo "❌ Errors when building docker image"
 
