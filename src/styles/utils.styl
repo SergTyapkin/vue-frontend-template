@@ -34,6 +34,35 @@ list-no-styles()
   padding 0
   list-style none
 
+svg-inside(size=1lh, marginLeft=0px, marginRight=10px)
+  display flex
+  align-items center
+  > img
+    width size
+    height size
+    margin 0 marginRight 0 marginLeft
+
+img-size(size=16px)
+  display inline-block
+  width size
+  height size
+
+clickbox-before(inset=-10px)
+  position relative
+  &::before
+    content ''
+    position absolute
+    inset inset
+    background transparent
+
+max-lines(count)
+  overflow hidden
+  display -webkit-box
+  -webkit-box-orient vertical
+  -webkit-line-clamp count
+  line-clamp count
+  text-overflow ellipsis
+
 pc-hidden()
   @media ({desktop})
     display none
