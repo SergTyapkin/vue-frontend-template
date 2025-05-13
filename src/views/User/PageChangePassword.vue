@@ -2,7 +2,7 @@
 @import '../../styles/constants.styl'
 @import '../../styles/buttons.styl'
 
-.root-signin
+.root-change-password
   width 100%
   padding 20px
   .form
@@ -13,7 +13,7 @@
     color colorText1
     text-align center
     background-color colorBg
-    border-radius borderRadiusM
+    border-radius radiusM
     font-large()
     font-bold()
     .profile-link
@@ -37,7 +37,7 @@
 </style>
 
 <template>
-  <div class="root-signin">
+  <div class="root-change-password">
     <div class="form">
       СМЕНА ПАРОЛЯ<br>
       <FormWithErrors

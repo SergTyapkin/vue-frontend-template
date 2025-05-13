@@ -1,9 +1,10 @@
 import Vuex from 'vuex';
 import { type State, type Store } from '~/types/store';
+import { User } from '~/utils/models';
 
 export default new Vuex.Store({
   state: {
-    user: {},
+    user: {} as User,
   },
   mutations: {
     SET_USER(state: State, userData: User) {

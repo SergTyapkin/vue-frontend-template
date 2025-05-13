@@ -1,9 +1,6 @@
 root /frontend-dist;
 index index.html;
 
-location ^~ /api/? {  # proxy to API
-    proxy_pass http://${API_HOST}:${API_PORT};
-}
 location / {  # try files for SPA
     try_files $uri $uri/ $uri.html /index.html;
 }

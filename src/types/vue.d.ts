@@ -10,5 +10,14 @@ declare module 'vue' {
     $ws: WS,
     $modals: typeof Modals,
     $popups: typeof Popups,
+    $log: (data: any) => void,
+    $request: <APIFoo extends (...args: any) => any, Fallback>(
+      context: { loading: boolean },
+      apiRequest: APIFoo,
+      args: Parameters<APIFoo>,
+      errorText: string,
+      callback?: (data: Awaited<ReturnType<APIFoo>>['data'], status: number) => any,
+      toFallbackValue?: Fallback,
+    ) => Promise<Awaited<ReturnType<APIFoo>>['data'] | Fallback>,
   }
 }

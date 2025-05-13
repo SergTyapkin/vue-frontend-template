@@ -3,12 +3,12 @@
 <template>
   <div class="root-restore-password">
     <div v-if="!code">
-      <h1>Восстановление пароля</h1>
+      <header>Восстановление пароля</header>
       <input v-model="email" placeholder="email">
       <button @click="sendRestorePasswordEmail">Выслать письмо</button>
     </div>
     <div v-else>
-      <h1>Установить новый пароль</h1>
+      <header>Установить новый пароль</header>
       <input v-model="newPassword" placeholder="Пароль">
       <input v-model="newPasswordConfirm" placeholder="Подтверждение">
       <button @click="restorePassword">Сменить пароль</button>

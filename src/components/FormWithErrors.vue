@@ -1,7 +1,11 @@
 <style lang="stylus" scoped>
-@import '../styles/buttons.styl'
 @import '../styles/constants.styl'
+@import '../styles/components.styl'
+@import '../styles/buttons.styl'
 @import '../styles/fonts.styl'
+@import '../styles/utils.styl'
+@import '../styles/animations.styl'
+@import '../styles/scrollbars.styl'
 
 border-color = colorText1
 input-border = 2px solid border-color
@@ -37,7 +41,7 @@ input-border = 2px solid border-color
       text-align left
       border input-border
       border-top-width 0
-      border-radius borderRadiusL
+      border-radius radiusL
       outline input-border
       outline-offset -2px
       transition all 0.2s ease, background-size 0.1s ease
@@ -139,7 +143,7 @@ input-border = 2px solid border-color
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import CircleLoading from '~/components/loaders/CircleLoading.vue';
 
 export default {

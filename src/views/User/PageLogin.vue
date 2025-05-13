@@ -13,7 +13,7 @@
     color colorText1
     text-align center
     background-color colorBg
-    border-radius borderRadiusM
+    border-radius radiusM
     font-large()
     font-bold()
     .profile-link

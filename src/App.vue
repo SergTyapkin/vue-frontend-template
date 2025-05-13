@@ -102,6 +102,28 @@ export default {
     this.global.$popups = this.$refs.popups;
     this.global.$app = this;
     this.global.$api = new API(`/api`);
+    this.global.$log = (data: any) => console.log(data);
+    this.global.$request = async <APIFoo extends (...args: any) => any, Fallback>(
+      context: { loading: boolean },
+      apiRequest: APIFoo,
+      args: Parameters<APIFoo>,
+      errorText: string,
+      callback?: (data: Awaited<ReturnType<APIFoo>>['data'], status: number) => any,
+      toFallbackValue?: Fallback,
+    ) => {
+      context.loading = true;
+      const { status, ok, data } = await apiRequest(...args);
+      context.loading = false;
+      if (!ok) {
+        this.$popups.error(`Ошибка ${status}`, errorText);
+        if (toFallbackValue) {
+          return toFallbackValue;
+        }
+        throw new Error(`Ошибка ${status} при запросе на API. ${errorText}`);
+      }
+      callback?.(data, status);
+      return data;
+    };
 
     this.checkMobileScreen();
     window.addEventListener('resize', () => {

@@ -13,7 +13,7 @@
     color colorText1
     text-align center
     background-color colorBg
-    border-radius borderRadiusM
+    border-radius radiusM
     .title
       font-large()
 

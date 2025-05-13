@@ -1,6 +1,11 @@
 <style lang="stylus" scoped>
 @import '../styles/constants.styl'
+@import '../styles/components.styl'
+@import '../styles/buttons.styl'
+@import '../styles/fonts.styl'
 @import '../styles/utils.styl'
+@import '../styles/animations.styl'
+@import '../styles/scrollbars.styl'
 
 padding = 5px
 
@@ -17,7 +22,7 @@ image-width = 30px
   height float-button-height
   padding padding
   padding-right ((float-button-height - image-width) / 2)
-  background empColor2_2
+  background colorEmp1
   box-shadow 3px 3px 5px colorShadow
 
   .fields
@@ -79,7 +84,7 @@ image-width = 30px
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   props: {
     title: {
