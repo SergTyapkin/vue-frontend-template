@@ -26,7 +26,7 @@ services:
 
   # Base frontend container. When all certs generated any other nginx containers must be stopped
   nginx:
-    container_name: ${FRONTEND_COMPOSE_NAME:-frontend-compose}-frontend-nginx
+    container_name: ${FRONTEND_CONTAINER_NAME:-frontend-nginx}
     env_file:
       - ../.env
     build:
