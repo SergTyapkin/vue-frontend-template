@@ -10,7 +10,7 @@ for proxy_num in $(seq 1 $proxy_services_count); do
   proxy_network_var_is_external_name="PROXY_${proxy_num}_NETWORK_IS_EXTERNAL"
   proxy_network_name=$(. ".env"; eval "echo \${${proxy_network_var_name}} | tr -dc \"a-zA-Z._-\"" )
   proxy_network_is_external=$(. ".env"; eval "echo \${${proxy_network_var_is_external_name}} | tr -dc \"a-zA-Z\"" )
-  echo "Add docker network with name: ${proxy_network_var_name}"
+  echo "Add docker network with name: ${proxy_network_name}"
 
   echo "      - ${proxy_network_name}" >> ./docker-deploy/docker-compose.yaml;
   final_networks_string="${final_networks_string}  ${proxy_network_name}:

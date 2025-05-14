@@ -85,7 +85,7 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
       VERSION: JSON.stringify(import('./package.json').version),
     },
     server: {
-      https: true,
+      https: /true/i.test(env.VITE_HTTPS),
       proxy: {
         // '/ws': {
         //   target: `ws://127.0.0.1:9000`,
