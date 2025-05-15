@@ -102,7 +102,7 @@ export default {
     this.global.$popups = this.$refs.popups;
     this.global.$app = this;
     this.global.$api = new API(`/api`);
-    this.global.$log = (data: any) => console.log(data);
+    this.global.$log = (...data: any[]) => console.log(...data);
     this.global.$request = async <APIFoo extends (...args: any) => any, Fallback>(
       context: { loading: boolean },
       apiRequest: APIFoo,

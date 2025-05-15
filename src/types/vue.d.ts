@@ -10,7 +10,7 @@ declare module 'vue' {
     $ws: WS,
     $modals: typeof Modals,
     $popups: typeof Popups,
-    $log: (data: any) => void,
+    $log: (...data: any[]) => void,
     $request: <APIFoo extends (...args: any) => any, Fallback>(
       context: { loading: boolean },
       apiRequest: APIFoo,
