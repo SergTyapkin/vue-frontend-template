@@ -25,6 +25,7 @@
   "scripts": {
     "prepare": "shx cp -n .env.example .env && husky",
     "dev": "vite --open --debug",
+    "dev prod": "vite --open --debug --mode=production",
     "dev host": "vite --open --host --port 443",
     "preview": "tsc && vite build && vite preview --open --host --port 443",
     "build": "tsc && vite build",
