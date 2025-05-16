@@ -7,6 +7,7 @@ declare module 'vue' {
   interface ComponentCustomProperties {
     $app: App,
     $api: API,
+    $isMobile: boolean,
     $ws: WS,
     $modals: typeof Modals,
     $popups: typeof Popups,

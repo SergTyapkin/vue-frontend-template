@@ -126,13 +126,15 @@ export default {
     };
 
     this.checkMobileScreen();
-    window.addEventListener('resize', () => {
-      this.checkMobileScreen();
-    });
+    window.addEventListener('resize', this.checkMobileScreen);
 
-    saveAllAssetsByServiceWorker(({current, total, progress}) => {
+    saveAllAssetsByServiceWorker(({ current, total, progress }) => {
       console.log(`Saved resource by SW: ${current}. Progress: ${progress}/${total}`);
     });
+  },
+
+  unmounted() {
+    window.removeEventListener('resize', this.checkMobileScreen);
   },
 
   methods: {
