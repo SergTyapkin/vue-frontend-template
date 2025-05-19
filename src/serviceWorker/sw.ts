@@ -21,6 +21,9 @@ const STRATEGY_CACHE_FIRST = true;
 // regExp-ссылок на НЕ-кэшируемые файлы
 const DISABLE_CACHING_URLS_REGEXPS = [/sw\.js/];
 
+// кол-во попыток загрузки файла, если они заканчиваются ошибкой
+const FILES_LOADING_RETRIES_COUNT = 3;
+
 // для страниц слева будут несмотря на url отдаваться ресурсы справа
 const word = '[\\w-~!*\'()<>"{}|^`]+';
 const baseUrl = `(http(s)?://${word}(\\.${word})+)`;
@@ -131,26 +134,36 @@ async function setCached(url: string, response: Response, openedCache?: Cache) {
 
 async function downloadAll(urls: string[], callbackEach: SWCallbackEach, openedCache = undefined) {
   const cache = openedCache || (await caches.open(CACHE_KEYNAME));
-  const promises: Promise<any>[] = [];
   let finishedCount = 0;
   let errorUrl = null;
-  urls.forEach(url => {
+  const promises = urls.map(async (url) => {
     if (isUrlNotCachable(url)) {
       return;
     }
-    promises.push(
-      fetch(url)
-        .then(async response => {
-          await setCached(url, response.clone(), cache);
-          finishedCount++;
-          callbackEach({ current: url, progress: finishedCount, total: urls.length });
-          return;
-        })
-        .catch(err => {
-          errorUrl = url;
-          console.warn('SW: Error on caching file', url, '| Error:', err);
-        }),
-    );
+
+    async function getResource(retryNumber: number): Promise<boolean> {
+      try {
+        const response = await fetch(url);
+        await setCached(url, response.clone(), cache);
+        finishedCount++;
+        callbackEach({ current: url, progress: finishedCount, total: urls.length });
+        return true;
+      } catch (err) {
+        console.warn(`SW: Error on caching file ${url} | Try: ${retryNumber} | Error: ${err}`);
+        return false;
+      }
+    }
+
+    let retryNumber = 0;
+    let res: boolean;
+    do {
+      res = await getResource(retryNumber);
+      retryNumber++;
+    } while (!res && retryNumber < FILES_LOADING_RETRIES_COUNT);
+    if (!res) {
+      errorUrl = url;
+      console.error(`SW: Error on caching file ${url} after ${FILES_LOADING_RETRIES_COUNT} retries`);
+    }
   });
   await Promise.all(promises);
   return errorUrl;
