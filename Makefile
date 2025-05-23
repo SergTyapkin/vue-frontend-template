@@ -45,20 +45,20 @@ setup-env-file:
 	echo "[Make]: Running 'setup-env-file' target in Makefile..." && \
   bash ./docker-deploy/scripts/setup-env-file.sh
 
-setup-docker-compose:
-	echo "[Make]: Running 'setup-docker-compose' target in Makefile..." && \
-  bash ./docker-deploy/scripts/setup-docker-compose.sh
+generate-docker-compose:
+	echo "[Make]: Running 'generate-docker-compose' target in Makefile..." && \
+  bash ./docker-deploy/scripts/generate-docker-compose.sh
 
 update:
 	echo "[Make]: Running 'update' target in Makefile..." && \
-	make setup-docker-compose && \
+	make generate-docker-compose && \
   bash ./docker-deploy/scripts/update-deploy.sh
 
 all:
 	echo "[Make]: Running 'all' target in Makefile..." && \
   make install-docker-if-not-exists
 	make setup-env-file
-	make setup-docker-compose
+	make generate-docker-compose
 	make generate-certs
 	make setup-auto-renewing-certs
 	make down
