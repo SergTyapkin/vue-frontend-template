@@ -3,34 +3,70 @@
 @import 'buttons.styl'
 @import 'utils.styl'
 
+page-root()
+  // box-sizing content-box
+  width 100%
+  max-width pageMaxWidth
+  margin-right 'max(calc((100% - %s) / 2), 0px)' % (pageMaxWidth + 2 * pageMinHorizontalPadding)
+  margin-left 'max(calc((100% - %s) / 2), 0px)' % (pageMaxWidth + 2 * pageMinHorizontalPadding)
+  padding 30px pageMinHorizontalPadding 70px pageMinHorizontalPadding
+
+
 block(colorBorder=colorBorder)
   display block
-  padding 35px
-  border colorBorder 2px solid
-  border-radius radiusXL
-
+  padding 16px
+  border-radius radiusL
   header
-    font-large()
-
+    font-medium()
+    font-bold()
   section
     font-medium()
-block-bg(colorBg=colorBg)
+
+block-shadow()
+  block()
+
+  box-shadow 0 0 10px 2px colorShadow
+
+block-bg(colorBg=colorBlockBg)
+  block()
+
   display block
   background colorBg
 
+block-bg-shadow()
+  block-bg()
+  block-shadow()
+
+
 input()
+  input-no-styles()
+
   cursor text
+  display flex
+  align-items center
+  height 45px
   margin 0
-  padding 5px 10px
-  color colorText2
-  background colorBg
-  border colorBorder 1px solid
-  border-radius radiusxs
+  padding 0 15px
+  color colorText1
+  background transparent
+  border 2px solid colorBorder
+  border-radius radiusM
+  font-small()
 
   &::placeholder
-    color colorText4
+    color colorText2
 
   &:focus
-    color colorText1
-    border-color colorBg
+    // color colorEmp1
+    background colorSuccessBg
+    border-color colorEmp1
+  &.error
+    border-color colorError
+  &.success
+    border-color colorSuccess
+  &[disabled]:not([disabled="false"])
+    cursor default
+    color colorText2
+    background mix(colorBlockBg, transparent, 10%)
+
   trans()

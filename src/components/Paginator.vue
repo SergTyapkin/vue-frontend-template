@@ -11,6 +11,7 @@ paginator-button()
   button-no-styles()
   font-small()
 
+  padding 5px 10px
   border-radius radiusM
 
 .root-paginator
@@ -23,7 +24,7 @@ paginator-button()
     paginator-button()
 
     padding 5px 10px
-    color colorTextLight1
+    color colorTextInvert1
     background colorEmp1
     trans()
     &:hover
@@ -41,7 +42,6 @@ paginator-button()
 
     > *
       width 30px
-      padding 5px 0
       color colorEmp1
       background colorBlockBg
       paginator-button()
@@ -52,7 +52,7 @@ paginator-button()
         &:hover
           background colorBlockBgSelected
         &.selected
-          color colorTextLight1
+          color colorTextInvert1
           background colorEmp1
 
 </style>

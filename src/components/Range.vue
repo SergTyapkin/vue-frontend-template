@@ -15,6 +15,7 @@ splitters-labels-color = colorEmp1
 thumb-width = 25px
 
 .slider-container
+  font-small-extra()
   --percent calc(var(--percent-number) * 100%)
 
   user-select none
@@ -88,7 +89,7 @@ thumb-width = 25px
       width thumb-width
       height thumb-width
       margin-left (thumb-width / 2)
-      color colorTextLight1
+      color colorTextInvert1
       background colorEmp1
       // background transparent
       border none
@@ -142,19 +143,25 @@ thumb-width = 25px
     .input-container
       opacity 0.4
       filter saturate(0)
-  font-small-extra()
+  &.no-value
+    .input-container
+      .range
+        background range-empty-background
+      .range-thumb
+      .value
+        opacity 0
 </style>
 
 <template>
   <div
     class="slider-container"
-    :class="{ disabled, readonly }"
+    :class="{ disabled, readonly, 'no-value': !isFinite(modelValue) }"
     :style="{
       '--labels-count': labelsCount,
       '--value': modelValue,
       '--min': min,
       '--max': max,
-      '--percent-number': (modelValue - min) / (max - min),
+      '--percent-number': (modelValue || 0 - min) / (max - min),
     }"
   >
     <input

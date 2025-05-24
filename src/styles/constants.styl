@@ -2,23 +2,33 @@
 // Ни в каких других файлах не должно быть цветов, указанных через #RGB (black(#000) и white(#fff) использовать можно).
 // Только через зависимости от этих, например mix(colorEmp1, white).
 
-colorEmp1 = #6f0
-colorEmp2 = #e30bea
-colorEmp3 = #fd0
+pageMaxWidth = 1280px // around 1280px
+pageMinHorizontalPadding = 20px
 
-colorBg = #303030
+colorEmp1 = #4f610a
+colorEmp1Hover = #8a8112
+colorEmp2 = #ff9b2a
+colorEmp2Hover = #933d08
 
-colorText1 = #e7e7e7
-colorText2 = mix(colorText1, black, 90%)
-colorText3 = mix(colorText1, black, 80%)
-colorText4 = mix(colorText1, black, 65%)
-colorText5 = mix(colorText1, black, 50%)
+colorBg = #202020
+colorBlockBg = #7a7a7a
+colorBlockBgEmp1 = colorEmp1
+colorBlockBgEmp2 = colorEmp2
+colorBlockBgEmp1Gradient = linear-gradient(15deg, colorEmp1, colorEmp1Hover 40%, colorEmp1 60%)
+colorBlockBgEmp2Gradient = linear-gradient(15deg, colorEmp2, colorEmp2Hover 40%, colorEmp2 60%)
 
-colorTextDark1 = #1a1a1a
-colorTextDark2 = mix(colorTextDark1, white, 90%)
-colorTextDark3 = mix(colorTextDark1, white, 80%)
-colorTextDark4 = mix(colorTextDark1, white, 65%)
-colorTextDark5 = mix(colorTextDark1, white, 50%)
+colorText1 = #fff
+_colorTextToMix = black
+colorText2 = mix(colorText1, _colorTextToMix, 90%)
+colorText3 = mix(colorText1, _colorTextToMix, 80%)
+colorText4 = mix(colorText1, _colorTextToMix, 65%)
+colorText5 = mix(colorText1, _colorTextToMix, 50%)
+
+colorTextInvert1 = invert(colorText1)
+colorTextInvert2 = invert(colorText2)
+colorTextInvert3 = invert(colorText3)
+colorTextInvert4 = invert(colorText4)
+colorTextInvert5 = invert(colorText5)
 
 colorSuccess = #54f851
 colorAlert = #ffd748

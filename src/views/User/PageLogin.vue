@@ -1,46 +1,23 @@
 <style scoped lang="stylus">
 @import '../../styles/constants.styl'
+@import '../../styles/components.styl'
 @import '../../styles/buttons.styl'
+@import '../../styles/fonts.styl'
+@import '../../styles/utils.styl'
+@import '../../styles/animations.styl'
+@import '../../styles/scrollbars.styl'
 
 .root-signin
-  width 100%
-  padding 20px
-  .form
-    max-width 600px
-    margin 20px auto
-    padding 20px
-    padding-top 10px
-    color colorText1
-    text-align center
-    background-color colorBg
-    border-radius radiusM
-    font-large()
-    font-bold()
-    .profile-link
-      text-align left
-      text-decoration none
-    .profile-button
-      button()
-    .signin-links
-      display flex
-      justify-content space-between
-      width 100%
-      margin-top 20px
-      text-decoration none
-      font-small()
-      .signin-by-email-link
-        color colorText1
-        text-decoration none
-      .restore-password-link
-        color colorText1
-        text-decoration none
+  page-root()
 </style>
 
 <template>
   <div class="root-signin">
-    <div class="form">
-      ВХОД<br>
+    <article class="form">
+      <header>ВХОД</header>
+
       <FormWithErrors ref="form" :fields="fields" submit-text="Вход" :loading="loading" @success="login" />
+
       <router-link class="profile-link" :to="{ name: 'signup' }">
         <button class="profile-button">Зарегистрироваться</button>
       </router-link>
@@ -49,7 +26,7 @@
         <!--<router-link class="signin-by-email-link" :to="{name: 'signInByEmail'}">Войти по почте</router-link>-->
         <router-link class="restore-password-link" :to="{name: 'restorePassword'}">Восстановить пароль</router-link>
       </div>
-    </div>
+    </article>
   </div>
 </template>
 

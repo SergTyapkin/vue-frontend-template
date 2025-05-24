@@ -1,37 +1,18 @@
 @import 'constants.styl'
 
-animation-index-delay(delay=0.05s)
+animation-not-reduced(animation)
+  @media (prefers-reduced-motion no-preference)
+    animation animation
+
+animation-index-delay(delay=0.1s)
   animation-delay 'calc(var(--animation-index, 0) * %s)' % delay
 
-animation-roll-down(start-height=0, duration=2s, padding=0)
-  max-height start-height
-  padding-top 0
-  padding-bottom 0
+animation-float(time=0.5s, translateX=0, translateY=-20px, uniqueName=_)
   opacity 0
-  animation animation-roll-down duration ease forwards
+  animation 'float-%s %s ease forwards' % (uniqueName time)
   animation-index-delay()
 
-  @keyframes animation-roll-down
-    0%
-    10%
-      opacity 1
-
-    99%
-      max-height 3000px
-      padding padding
-      opacity 1
-
-    100%
-      max-height unset
-      padding padding
-      opacity 1
-
-animation-float(time=0.5s, translateX=0, translateY=-20px)
-  opacity 0
-  animation float time ease forwards
-  animation-index-delay()
-
-  @keyframes float
+  @keyframes float-{uniqueName}
     from
       transform translate(translateX, translateY)
       opacity 0
@@ -44,12 +25,39 @@ animation-opacity(time=0.5s)
   animation opacity time ease forwards
   animation-index-delay()
 
-  @keyframes float
+  @keyframes opacity
     from
       opacity 0
     to
       opacity 1
 
+
+animation-roll-down(start-height=0, duration=2s, padding=0)
+  max-height start-height
+  padding-top 0
+  padding-bottom 0
+  opacity 0
+  animation animation-roll-down duration ease forwards
+  animation-index-delay()
+
+  @keyframes animation-roll-down
+    0%
+    10%
+      opacity 0
+    30%
+      padding-top padding
+      padding-bottom padding
+      opacity 1
+    99%
+      max-height 1000px
+      padding-top padding
+      padding-bottom padding
+      opacity 1
+    100%
+      max-height unset
+      padding-top padding
+      padding-bottom padding
+      opacity 1
 
 hover-effect()
   cursor pointer

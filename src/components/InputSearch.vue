@@ -50,9 +50,9 @@
     >
     <transition name="opacity" mode="out-in">
       <label v-if="!modelValue" for="search">
-        <img class="icon" src="/static/icons/gray/search.svg" alt="search">
+        <img class="icon" src="/static/icons/search.svg" alt="search">
       </label>
-      <img v-else class="clear" @click="updateModelValue('')" src="/static/icons/gray/cross.svg" alt="clear">
+      <img v-else class="clear" @click="updateModelValue('')" src="/static/icons/cross.svg" alt="clear">
     </transition>
   </div>
 </template>

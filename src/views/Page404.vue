@@ -1,10 +1,14 @@
 <style lang="stylus" scoped>
 @import '../styles/constants.styl'
+@import '../styles/components.styl'
+@import '../styles/buttons.styl'
 @import '../styles/fonts.styl'
+@import '../styles/utils.styl'
+@import '../styles/animations.styl'
+@import '../styles/scrollbars.styl'
 
 .root-404
-  width 100%
-  padding 20px
+  page-root()
   .form
     max-width 600px
     margin 20px auto

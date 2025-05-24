@@ -159,7 +159,7 @@ field()
     <span class="error-text">{{ currentError }}</span>
     <div class="selected-item" @click.stop="toggleOpen" :class="{default: currentSelectedIdx === undefined}">
       {{ currentSelectedIdx !== undefined ? list[currentSelectedIdx]?.name : (placeholder || 'Не выбрано') }}
-      <img src="/static/icons/gray/chevron-down.svg" alt="chevron">
+      <img src="/static/icons/chevron-down.svg" alt="chevron">
     </div>
     <ul class="list scrollable">
       <li

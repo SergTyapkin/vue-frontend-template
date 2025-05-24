@@ -1,16 +1,21 @@
 <style lang="stylus" scoped>
 @import 'styles/constants.styl'
+@import 'styles/components.styl'
 @import 'styles/buttons.styl'
 @import 'styles/fonts.styl'
+@import 'styles/utils.styl'
+@import 'styles/animations.styl'
+@import 'styles/scrollbars.styl'
 
 .wrapper
+  flex 1
   width 100%
-  min-height 100vh
+  min-height 100%
 
-  > *
-    position absolute
-    width 100%
-    min-height 100vh
+  // > *
+  //  position absolute
+  //  width 100%
+  //  min-height 100vh
 </style>
 
 <style lang="stylus">
@@ -63,6 +68,8 @@
 </style>
 
 <template>
+  <HeaderComponent class="header" />
+
   <div class="wrapper">
     <router-view #default="{ Component }">
       <transition name="scale-in">
@@ -70,6 +77,8 @@
       </transition>
     </router-view>
   </div>
+
+  <FooterComponent class="footer" />
 
   <Popups ref="popups" />
   <Modals ref="modals" />
@@ -80,9 +89,31 @@ import { getCurrentInstance } from 'vue';
 import { Modals, Popups } from '@sergtyapkin/modals-popups';
 import API from '~/utils/API';
 import { saveAllAssetsByServiceWorker } from '~/utils/utils';
+import HeaderComponent from '~/components/HeaderComponent.vue';
+import FooterComponent from '~/components/FooterComponent.vue';
+
+function removeAllHoverStyles() {
+  try {
+    // prevent exception on browsers not supporting DOM styleSheets properly
+    for (var si in document.styleSheets) {
+      var styleSheet = document.styleSheets[si];
+      if (!styleSheet.rules) continue;
+
+      for (var ri = styleSheet.rules.length - 1; ri >= 0; ri--) {
+        if (!styleSheet.rules[ri].selectorText) continue;
+
+        if (styleSheet.rules[ri].selectorText.match(':hover')) {
+          styleSheet.deleteRule(ri);
+        }
+      }
+    }
+  } catch (err) {
+    console.log('Error while removing hover styles:', err);
+  }
+}
 
 export default {
-  components: { Modals, Popups },
+  components: { HeaderComponent, FooterComponent, Modals, Popups },
 
   data(): {
     transitionName: string;
@@ -141,6 +172,7 @@ export default {
     checkMobileScreen() {
       if (window.innerWidth <= 700) {
         this.global!.$isMobile = true;
+        removeAllHoverStyles();
         return;
       }
       this.global!.$isMobile = false;

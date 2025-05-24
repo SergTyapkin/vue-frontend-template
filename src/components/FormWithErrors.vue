@@ -7,78 +7,104 @@
 @import '../styles/animations.styl'
 @import '../styles/scrollbars.styl'
 
-border-color = colorText1
-input-border = 2px solid border-color
-
 .root-form
   .input-container
     position relative
-    padding-top 12px
+    margin-top 20px
 
     label
+      display block
+      text-align left
+      font-large()
+
     .placeholder
       pointer-events none
       user-select none
       position absolute
-      top 22px
-      left 10px
-      padding-left 10px
+      bottom 12px
+      left 44px
+      color colorText2
       text-align left
-      opacity 0.5
       transition all 0.2s ease
       font-medium()
-    label
-      opacity 1
+
+    &:not(.with-image)
+      .placeholder
+        left 14px
 
     input
       all unset
       display block
       box-sizing border-box
       width 100%
-      padding-top 10px
-      padding-bottom 10px
-      padding-left 17px
+      padding 10px 0 10px 40px
       text-align left
-      border input-border
-      border-top-width 0
-      border-radius radiusL
-      outline input-border
-      outline-offset -2px
-      transition all 0.2s ease, background-size 0.1s ease
+      border 2px solid colorBorder
+      border-radius radiusM
+      trans()
       font-medium()
+
       &::placeholder
         visibility hidden
         opacity 0
-      &:focus
-      &:not(:placeholder-shown)
-        outline-color transparent
-        outline-offset 5px
+
       &:not(:placeholder-shown) ~ label
       &:focus ~ label
         top 2px
         left 15px
         opacity 0.3
+
+      &:not(:placeholder-shown) ~ .placeholder
+        opacity 0
+
       &:not(:focus) ~ .placeholder
       &:not(:placeholder-shown) ~ .placeholder
-        left 40px
-        opacity 0
+        left 50px
+
+    &:not(.with-image)
+      input
+        padding-left 10px
+
+        &:not(:focus) ~ .placeholder
+        &:not(:placeholder-shown) ~ .placeholder
+          left 20px
+
+    .image-hidden
+    .image
+      position absolute
+      bottom 12px
+      left 10px
+      width 22px
+      height 22px
+    .image-hidden
+      right 10px
+      left unset
+      hover-effect()
 
     .error
     .success
       pointer-events none
       user-select none
       position absolute
-      top 26px
       right 20px
+      bottom 12px
       opacity 0
       transition opacity 0.2s ease
       font-small-extra()
+
       &.hidden
         opacity 0
+    &.hideable
+      .error
+      .success
+        right 40px
+
     .error
       color colorError
+
     .success
       color colorSuccess
+
     .info
       user-select none
       margin-top 2px
@@ -89,43 +115,79 @@ input-border = 2px solid border-color
 
     &.error
       color colorError
+
       .error:not(.hidden)
         opacity 1
+
     &.success
       color colorSuccess
+
       .success:not(.hidden)
         opacity 1
 
   .submit
-    button-submit()
-
-    margin-top 10px
-    margin-bottom 10px
+    margin 20px 0
+    button-emp2()
 </style>
 
 <template>
-  <div class="root-form" @keydown.enter="submit" @input="() => {isSubmittedAlready ? checkFormat() : null}">
+  <div
+    class="root-form"
+    @keydown.enter="submit"
+    @input="
+      () => {
+        isSubmittedAlready ? checkFormat() : null;
+      }
+    "
+  >
     <div
       class="input-container"
       v-for="([fieldName, field], i) in Object.entries(fields)"
       :key="i"
-      :class="{ error: field.__error, success: field.__success }"
+      :class="{
+        error: field.__error,
+        success: field.__success,
+        'with-image': field.image,
+        'hideable': field.hideable,
+      }"
     >
+      <label :for="`${uid}-${fieldName}`">{{ field.title }}</label>
+
+      <SelectList
+        v-if="field.type === 'select'"
+        :list="field.options"
+        :selected-idx="field.selectedIdx"
+        v-model="field.value"
+      />
       <input
+        v-else
         v-bind="field"
         :id="`${uid}-${fieldName}`"
         v-model="field.value"
-        :type="field.type || 'text'"
+        :type="field._isNotHidden ? 'text' : field.type || 'text'"
         :autocomplete="field.autocomplete || 'off'"
         placeholder="-"
       >
-      <label :for="`${uid}-${fieldName}`">{{ field.title }}</label>
-      <div v-if="field.info" class="info">
-        {{ field.info }}
-      </div>
-      <div class="placeholder">
-        {{ field.placeholder }}
-      </div>
+
+      <img v-if="field.image" :src="field.image" class="image" :alt="field.title">
+
+      <img
+        v-if="field.hideable && field._isNotHidden"
+        @click="field._isNotHidden = !field._isNotHidden"
+        src="/static/icons/eye-invisible.svg"
+        class="image-hidden"
+        alt="hide"
+      >
+      <img
+        v-else-if="field.hideable && !field._isNotHidden"
+        @click="field._isNotHidden = !field._isNotHidden"
+        src="/static/icons/eye-visible.svg"
+        class="image-hidden"
+        alt="show"
+      >
+
+      <div v-if="field.info" class="info">{{ field.info }}</div>
+      <div class="placeholder">{{ field.placeholder }}</div>
       <div class="error" :class="{ hidden: !errorSuccessShowed }">
         {{ field.overrideErrorText || field.errorText || 'Неверный формат' }}
       </div>
@@ -136,7 +198,7 @@ input-border = 2px solid border-color
 
     <button class="submit" @click="submit">
       <transition name="opacity" mode="out-in" duration="200">
-        <CircleLoading v-if="loading" size="1.2em" />
+        <CircleLoading v-if="loading" size="1.2em" light />
         <span v-else>{{ submitText || 'Отправить' }}</span>
       </transition>
     </button>
@@ -145,9 +207,10 @@ input-border = 2px solid border-color
 
 <script lang="ts">
 import CircleLoading from '~/components/loaders/CircleLoading.vue';
+import SelectList from "~/components/SelectList.vue";
 
 export default {
-  components: { CircleLoading },
+  components: {SelectList, CircleLoading },
 
   props: {
     fields: {
@@ -168,7 +231,11 @@ export default {
           type: String(), // default: 'text'
           placeholder: String(),
           autocomplete: String(), // default: 'off'
+          hideable: Boolean, // default: false
           //other <input> attributes: String()
+
+          options: [], // options for type = 'select'
+          selectedIdx: undefined, // number for type = 'select'
         },
       }),
     },

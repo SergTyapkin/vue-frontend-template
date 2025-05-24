@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import {PropType} from "vue";
-import InputComponent from "~/components/Input.vue";
+import InputComponent from "~/components/InputComponent.vue";
 
 export default {
   components: {InputComponent},

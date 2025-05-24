@@ -12,12 +12,14 @@ const PostMessagesNames = {
   cacheUrls: 'CACHE_URLS',
   isUrlsCached: 'IS_URLS_CACHED',
   clearCache: 'CLEAR_CACHE',
+  saveOverrideResourceRegexps: 'SAVE_OVERRIDE_RESOURCE_REGEXPS',
 
   swCacheProgress: 'SW_CACHE_PROGRESS',
   swAllUrlsCached: 'SW_ALL_URLS_CACHED',
   swUrlsCachingError: 'SW_URLS_CACHING_ERROR',
   swIsUrlsCachedResponse: 'SW_IS_URLS_CACHED',
   swCacheCleared: 'SW_CACHE_CLEARED',
+  overrideResourceRegexpsSaved: 'SW_OVERRIDE_RESOURCE_REGEXPS_SAVED',
 };
 
 let uid = 0;
@@ -220,5 +222,22 @@ async function clearCache(): Promise<void> {
   });
 }
 
+async function setResourceMappingRegexps(regexps: {[key: string]: string}): Promise<void> {
+  if (!SW) {
+    console.error("SW: Error. Can't cache urls because SW is not initialized yet");
+    return;
+  }
+  await (SW as unknown as { ready: Promise<void> }).ready;
+
+  const postMessageToSend = PostMessage(PostMessagesNames.saveOverrideResourceRegexps, regexps);
+  return new Promise(resolve => {
+    setMessageEventListenerOnSW(PostMessagesNames.overrideResourceRegexpsSaved, postMessageToSend.uid, () => {
+      resolve();
+      removeMessageEventListenerOnSW(PostMessagesNames.overrideResourceRegexpsSaved, postMessageToSend.uid);
+    });
+    SW?.postMessage(postMessageToSend);
+  });
+}
+
 // ------------ EXPORTS -------------
-export default { cacheUrls, isFilesCached, clearCache, register };
+export default { cacheUrls, isFilesCached, clearCache, register, setResourceMappingRegexps };

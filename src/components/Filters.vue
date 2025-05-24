@@ -18,6 +18,7 @@
       gap 10px
       align-items center
       .name
+        margin-right 15px
         padding 10px 0
       .button-defaults
         button-no-fill()
@@ -25,6 +26,7 @@
   .fields
     .fields-row
       display flex
+      flex-wrap wrap
       gap 16px
       align-items center
       margin-bottom 10px
@@ -41,7 +43,7 @@
         <span class="name">{{ title }}</span>
         <transition name="opacity">
           <button v-if="isFiltersChanged" class="button-defaults" @click="dropFilters">
-            <img src="/static/icons/gray/cross.svg" alt="">
+            <img src="/static/icons/cross.svg" alt="">
             Сбросить
           </button>
         </transition>
@@ -65,7 +67,7 @@
               onInput();
             "
           />
-          <InputWithIcon
+          <InputSearch
             v-else-if="field.type === FieldTypes.search"
             :key="fieldsUpdatingKey"
             :placeholder="field.placeholder || 'Поиск'"
@@ -73,7 +75,7 @@
             @change="onChange"
             @input="onInput"
           />
-          <StoredInput
+          <InputComponent
             unique-name="key"
             :key="fieldsUpdatingKey"
             v-else-if="field.type === FieldTypes.text"
@@ -91,8 +93,8 @@
 <script lang="ts">
 import { PropType } from 'vue';
 import SelectList from '~/components/SelectList.vue';
-import InputWithIcon from '~/components/InputWithIcon.vue';
-import StoredInput from '~/components/StoredInput.vue';
+import InputComponent from '~/components/InputComponent.vue';
+import InputSearch from '~/components/InputSearch.vue';
 
 const FieldTypes = {
   select: 'select',
@@ -106,14 +108,14 @@ export type Filter = {
   placeholder: string;
   size: number;
   _value?: string;
-  compareFoo: (tableRow: object, filterValue: any, allFilters: {[key: string]: any}) => boolean;
+  compareFoo: (tableRow: object, filterValue: any, allFilters: { [key: string]: any }) => boolean;
 
   canBeNull?: boolean;
   options?: { name: string; id?: string; value: any }[];
-}
+};
 
 export default {
-  components: { StoredInput, InputWithIcon, SelectList },
+  components: { InputSearch, InputComponent, SelectList },
   emits: ['update:modelValue', 'change', 'input'],
 
   props: {
@@ -136,7 +138,6 @@ export default {
     noHeader: Boolean,
   },
 
-
   data() {
     return {
       isFiltersChanged: false,
@@ -148,19 +149,29 @@ export default {
   },
 
   mounted() {
+    // @ts-expect-error use modelValue to ignore vue warnings
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    this.modelValue;
+
     this.updateModelValue(this.getFieldsValues());
   },
 
   methods: {
-    updateModelValue(filters: {[key: string]: any}) {
+    updateModelValue(filters: { [key: string]: any }) {
       this.updateFiltersMeta();
-      this.$emit('update:modelValue', this.data.filter(row => {
-        return !this.fields.flat().some((filter: Filter) => (
-          filters[filter.key] !== undefined &&
-          filter.compareFoo &&
-          !filter.compareFoo(row, filters[filter.key], filters)
-        ));
-      }));
+      this.$emit(
+        'update:modelValue',
+        this.data.filter(row => {
+          return !this.fields
+            .flat()
+            .some(
+              (filter: Filter) =>
+                filters[filter.key] !== undefined &&
+                filter.compareFoo &&
+                !filter.compareFoo(row, filters[filter.key], filters),
+            );
+        }),
+      );
     },
 
     updateFiltersMeta() {
@@ -170,7 +181,7 @@ export default {
 
     getFieldsValues(): { [key: string]: string | undefined } {
       const res = {} as { [key: string]: string | undefined };
-      this.fields.forEach(fields => fields.forEach(field => res[field.key] = field._value));
+      this.fields.forEach(fields => fields.forEach(field => (res[field.key] = field._value)));
       this.updateFiltersMeta();
       return res;
     },
@@ -187,11 +198,18 @@ export default {
     },
 
     dropFilters() {
-      this.fields.forEach(fields => fields.forEach(field => field._value = undefined));
+      this.fields.forEach(fields => fields.forEach(field => (field._value = undefined)));
       this.fieldsUpdatingKey = {};
       this.onChange();
       this.onInput();
-    }
+    },
+  },
+
+  watch: {
+    data() {
+      const filters = this.getFieldsValues();
+      this.updateModelValue(filters);
+    },
   },
 };
 </script>

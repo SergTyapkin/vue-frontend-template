@@ -9,6 +9,7 @@ export default {
   '/password/restore': false,
   '/password/change': false,
   '/email/confirm': false,
+  '/horse/:id': false,
 
   // Page 404
   '/:pathMatch(.*)*': false,

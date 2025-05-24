@@ -24,26 +24,26 @@ const DISABLE_CACHING_URLS_REGEXPS = [/sw\.js/];
 // кол-во попыток загрузки файла, если они заканчиваются ошибкой
 const FILES_LOADING_RETRIES_COUNT = 3;
 
-// для страниц слева будут несмотря на url отдаваться ресурсы справа
-const word = '[\\w-~!*\'()<>"{}|^`]+';
-const baseUrl = `(http(s)?://${word}(\\.${word})+)`;
-const anyEnding = `([?/].*)?`;
-const OVERRIDE_RESOURCE_MAPPING_REGEXPS = {
-  [`^${baseUrl}/?$`]: '$1/index.html',
-  [`^${baseUrl}/some-path${anyEnding}$`]: '$1/index.html',
-};
-
 // Типы PostMessage для общения приложения с service worker'ом
 const PostMessagesNames = {
   cacheUrls: 'CACHE_URLS',
   isUrlsCached: 'IS_URLS_CACHED',
   clearCache: 'CLEAR_CACHE',
+  saveOverrideResourceRegexps: 'SAVE_OVERRIDE_RESOURCE_REGEXPS',
 
   swCacheProgress: 'SW_CACHE_PROGRESS',
   swAllUrlsCached: 'SW_ALL_URLS_CACHED',
   swUrlsCachingError: 'SW_URLS_CACHING_ERROR',
   swIsUrlsCachedResponse: 'SW_IS_URLS_CACHED',
   swCacheCleared: 'SW_CACHE_CLEARED',
+  overrideResourceRegexpsSaved: 'SW_OVERRIDE_RESOURCE_REGEXPS_SAVED',
+};
+
+// для страниц слева будут несмотря на url отдаваться ресурсы справа. Обхект расширяем через соответствующий postMessage
+const word = '[\\w-~!*\'()<>"{}|^`]+';
+const baseUrl = `(http(s)?://${word}(\\.${word})+)`;
+const OVERRIDE_RESOURCE_MAPPING_REGEXPS = {
+  [`^${baseUrl}/?$`]: '$1/index.html',
 };
 // ------------------------------------------------------------------
 
@@ -220,6 +220,9 @@ sw.addEventListener('message', async event => {
     const promises = (await cache.keys()).map(key => cache.delete(key));
     await Promise.all(promises);
     broadcastPostMessage(PostMessage(PostMessagesNames.swCacheCleared, null, event.data.uid));
+  } else if (event.data.type === PostMessagesNames.saveOverrideResourceRegexps) {
+    Object.assign(OVERRIDE_RESOURCE_MAPPING_REGEXPS, event.data.payload);
+    broadcastPostMessage(PostMessage(PostMessagesNames.overrideResourceRegexpsSaved, null, event.data.uid));
   }
 });
 

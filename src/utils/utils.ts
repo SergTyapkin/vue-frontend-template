@@ -1,4 +1,5 @@
 import swAPI from '~/serviceWorker/swAPI';
+import routes from '~/routes';
 
 export function getCookie(name: string) {
   const matches = document.cookie.match(
@@ -129,5 +130,21 @@ export async function saveAllAssetsByServiceWorker(
     await saveAllSite();
   }
 
+  async function setOverrideResourceRegexps() {
+    const word = '[\\w-~!*\'()<>"{}|^`]+';
+    const baseUrl = `(http(s)?://${word}(\\.${word})+)`;
+    const anyEnding = `([?/].*)?`;
+    const regexps = {} as {[key: string]: string};
+    Object.keys(routes).forEach(route => {
+      if (route.includes('pathMatch')) {
+        return;
+      }
+      route = route.replace(/:\w+/, word);
+      regexps[`^${baseUrl}${route}${anyEnding}$`] = '$1/index.html';
+    });
+    await swAPI.setResourceMappingRegexps(regexps);
+  }
+
+  await setOverrideResourceRegexps();
   await saveAllIfNotSaved();
 }

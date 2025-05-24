@@ -1,34 +1,23 @@
 <style scoped lang="stylus">
 @import '../../styles/constants.styl'
+@import '../../styles/components.styl'
 @import '../../styles/buttons.styl'
+@import '../../styles/fonts.styl'
+@import '../../styles/utils.styl'
+@import '../../styles/animations.styl'
+@import '../../styles/scrollbars.styl'
 
 bg = colorBgDark
 
 .root-register
-  width 100%
-  padding 20px
-  .form
-    max-width 600px
-    margin 20px auto
-    padding 20px
-    padding-top 10px
-    color colorText1
-    text-align center
-    background-color colorBg
-    border-radius radiusM
-    font-large()
-    font-bold()
-    .signin-link
-      text-align left
-      text-decoration none
-    .signin-button
-      button()
+  page-root()
 </style>
 
 <template>
   <div class="root-register">
-    <div class="form">
-      РЕГИСТРАЦИЯ<br>
+    <article class="form">
+      <header>РЕГИСТРАЦИЯ</header>
+
       <FormWithErrors
         ref="form"
         :fields="fields"
@@ -36,10 +25,11 @@ bg = colorBgDark
         :loading="loading"
         @success="register"
       />
+
       <router-link class="signin-link" :to="{ name: 'login' }">
         <button class="signin-button">Войти</button>
       </router-link>
-    </div>
+    </article>
   </div>
 </template>
 

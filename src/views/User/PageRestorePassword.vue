@@ -1,4 +1,15 @@
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+@import '../../styles/constants.styl'
+@import '../../styles/components.styl'
+@import '../../styles/buttons.styl'
+@import '../../styles/fonts.styl'
+@import '../../styles/utils.styl'
+@import '../../styles/animations.styl'
+@import '../../styles/scrollbars.styl'
+
+.root-restore-password
+  min-width 0
+</style>
 
 <template>
   <div class="root-restore-password">
