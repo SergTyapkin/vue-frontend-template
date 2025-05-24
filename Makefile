@@ -16,6 +16,9 @@ run:
 down:
 	echo "[Make]: Running 'down' target in Makefile..." && \
   bash ./docker-deploy/scripts/down.sh
+logs:
+	echo "[Make]: Running 'logs' target in Makefile..." && \
+  bash ./docker-deploy/scripts/logs.sh
 
 generate-certs:
 	echo "[Make]: Running 'generate-certs' target in Makefile..." && \
