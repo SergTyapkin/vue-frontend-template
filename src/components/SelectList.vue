@@ -78,7 +78,7 @@ field()
     padding 0
     list-style none
     border-top none
-    border-radius radiusM
+    border-radius borderRadiusM
     transition all 0.2s ease
 
     .item
@@ -159,7 +159,7 @@ field()
     <span class="error-text">{{ currentError }}</span>
     <div class="selected-item" @click.stop="toggleOpen" :class="{default: currentSelectedIdx === undefined}">
       {{ currentSelectedIdx !== undefined ? list[currentSelectedIdx]?.name : (placeholder || 'Не выбрано') }}
-      <img src="/static/icons/chevron-down.svg" alt="chevron">
+      <img src="/static/icons/gray/chevron-down.svg" alt="chevron">
     </div>
     <ul class="list scrollable">
       <li
@@ -254,14 +254,15 @@ export default {
 
     if (this.$props.selectedIdx !== undefined) {
       this.currentSelectedIdx = this.$props.selectedIdx;
-    }
-    this.currentSelectedIdx = this.list.findIndex(item =>
-      (item.id !== undefined) &&
-      (String(item.id) === String(this.$props.selectedId))
-    );
-    if (this.currentSelectedIdx === -1) {
-      this.currentSelectedIdx = undefined;
-      return;
+    } else {
+      this.currentSelectedIdx = this.list.findIndex(item =>
+        (item.id !== undefined) &&
+        (String(item.id) === String(this.$props.selectedId))
+      );
+      if (this.currentSelectedIdx === -1) {
+        this.currentSelectedIdx = undefined;
+        return;
+      }
     }
 
     this.selectItem(this.currentSelectedIdx, true);
@@ -325,7 +326,11 @@ export default {
   },
 
   watch: {
-    list() {
+    list(from, to) {
+      if (JSON.stringify(from) === JSON.stringify(to)) {
+        return;
+      }
+
       if (this.selectedId && this.currentSelectedIdx === undefined) {
         this.currentSelectedIdx = this.list.findIndex(item => String(item.id) === String(this.$props.selectedId));
         if (this.currentSelectedIdx === -1) {

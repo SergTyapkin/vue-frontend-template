@@ -143,17 +143,22 @@ export default {
       toFallbackValue?: Fallback,
     ) => {
       context.loading = true;
-      const { status, ok, data } = await apiRequest(...args);
-      context.loading = false;
-      if (!ok) {
-        this.$popups.error(`Ошибка ${status}`, errorText);
-        if (toFallbackValue) {
-          return toFallbackValue;
+      try {
+        const { status, ok, data } = await apiRequest(...args);
+        context.loading = false;
+        if (!ok) {
+          this.$popups.error(`Ошибка ${status}`, errorText);
+          if (toFallbackValue) {
+            return toFallbackValue;
+          }
+          throw new Error(`Ошибка ${status} при запросе на API. ${errorText}`);
         }
-        throw new Error(`Ошибка ${status} при запросе на API. ${errorText}`);
+        callback?.(data, status);
+        return data;
+      } catch (err) {
+        context.loading = false;
+        console.error('Error while executing $request:', err);
       }
-      callback?.(data, status);
-      return data;
     };
 
     this.checkMobileScreen();
