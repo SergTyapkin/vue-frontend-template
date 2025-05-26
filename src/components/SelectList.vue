@@ -28,7 +28,7 @@ field()
   user-select none
   position relative
   z-index 999
-  transform translateY(var(--overflow-y-length))
+  transform translateY(calc(var(--overflow-y-length) * -1px)) translateX(calc(var(--overflow-x-length) * -1px))
   min-width 100px
   height height
   margin 0
@@ -154,12 +154,15 @@ field()
     :class="{ unrolled: isUnrolled }"
     :disabled="disabled"
     :readonly="readonly"
-    :style="{ '--overflow-y-length': overflowYLength + 'px' }"
+    :style="{
+      '--overflow-y-length': overflowYLength,
+      '--overflow-x-length': overflowXLength,
+    }"
   >
     <span class="error-text">{{ currentError }}</span>
     <div class="selected-item" @click.stop="toggleOpen" :class="{default: currentSelectedIdx === undefined}">
       {{ currentSelectedIdx !== undefined ? list[currentSelectedIdx]?.name : (placeholder || 'Не выбрано') }}
-      <img src="/static/icons/gray/chevron-down.svg" alt="chevron">
+      <img src="/static/icons/chevron-down.svg" alt="chevron">
     </div>
     <ul class="list scrollable">
       <li
@@ -186,11 +189,6 @@ field()
 <script lang="ts">
 import {PropType} from "vue";
 
-const HEADER_HEIGHT = 120;
-const INITIAL_HEIGHT = 45;
-const ITEM_HEIGHT = 40;
-const MAX_LIST_HEIGHT = 200;
-const BOTTOM_MARGIN = 10;
 
 export default {
   emits: ['input', 'update:modelValue'],
@@ -245,7 +243,9 @@ export default {
 
       currentSelectedIdx: undefined as number | undefined,
       isUnrolled: this.$props.opened,
+
       overflowYLength: 0,
+      overflowXLength: 0,
     };
   },
 
@@ -311,12 +311,13 @@ export default {
     },
 
     setOpen() {
-      const bottomY =
-        (this.$refs.root as HTMLElement).offsetTop +
-        INITIAL_HEIGHT +
-        Math.min(ITEM_HEIGHT * this.list.length + (this.canBeNull ? 1 : 0), MAX_LIST_HEIGHT);
-      const maxHeight = /*HEADER_HEIGHT*/ + document.querySelector('#app')!.scrollHeight;
-      this.overflowYLength = Math.min(maxHeight - bottomY - HEADER_HEIGHT - BOTTOM_MARGIN, 0);
+      const rect = (this.$el as HTMLElement).getBoundingClientRect();
+      const bottomY = rect.y + rect.height;
+      const rightX = rect.x + rect.width;
+      const maxHeight = window.innerHeight;
+      const maxWidth = window.innerWidth;
+      this.overflowYLength = Math.max(bottomY - maxHeight, 0);
+      this.overflowXLength = Math.max(rightX - maxWidth, 0);
       this.isUnrolled = true;
     },
     setClose() {
