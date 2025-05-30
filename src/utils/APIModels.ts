@@ -1,4 +1,4 @@
-import validateModel from "@sergtyapkin/models-validator";
+import { validateModel } from '@sergtyapkin/models-validator';
 
 export const UserModel = {
   id: String,

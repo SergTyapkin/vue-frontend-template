@@ -82,7 +82,7 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
     ].concat(/true/i.test(env.VITE_HTTPS) ? [pluginBasicSsl()] : []),
     define: {
       BUILD_TIMESTAMP: Date.now(),
-      VERSION: JSON.stringify(import('./package.json').version),
+      BUILD_VERSION: JSON.stringify(import('./package.json').version),
     },
     server: {
       https: /true/i.test(env.VITE_HTTPS),

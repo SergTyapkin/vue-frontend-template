@@ -18,7 +18,7 @@
       <div class="box user-block">
         <div class="user-name-row">
           <div class="user-name-id-block">
-            <div class="user-name">{{ $user.name }}</div>
+            <div class="user-name">{{ $user.username }}</div>
             <div class="user-id">#{{ String($user.id || '').padStart(4, '0') }}</div>
           </div>
           <button class="copy-id-button" @click="copyToClipboard($user.id, 'Твоё ID')">
@@ -29,29 +29,14 @@
           <button v-else class="button-edit" @click="changeUserParam('name')">Изменить</button>
         </div>
         <div class="data-row">
-          <div class="field">Группа:</div>
-          <div class="data">{{ $user.group }}</div>
-          <button class="button-edit" @click="changeUserParam('group')">Изменить</button>
-        </div>
-        <div class="data-row">
           <div class="field">Email:</div>
           <div class="data">{{ $user.email }}</div>
           <button class="button-edit" @click="changeUserParam('email')">Изменить</button>
         </div>
         <div class="data-row">
-          <div class="field">Telegram:</div>
-          <div class="data">@{{ $user.tg }}</div>
-          <button class="button-edit" @click="changeUserParam('telegram', 'tg')">Изменить</button>
-        </div>
-        <div class="data-row">
-          <div class="field">Вконтакте:</div>
-          <div class="data">vk.com/{{ $user.vk }}</div>
-          <button class="button-edit" @click="changeUserParam('vk')">Изменить</button>
-        </div>
-        <div class="data-row">
-          <div class="field">Номер телефона:</div>
-          <div class="data">{{ $user.phone }}</div>
-          <button class="button-edit" @click="changeUserParam('phone_number', 'phone')">Изменить</button>
+          <div class="field">Разрешения:</div>
+          <div class="data">{{ $user.role }}</div>
+          <button class="button-edit" @click="changeUserParam('role', 'phone')">Изменить</button>
         </div>
 
         <div class="buttons-row">
