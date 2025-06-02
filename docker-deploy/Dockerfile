@@ -18,6 +18,7 @@ RUN export DOLLAR="$" && \
     for proxy_num in $(seq 1 $(. "./.env"; eval "echo \${PROXY_SERVICES_COUNT}" | tr -dc "0-9")); do \
       export PROXY_NUMBER=${proxy_num} && \
       eval "export PROXY_${proxy_num}_API_PREFIX=$(. "./.env"; eval "echo \${PROXY_${proxy_num}_API_PREFIX}" | tr -dc "a-zA-Z0-9/_-")" && \
+      eval "export PROXY_${proxy_num}_REWRITE_PATH=$(. "./.env"; eval "echo \${PROXY_${proxy_num}_REWRITE_PATH}" | tr -dc "a-zA-Z0-9/_-")" && \
       eval "export PROXY_${proxy_num}_TARGET_HOST=$(. "./.env"; eval "echo \${PROXY_${proxy_num}_TARGET_HOST}" | tr -dc "a-zA-Z0-9:/?&_.-")" && \
       eval "export PROXY_${proxy_num}_TARGET_PORT=$(. "./.env"; eval "echo \${PROXY_${proxy_num}_TARGET_PORT}" | tr -dc "0-9")" && \
       # Copy nginx proxy files into trmplates folder \
