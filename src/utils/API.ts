@@ -24,9 +24,6 @@ export default class API extends REST_API {
     model?: Model,
     mockData?: MyResponse<object>,
   ): Promise<{ ok: boolean; data: object; status: number }> {
-    if (!model) {
-      throw SyntaxError(`Model for request '${path}' not specified`);
-    }
     if (mockData && import.meta.env.MODE !== 'production') {
       console.info(`Request mocked: ${requestFunc.name}, ${path},`, mockData);
       return mockData;
@@ -38,6 +35,9 @@ export default class API extends REST_API {
       return { ok, data: dataRes as object, status };
     }
 
+    if (!model) {
+      return { ok, data: dataRes, status };
+    }
     return { ok, data: validateModel(model, dataRes), status };
   }
   #POST(path: string, data = {}, model?: Model, mockData?: MyResponse<object>) {
