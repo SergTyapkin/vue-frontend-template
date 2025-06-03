@@ -24,7 +24,7 @@ RUN export DOLLAR="$" && \
       # Copy nginx proxy files into trmplates folder \
       cp ./docker-deploy/nginx/proxy_template.conf ./docker-deploy/nginx/proxy_${proxy_num}_http.conf && \
       # Envsubst the .conf files into http or https folder \
-      envsubst < ./docker-deploy/nginx/proxy_${proxy_num}_http.conf > ./docker-deploy/nginx/templates/locations/http/proxy_${proxy_num}_http.conf.template; \
+      envsubst < ./docker-deploy/nginx/proxy_${proxy_num}_http.conf > ./docker-deploy/nginx/templates/locations/https/proxy_${proxy_num}_http.conf.template; \
     done
 
 # build project - create static dist files
