@@ -54,7 +54,6 @@ generate-docker-compose:
 
 update:
 	echo "[Make]: Running 'update' target in Makefile..." && \
-	make generate-docker-compose && \
   bash ./docker-deploy/scripts/update-deploy.sh
 
 all:
