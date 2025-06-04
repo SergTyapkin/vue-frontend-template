@@ -13,6 +13,7 @@
   height var(--size)
   margin-right auto
   margin-left auto
+  animation opacity-in 0.4s linear forwards
   &.centered
     centered-absolute-transform()
 
@@ -94,6 +95,11 @@
   animation-delay -1.1s
 
 
+@keyframes opacity-in
+  0%
+    opacity 0
+  100%
+    opacity 1
 @keyframes lds-default
   0%
   20%

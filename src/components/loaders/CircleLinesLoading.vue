@@ -16,7 +16,7 @@ borderWidth = 3px
   border-radius 50%
   position relative
   box-sizing border-box
-  animation rotation 1s linear infinite
+  animation opacity-in 0.4s linear forwards, rotation 1s linear infinite
   &::after
     content ''
     box-sizing border-box
@@ -29,6 +29,12 @@ borderWidth = 3px
     border-radius 50%
     border borderWidth solid
     border-color colorEmp1 transparent
+
+  @keyframes opacity-in
+    0%
+      opacity 0
+    100%
+      opacity 1
 
   @keyframes rotation
     0%

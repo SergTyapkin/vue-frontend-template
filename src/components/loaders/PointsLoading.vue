@@ -15,7 +15,7 @@
   position relative
   border-radius 50%
   color colorEmp1
-  animation fill 1s ease-in infinite alternate
+  animation opacity-in 0.4s linear forwards, fill 1s ease-in infinite alternate
   &::before
   &::after
     content ''
@@ -31,6 +31,12 @@
     left auto
     right calc(var(--size) / 4 * 1.5)
     animation-duration 1.1s
+
+  @keyframes opacity-in
+    0%
+      opacity 0
+    100%
+      opacity 1
 
   @keyframes fill
     0%
