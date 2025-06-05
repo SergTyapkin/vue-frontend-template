@@ -2,5 +2,8 @@
   "testMatch": ["**/*.(spec|test).?(m)(js|ts)?(x)"],
   "testEnvironment": "node",
   "reporters": ["default", "jest-html-reporter"],
-  "moduleFileExtensions": ["js", "ts", "mjs", "mts"]
+  "moduleFileExtensions": ["js", "ts", "mjs", "mts"],
+  "transform": {
+    "^.+\\.m?[t|j]sx?$": "babel-jest"
+  }
 }

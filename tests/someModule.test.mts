@@ -1,6 +1,5 @@
-import '@types/jest';
-
-import Validators from '~/utils/validators';
+import { describe, expect, it } from "@jest/globals";
+import Validators from '../src/utils/validators';
 
 
 describe('Validating emails. Positive', () => {
@@ -39,7 +38,7 @@ describe('Validating emails. Negative', () => {
     expect(Validators.email.validate('someemail@mail.r u')).toBeFalsy();
   });
   it('Not allowed symbols', () => {
-    expect(Validators.email.validate('some`symbol@mail.ru')).toBeFalsy();
+    expect(Validators.email.validate('some symbol@mail.ru')).toBeFalsy();
   });
   it('No part 1', () => {
     expect(Validators.email.validate('@mail.ru')).toBeFalsy();
