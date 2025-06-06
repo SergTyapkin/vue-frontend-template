@@ -67,8 +67,6 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.27.2",
-    "@babel/preset-typescript": "^7.27.1",
     "@eslint/js": "^9.14.0",
     "@mxssfd/typedoc-theme": "^1.1.7",
     "@rollup/plugin-typescript": "^12.1.2",
@@ -77,7 +75,6 @@
     "@types/vue": "^2.0.0",
     "@types/vue-router": "^2.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
-    "babel-jest": "^30.0.0-beta.3",
     "eslint": "9.14.0",
     "eslint-plugin-compat": "^6.0.1",
     "eslint-plugin-import": "^2.31.0",
@@ -92,6 +89,7 @@
     "globals": "^15.12.0",
     "husky": "^9.1.6",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^30.0.0-beta.3",
     "jest-html-reporter": "^3.10.2",
     "lint-staged": "^15.2.10",
     "pre-commit": "^1.2.2",
@@ -103,6 +101,7 @@
     "stylelint-order": "^6.0.4",
     "stylelint-stylus": "^1.0.0",
     "taffydb": "^2.7.3",
+    "ts-jest": "^29.3.4",
     "tsconfig-paths": "^4.2.0",
     "typedoc": "^0.26.11",
     "typedoc-plugin-vue": "^1.2.0",
