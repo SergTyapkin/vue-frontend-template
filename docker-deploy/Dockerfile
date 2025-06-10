@@ -20,9 +20,9 @@ RUN export DOLLAR="$" && \
       eval "export PROXY_${proxy_num}_REWRITE_PATH=$(. "./.env"; eval "echo \${PROXY_${proxy_num}_REWRITE_PATH}" | tr -dc "a-zA-Z0-9/_-")"; \
       eval "export PROXY_${proxy_num}_TARGET_HOST=$(. "./.env"; eval "echo \${PROXY_${proxy_num}_TARGET_HOST}" | tr -dc "a-zA-Z0-9:/?&_.-")"; \
       eval "export PROXY_${proxy_num}_TARGET_PORT=$(. "./.env"; eval "echo \${PROXY_${proxy_num}_TARGET_PORT}" | tr -dc "0-9")"; \
-      proxy_path_prefix=$(eval "echo \${PROXY_${proxy_num}_API_PREFIX}"); \
-      echo ${proxy_num}: ${proxy_path_prefix}; \
-      if [ -n "${proxy_path_prefix}" ]; then \
+      proxy_api_prefix=$(eval "echo \${PROXY_${proxy_num}_API_PREFIX}"); \
+      echo ${proxy_num}: ${proxy_api_prefix}; \
+      if [ -n "${proxy_api_prefix}" ]; then \
         # Copy nginx proxy files into trmplates folder \
         cp ./docker-deploy/nginx/proxy_template.conf ./docker-deploy/nginx/proxy_${proxy_num}_http.conf; \
         # Envsubst the .conf files into http or https folder \
