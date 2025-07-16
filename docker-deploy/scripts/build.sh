@@ -8,7 +8,7 @@ if [[ ${enable_https} == "true" ]] || [[ ${enable_https} == "True" ]] || [[ ${en
 
   include /etc/nginx/conf.d/locations/http/*.conf;
 
-  return 301 https://\$\host\$\request_uri;"
+  return 301 https://\$host\$request_uri;"
       HTTPS_NGINX_CONFIG="
   listen       443 ssl default_server;
   listen       [::]:443 ssl;
