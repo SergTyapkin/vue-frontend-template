@@ -1,5 +1,5 @@
 enable_https="$(. "./.env"; echo "$VITE_HTTPS" | tr -dc "a-zA-Z")" &&
-if [[ $enable_https == "true" ]] || [[ $enable_https == "True" ]] || [[ $enable_https == "TRUE" ]]
+if [[ ${enable_https} == "true" ]] || [[ ${enable_https} == "True" ]] || [[ ${enable_https} == "TRUE" ]]
     then
       HTTP_NGINX_CONFIG="
   listen 80;

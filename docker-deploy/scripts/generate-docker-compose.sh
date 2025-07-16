@@ -4,7 +4,7 @@ networks:
   default:
 "
 proxy_services_count=$(. "./.env"; echo "$PROXY_SERVICES_COUNT" | tr -dc "0-9")
-for proxy_num in $(seq 1 $proxy_services_count); do
+for proxy_num in $(seq 1 "${proxy_services_count}"); do
   # Add "networks" to docker-compose.yaml
   proxy_network_var_name="PROXY_${proxy_num}_NETWORK_NAME"
   proxy_network_var_is_external_name="PROXY_${proxy_num}_NETWORK_IS_EXTERNAL"
@@ -30,7 +30,7 @@ echo "${final_networks_string}" >> ./docker-deploy/docker-compose.yaml
 
 # ---- Remove HTTPS or HTTPS args in docker-compose.yml
 enable_https="$(. "./.env"; echo "$VITE_HTTPS" | tr -dc "a-zA-Z")"
-if [[ $enable_https == "true" ]] || [[ $enable_https == "True" ]] || [[ $enable_https == "TRUE" ]]
+if [[ ${enable_https} == "true" ]] || [[ ${enable_https} == "True" ]] || [[ ${enable_https} == "TRUE" ]]
 then
   echo "✅🔒 Docker-compose sets up to HTTPS configuration (VITE_HTTPS=true in .env)"
 else
