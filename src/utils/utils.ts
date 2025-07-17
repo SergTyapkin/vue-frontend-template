@@ -1,7 +1,7 @@
 import swAPI from '~/serviceWorker/swAPI';
 import routes from '~/routes';
 
-export async function getRequestFoo<APIFoo extends (...args: any) => any, Fallback>(
+export function getRequestFoo<APIFoo extends (...args: any) => any, Fallback>(
   popupsError: (title: string, desc: string) => any,
 ) {
   return async (
