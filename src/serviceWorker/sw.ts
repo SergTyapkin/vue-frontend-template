@@ -232,7 +232,12 @@ sw.addEventListener('message', async event => {
 });
 
 sw.addEventListener('fetch', function (event) {
-  if (event.request.method !== 'GET') return;
+  if (event.request.method !== 'GET') {
+    return;
+  }
+  if (isUrlNotCachable(event.request.url)) {
+    return;
+  }
 
   const getResponseWithFetch = async () => {
     try {
