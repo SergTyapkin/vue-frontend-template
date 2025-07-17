@@ -30,6 +30,7 @@ const PostMessagesNames = {
   isUrlsCached: 'IS_URLS_CACHED',
   clearCache: 'CLEAR_CACHE',
   saveOverrideResourceRegexps: 'SAVE_OVERRIDE_RESOURCE_REGEXPS',
+  saveDisableCachingRegexps: 'SAVE_DISABLE_CACHING_URLS_REGEXPS',
 
   swCacheProgress: 'SW_CACHE_PROGRESS',
   swAllUrlsCached: 'SW_ALL_URLS_CACHED',
@@ -37,6 +38,7 @@ const PostMessagesNames = {
   swIsUrlsCachedResponse: 'SW_IS_URLS_CACHED',
   swCacheCleared: 'SW_CACHE_CLEARED',
   overrideResourceRegexpsSaved: 'SW_OVERRIDE_RESOURCE_REGEXPS_SAVED',
+  disableCachingRegexpsSaved: 'SW_DISABLE_CACHING_URLS_REGEXPS_SAVED',
 };
 
 // для страниц слева будут несмотря на url отдаваться ресурсы справа. Обхект расширяем через соответствующий postMessage
@@ -223,6 +225,9 @@ sw.addEventListener('message', async event => {
   } else if (event.data.type === PostMessagesNames.saveOverrideResourceRegexps) {
     Object.assign(OVERRIDE_RESOURCE_MAPPING_REGEXPS, event.data.payload);
     broadcastPostMessage(PostMessage(PostMessagesNames.overrideResourceRegexpsSaved, null, event.data.uid));
+  } else if (event.data.type === PostMessagesNames.saveDisableCachingRegexps) {
+    DISABLE_CACHING_URLS_REGEXPS.push(...event.data.payload);
+    broadcastPostMessage(PostMessage(PostMessagesNames.disableCachingRegexpsSaved, null, event.data.uid));
   }
 });
 

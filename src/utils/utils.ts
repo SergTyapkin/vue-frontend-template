@@ -1,6 +1,43 @@
 import swAPI from '~/serviceWorker/swAPI';
 import routes from '~/routes';
 
+export async function getRequestFoo<APIFoo extends (...args: any) => any, Fallback>(
+  popupsError: (title: string, desc: string) => any,
+) {
+  return async (
+    context: { loading: boolean },
+    apiRequest: APIFoo,
+    args: Parameters<APIFoo>,
+    errorText: string,
+    callback?: (data: Awaited<ReturnType<APIFoo>>['data'], status: number) => any,
+    toFallbackValue?: Fallback,
+    errorCallbacks?: {[key: number]: () => any},
+  ) => {
+    context.loading = true;
+    try {
+      const { status, ok, data } = await apiRequest(...<[]>args);
+      context.loading = false;
+      if (!ok) {
+        const errCallback = errorCallbacks?.[status];
+        if (errCallback) {
+          errCallback();
+          return toFallbackValue;
+        }
+        if (toFallbackValue) {
+          return toFallbackValue;
+        }
+        popupsError(`Ошибка ${status}`, errorText);
+        throw new Error(`Ошибка ${status} при запросе на API. ${errorText}`);
+      }
+      callback?.(data, status);
+      return data;
+    } catch (err) {
+      context.loading = false;
+      console.error('Error while executing $request:', err);
+    }
+  }
+}
+
 export function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)'),
@@ -103,8 +140,9 @@ export async function saveAllAssetsByServiceWorker(
   try {
     const module = await import(`${'/assetsList.js'}`);
     allCachableResources = module.default; // list of all cachable resources urls
+    console.log('Imported assetsList.js:', allCachableResources );
   } catch {
-    console.info('Cannot find assetsList.js. Nothing to cache. Maybe we are in develompent mode' )
+    console.warn('Cannot find assetsList.js. Nothing to cache. Maybe we are in develompent mode' )
   }
 
   async function saveAllSite() {
@@ -142,9 +180,18 @@ export async function saveAllAssetsByServiceWorker(
       route = route.replace(/:\w+/, word);
       regexps[`^${baseUrl}${route}${anyEnding}$`] = '$1/index.html';
     });
+    console.log("Send to SW override caching regexps:", regexps);
     await swAPI.setResourceMappingRegexps(regexps);
   }
 
   await setOverrideResourceRegexps();
   await saveAllIfNotSaved();
+}
+
+export async function setDisableCachingUrlsByServiceWorker(paths: string[]) {
+  const word = '[\\w-~!*\'()<>"{}|^`]+';
+  const baseUrl = `(http(s)?://${word}(\\.${word})+)`;
+  const regexps = paths.map(path => `^${baseUrl}${path}$`);
+  console.log("Send to SW disable caching regexps:", regexps);
+  return await swAPI.setDisableCachingRegexps(regexps)
 }

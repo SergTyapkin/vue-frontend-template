@@ -13,6 +13,7 @@ const PostMessagesNames = {
   isUrlsCached: 'IS_URLS_CACHED',
   clearCache: 'CLEAR_CACHE',
   saveOverrideResourceRegexps: 'SAVE_OVERRIDE_RESOURCE_REGEXPS',
+  saveDisableCachingRegexps: 'SAVE_DISABLE_CACHING_URLS_REGEXPS',
 
   swCacheProgress: 'SW_CACHE_PROGRESS',
   swAllUrlsCached: 'SW_ALL_URLS_CACHED',
@@ -20,6 +21,7 @@ const PostMessagesNames = {
   swIsUrlsCachedResponse: 'SW_IS_URLS_CACHED',
   swCacheCleared: 'SW_CACHE_CLEARED',
   overrideResourceRegexpsSaved: 'SW_OVERRIDE_RESOURCE_REGEXPS_SAVED',
+  disableCachingRegexpsSaved: 'SW_DISABLE_CACHING_URLS_REGEXPS_SAVED',
 };
 
 let uid = 0;
@@ -224,7 +226,7 @@ async function clearCache(): Promise<void> {
 
 async function setResourceMappingRegexps(regexps: {[key: string]: string}): Promise<void> {
   if (!SW) {
-    console.error("SW: Error. Can't cache urls because SW is not initialized yet");
+    console.error("SW: Error. Can't save caching urls regexps because SW is not initialized yet");
     return;
   }
   await (SW as unknown as { ready: Promise<void> }).ready;
@@ -239,5 +241,22 @@ async function setResourceMappingRegexps(regexps: {[key: string]: string}): Prom
   });
 }
 
+async function setDisableCachingRegexps(regexps: string[]): Promise<void> {
+  if (!SW) {
+    console.error("SW: Error. Can't save disable caching urls regexps because SW is not initialized yet");
+    return;
+  }
+  await (SW as unknown as { ready: Promise<void> }).ready;
+
+  const postMessageToSend = PostMessage(PostMessagesNames.saveDisableCachingRegexps, regexps);
+  return new Promise(resolve => {
+    setMessageEventListenerOnSW(PostMessagesNames.disableCachingRegexpsSaved, postMessageToSend.uid, () => {
+      resolve();
+      removeMessageEventListenerOnSW(PostMessagesNames.disableCachingRegexpsSaved, postMessageToSend.uid);
+    });
+    SW?.postMessage(postMessageToSend);
+  });
+}
+
 // ------------ EXPORTS -------------
-export default { cacheUrls, isFilesCached, clearCache, register, setResourceMappingRegexps };
+export default { cacheUrls, isFilesCached, clearCache, register, setResourceMappingRegexps, setDisableCachingRegexps };

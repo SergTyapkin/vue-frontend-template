@@ -1,1 +1,3 @@
-export const SomeEnum = {};
+export const DISABLED_CACHING_URLS = [
+  '/user',
+]
