@@ -6,6 +6,7 @@ import pluginStylelint from 'vite-plugin-stylelint';
 import { VitePWA as pluginVitePWA } from 'vite-plugin-pwa';
 import { viteStaticCopy as pluginViteStaticCopy } from 'vite-plugin-static-copy';
 import pluginSitemap from 'vite-plugin-sitemap';
+import pluginAutoprefixer from 'autoprefixer';
 import routes from './src/routes';
 import pluginTsCompileServiceWorker from './src/serviceWorker/pluginTsCompileServiceWorker';
 import pluginAssetsInserter from './src/serviceWorker/pluginAssetsListGenerator';
@@ -80,6 +81,13 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
         additionalDirs: ['static'],
       }),
     ].concat(/true/i.test(env.VITE_HTTPS) ? [pluginBasicSsl()] : []),
+    css: {
+      postcss: {
+        plugins: [
+          pluginAutoprefixer(),
+        ]
+      }
+    },
     define: {
       BUILD_TIMESTAMP: Date.now(),
       BUILD_VERSION: JSON.stringify(import('./package.json').version),
