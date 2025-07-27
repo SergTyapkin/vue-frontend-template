@@ -241,14 +241,16 @@ async function setResourceMappingRegexps(regexps: {[key: string]: string}): Prom
   });
 }
 
-async function setDisableCachingRegexps(regexps: string[]): Promise<void> {
+async function setDisableCachingRegexps(regexps: (string | RegExp)[]): Promise<void> {
   if (!SW) {
     console.error("SW: Error. Can't save disable caching urls regexps because SW is not initialized yet");
     return;
   }
   await (SW as unknown as { ready: Promise<void> }).ready;
 
-  const postMessageToSend = PostMessage(PostMessagesNames.saveDisableCachingRegexps, regexps);
+  const regexpsTyped = regexps.map(regexp => new RegExp(regexp));
+
+  const postMessageToSend = PostMessage(PostMessagesNames.saveDisableCachingRegexps, regexpsTyped);
   return new Promise(resolve => {
     setMessageEventListenerOnSW(PostMessagesNames.disableCachingRegexpsSaved, postMessageToSend.uid, () => {
       resolve();
