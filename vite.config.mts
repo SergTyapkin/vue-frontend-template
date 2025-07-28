@@ -11,6 +11,7 @@ import routes from './src/routes';
 import pluginTsCompileServiceWorker from './src/serviceWorker/pluginTsCompileServiceWorker';
 import pluginAssetsInserter from './src/serviceWorker/pluginAssetsListGenerator';
 import pluginDynamicImport from 'vite-plugin-dynamic-import';
+import pluginOpenGraph from 'vite-plugin-open-graph';
 
 const pluginPrettier = () => ({ name: 'prettier' });
 
@@ -27,7 +28,10 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
       pluginPrettier(),
       pluginStylelint(),
       pluginViteStaticCopy({
-        targets: [{ src: 'static/favicon.ico', dest: 'static' }],
+        targets: [
+          { src: 'static/favicon.svg', dest: 'static' },
+          { src: 'static/open-graph-preview.png', dest: 'static' },
+        ],
       }),
       pluginSitemap({
         hostname: `${/true/i.test(env.VITE_HTTPS) ? 'https' : 'http'}://${env.VITE_DEPLOY_HOSTNAME}`,
@@ -46,14 +50,14 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
 
 
         includeManifestIcons: true,
-        includeAssets: ['/static/favicon.ico'],
+        includeAssets: ['/static/favicon.svg'],
         manifest: {
           short_name: 'Frontend Template',
           name: 'Frontend template with all best-practice instruments',
           description: 'Some description of our service',
           icons: [
             {
-              src: '/static/favicon.ico',
+              src: '/static/favicon.svg',
               sizes: '32x32',
               type: 'image/png',
               purpose: 'maskable',
@@ -75,6 +79,19 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
             },
           ],
         },
+      }),
+      pluginOpenGraph({
+        basic: {
+          url: `${env.VITE_HTTPS === 'true' ? 'https' : 'http'}://${env.VITE_DEPLOY_HOSTNAME}`,
+          title: 'Сайт Веломаршалов Московских Велофестивалей',
+          type: 'image/png',
+          image: `${env.VITE_HTTPS === 'true' ? 'https' : 'http'}://${env.VITE_DEPLOY_HOSTNAME}/static/open-graph-preview.png`,
+          determiner: 'auto',
+          description: 'Внутренний сайт для работы веломаршалов на московских велофестивалях',
+          locale: 'ru_RU',
+          localeAlternate: ['en_EN', 'es_ES'],
+          siteName: 'VeloMarshals',
+        }
       }),
       pluginAssetsInserter({
         outBuildDir: 'dist',

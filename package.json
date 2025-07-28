@@ -58,6 +58,7 @@
     "vite": "^6.3.5",
     "vite-plugin-dynamic-import": "^1.6.0",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-open-graph": "^2.0.6",
     "vite-plugin-pwa": "^0.20.5",
     "vite-plugin-sitemap": "^0.7.1",
     "vite-plugin-static-copy": "^2.1.0",
