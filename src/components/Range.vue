@@ -33,13 +33,13 @@ thumb-width = 25px
     box-sizing border-box
     width 60px
     padding 5px 8px
+    border-radius radiusMax
     color colorBg
     text-align center
     -moz-appearance textfield
     -webkit-appearance textfield
     appearance textfield
     background colorSec1
-    border-radius radiusMax
 
     &::-webkit-outer-spin-button
     &::-webkit-inner-spin-button
@@ -61,20 +61,20 @@ thumb-width = 25px
       // overflow hidden
       width 100%
       height range-width
+      border-radius radiusMax
       background linear-gradient(to right, range-fill-background 50%, range-empty-background 50%)
       background-position-x calc(100% - var(--percent))
       background-size 200% 100%
-      border-radius radiusMax
       trans(0.1s)
 
       &::-webkit-slider-thumb
         cursor pointer
         width thumb-width
         height thumb-width
-        -webkit-appearance none
-        background transparent
         border none
         border-radius radiusMax
+        -webkit-appearance none
+        background transparent
         outline none
 
     .range-thumb
@@ -89,11 +89,11 @@ thumb-width = 25px
       width thumb-width
       height thumb-width
       margin-left (thumb-width / 2)
-      color colorTextInvert1
-      background colorEmp1
       // background transparent
       border none
       border-radius radiusMax
+      color colorTextInvert1
+      background colorEmp1
       outline none
       trans(0.1s)
 

@@ -42,7 +42,6 @@
     <input
       class="input"
       :type="type"
-      v-model="modelValue"
       @input="updateModelValue(modelValue)"
       :placeholder="placeholder"
       id="search"

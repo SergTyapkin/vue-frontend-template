@@ -38,9 +38,9 @@
       box-sizing border-box
       width 100%
       padding 10px 0 10px 40px
-      text-align left
       border 2px solid colorBorder
       border-radius radiusM
+      text-align left
       trans()
       font-medium()
 

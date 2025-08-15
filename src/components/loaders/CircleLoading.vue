@@ -27,8 +27,8 @@
   position absolute
   width 7%
   height 7%
-  background #ffffff
   border-radius 50%
+  background #ffffff
   animation lds-default 1.2s linear infinite
 
 .lds-default.dark div
@@ -100,6 +100,7 @@
     opacity 0
   100%
     opacity 1
+
 @keyframes lds-default
   0%
   20%

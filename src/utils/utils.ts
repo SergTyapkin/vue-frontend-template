@@ -15,7 +15,7 @@ export function getRequestFoo<APIFoo extends (...args: any) => any, Fallback>(
   ) => {
     context.loading = true;
     try {
-      const { status, ok, data } = await apiRequest(...<[]>args);
+      const { status, ok, data } = await apiRequest(...<any[]>args);
       context.loading = false;
       if (!ok) {
         const errCallback = errorCallbacks?.[status];
@@ -138,7 +138,7 @@ export async function saveAllAssetsByServiceWorker(
 ) {
   let allCachableResources: string[] = [];
   try {
-    const module = await import(`${'/assetsList.js'}`);
+    const module = await import(/* @vite-ignore */ `${'/assetsList.js'}`);
     allCachableResources = module.default; // list of all cachable resources urls
     console.log('Imported assetsList.js:', allCachableResources );
   } catch {

@@ -100,7 +100,7 @@ export default [
       'vue/no-multi-spaces': 'error',
       'vue/html-indent': 'error',
       'vue/padding-line-between-blocks': 'error',
-      'vue/component-tags-order': [
+      'vue/block-order': [
         'error',
         {
           order: ['style', 'template', 'script'],

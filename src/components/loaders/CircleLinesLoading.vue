@@ -10,25 +10,25 @@
 borderWidth = 3px
 
 .circle-loading
+  position relative
+  box-sizing border-box
   width 'calc(var(--size) - %s)' % borderWidth
   height 'calc(var(--size) - %s)' % borderWidth
   border borderWidth solid colorBlockBg
   border-radius 50%
-  position relative
-  box-sizing border-box
   animation opacity-in 0.4s linear forwards, rotation 1s linear infinite
   &::after
     content ''
-    box-sizing border-box
     position absolute
-    left 50%
     top 50%
+    left 50%
     transform translate(-50%, -50%)
+    box-sizing border-box
     width var(--size)
     height var(--size)
-    border-radius 50%
     border borderWidth solid
     border-color colorEmp1 transparent
+    border-radius 50%
 
   @keyframes opacity-in
     0%

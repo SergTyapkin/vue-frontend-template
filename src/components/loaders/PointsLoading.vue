@@ -8,11 +8,11 @@
 @import '../../styles/scrollbars.styl'
 
 .circle-loading
+  position relative
   width calc(var(--size) / 4)
   height calc(var(--size) / 4)
   margin-top calc(var(--size) / 4 * 1.5)
   margin-bottom calc(var(--size) / 4 * 1.5)
-  position relative
   border-radius 50%
   color colorEmp1
   animation opacity-in 0.4s linear forwards, fill 1s ease-in infinite alternate
@@ -20,16 +20,16 @@
   &::after
     content ''
     position absolute
-    height 100%
-    width 100%
-    border-radius 50%
-    left calc(var(--size) / 4 * 1.5)
     top 0
+    left calc(var(--size) / 4 * 1.5)
+    width 100%
+    height 100%
+    border-radius 50%
     animation fill 0.9s ease-in infinite alternate
 
   &::after
-    left auto
     right calc(var(--size) / 4 * 1.5)
+    left auto
     animation-duration 1.1s
 
   @keyframes opacity-in

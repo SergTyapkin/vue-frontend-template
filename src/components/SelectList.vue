@@ -51,8 +51,8 @@ field()
     justify-content space-between
     width 100%
     height height
-    color colorText1
     border 2px solid colorBorder
+    color colorText1
     &.default
       color colorText2
 
@@ -76,9 +76,9 @@ field()
     max-height max-list-height
     margin 0
     padding 0
-    list-style none
     border-top none
     border-radius borderRadiusM
+    list-style none
     transition all 0.2s ease
 
     .item
@@ -109,8 +109,8 @@ field()
       top -16px
 
     .selected-item
-      background bg-color-selected
       border-color colorEmp1
+      background bg-color-selected
 
     img
       transform rotate(-180deg)

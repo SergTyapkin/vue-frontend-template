@@ -14,10 +14,10 @@
     margin 20px auto
     padding 20px
     padding-top 10px
+    border-radius radiusM
     color colorText1
     text-align center
     background-color colorBg
-    border-radius radiusM
     .title
       font-large()
 

@@ -37,8 +37,8 @@ paginator-button()
 
     display flex
     padding 0
-    background colorBlockBg
     border-radius radiusM
+    background colorBlockBg
 
     > *
       width 30px

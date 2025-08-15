@@ -8,11 +8,11 @@ button()
   user-select none
   box-sizing border-box
   padding 10px 20px
+  border colorBorder solid 1px
+  border-radius radiusM
   color colorText1
   text-shadow none
   background colorBlockBg
-  border colorBorder solid 1px
-  border-radius radiusM
   transition all 0.2s ease
   font-medium()
   svg-inside(1lh)
@@ -33,26 +33,26 @@ button-no-fill()
 
   padding-right 10px
   padding-left 10px
+  border-color transparent
   color colorText2
   background transparent
-  border-color transparent
 
   &:hover
+    border-color mix(colorBlockBg, white, 20%)
     color colorText1
     background mix(colorBlockBg, white, 20%)
-    border-color mix(colorBlockBg, white, 20%)
 
 button-emp1()
   button()
 
+  border-color transparent
   color colorTextInvert1
   background colorEmp1
-  border-color transparent
 
   &:hover
+    border-color transparent
     color colorTextInvert1
     background colorEmp1Hover
-    border-color transparent
 
 button-emp2()
   button-emp1()
@@ -68,48 +68,48 @@ button-emp1-no-fill()
 
   padding-right 10px
   padding-left 10px
+  border colorEmp1 1px solid
   color colorEmp1
   background transparent
-  border colorEmp1 1px solid
 
   &:hover
+    border-color mix(colorBlockBg, white, 20%)
     color colorEmp1
     background mix(colorEmp1, white, 20%)
-    border-color mix(colorBlockBg, white, 20%)
 
 button-emp2-no-fill()
   button-emp2()
 
   padding-right 10px
   padding-left 10px
+  border colorEmp2 1px solid
   color colorEmp2
   background transparent
-  border colorEmp2 1px solid
 
   &:hover
+    border-color mix(colorBlockBg, white, 20%)
     color colorText1
     background mix(colorEmp2, white, 20%)
-    border-color mix(colorBlockBg, white, 20%)
 
 
 button-attention()
   button()
 
-  background mix(colorError, transparent)
   border-color colorError
+  background mix(colorError, transparent)
 
   &:hover
-    color colorTextInvert1
     border-color mix(colorError, white)
+    color colorTextInvert1
 
 button-success()
   button()
 
+  border-color colorSuccess
   color colorTextInvert3
   background mix(colorSuccess, transparent)
-  border-color colorSuccess
 
   &:hover
-    color colorTextInvert1
     border-color mix(colorSuccess, white)
+    color colorTextInvert1
 

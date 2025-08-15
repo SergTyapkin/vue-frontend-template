@@ -47,19 +47,19 @@ input()
   height 45px
   margin 0
   padding 0 15px
-  color colorText1
-  background transparent
   border 2px solid colorBorder
   border-radius radiusM
+  color colorText1
+  background transparent
   font-small()
 
   &::placeholder
     color colorText2
 
   &:focus
+    border-color colorEmp1
     // color colorEmp1
     background colorSuccessBg
-    border-color colorEmp1
   &.error
     border-color colorError
   &.success

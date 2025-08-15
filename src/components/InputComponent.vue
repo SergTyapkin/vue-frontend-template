@@ -22,8 +22,8 @@
     width 100%
     margin-bottom 3px
     padding 10px
-    color colorText1
     border-bottom 2px solid colorBorder
+    color colorText1
     trans()
 
     &::placeholder

@@ -22,10 +22,10 @@ no-checked-border = 0px solid transparent
     position relative
     width size
     height size
-    appearance none
-    background no-checked-background
     border no-checked-border
     border-radius radiusS
+    appearance none
+    background no-checked-background
     trans()
     &::after
       content ""
@@ -43,8 +43,8 @@ no-checked-border = 0px solid transparent
         height size
         transition 500ms
     &.disabled
-      background disabled-background
       border-color #ccc
+      background disabled-background
       &::after
         filter saturate(0)
     &:not(.disabled)

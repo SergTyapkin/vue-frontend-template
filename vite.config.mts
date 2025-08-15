@@ -2,7 +2,6 @@ import { defineConfig, loadEnv } from 'vite';
 import pluginVue from '@vitejs/plugin-vue';
 import pluginBasicSsl from '@vitejs/plugin-basic-ssl';
 import path from 'path';
-import pluginStylelint from 'vite-plugin-stylelint';
 import { VitePWA as pluginVitePWA } from 'vite-plugin-pwa';
 import { viteStaticCopy as pluginViteStaticCopy } from 'vite-plugin-static-copy';
 import pluginSitemap from 'vite-plugin-sitemap';
@@ -26,7 +25,6 @@ export default defineConfig(({ mode }: { command: 'build' | 'serve'; mode: 'deve
       }),
       pluginDynamicImport(),
       pluginPrettier(),
-      pluginStylelint(),
       pluginViteStaticCopy({
         targets: [
           { src: 'static/favicon.svg', dest: 'static' },
