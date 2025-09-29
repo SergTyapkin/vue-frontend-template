@@ -17,4 +17,4 @@ then
     echo "❌ Errors when installing Docker"
 else
   echo "✅ Docker already installed";
-fi
+fi;

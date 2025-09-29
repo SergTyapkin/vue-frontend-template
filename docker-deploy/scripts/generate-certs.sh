@@ -10,4 +10,4 @@ then
   echo "❌ Errors when generation certificates"
 else
   echo "ℹ️ HTTPS not enabled in .env and SSL certificates not needed"
-fi
+fi;
