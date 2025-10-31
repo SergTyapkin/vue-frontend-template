@@ -1,7 +1,0 @@
-server {
-  ${HTTP_NGINX_CONFIG}
-}
-
-server {
-  ${HTTPS_NGINX_CONFIG}
-}
