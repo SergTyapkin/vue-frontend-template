@@ -1,3 +1,6 @@
+source ./docker-deploy/scripts/_echo-colors.sh &&
+echo_header "Setup CI" &&
+
 #id -u github &>/dev/null || sudo adduser github # Add user if not exists
 #sudo chown -R github:legend .
 #sudo -u github ssh-keygen
@@ -23,6 +26,7 @@ echo "Now we generate new SSH key with name \"${key_name}\" and adds it into ~/.
 echo '[press Enter...]' &&
 read ENTER &&
 key_name="$(. "./.env"; eval "echo \${FRONTEND_COMPOSE_NAME}" | tr -dc "a-zA-Z0-9_.-")" &&
+
 ssh-keygen -f "/tmp/${key_name}" &&
 sudo mkdir -p ~/.ssh &&
 sudo cat "/tmp/${key_name}.pub" | sudo tee -a ~/.ssh/authorized_keys > /dev/null &&

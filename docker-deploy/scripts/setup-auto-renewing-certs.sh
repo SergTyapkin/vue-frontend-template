@@ -1,4 +1,7 @@
-enable_https="$(. "./.env"; echo "$VITE_HTTPS" | tr -dc "a-zA-Z")"
+source ./docker-deploy/scripts/_echo-colors.sh &&
+echo_header "Setup auto-renewing certificates" &&
+
+enable_https="$(. "./.env"; echo "$VITE_HTTPS" | tr -dc "a-zA-Z")" &&
 if [[ ${enable_https} == "true" ]] || [[ ${enable_https} == "True" ]] || [[ ${enable_https} == "TRUE" ]]
 then
   sudo apt-get update &&
@@ -11,8 +14,8 @@ then
   echo "Copy that command and [press Enter]. Then add this string in end of opened file." &&
   read ENTER &&
   crontab -e &&
-  echo "✅ Auto renewing certificates sets up successfully" ||
-  echo "❌ Errors when setting up auto renewing certificates"
+  echo_success "Auto renewing certificates sets up successfully" ||
+  echo_error "Errors when setting up auto renewing certificates"
 else
-  echo "⚠️ HTTPS not enabled in .env and auto renewing certificates not started"
+  echo_warn "HTTPS not enabled in .env and auto renewing certificates not started"
 fi

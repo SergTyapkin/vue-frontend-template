@@ -12,7 +12,7 @@ build:
   bash ./docker-deploy/scripts/build.sh
 run:
 	@echo "[Make]: Running 'run' target in Makefile..." && \
-	bash ./docker-deploy/scripts/run.sh
+  bash ./docker-deploy/scripts/run.sh
 down:
 	@echo "[Make]: Running 'down' target in Makefile..." && \
   bash ./docker-deploy/scripts/down.sh
@@ -29,12 +29,12 @@ renew-certs:
   docker compose run --rm certbot renew
 setup-auto-renewing-certs:
 	@echo "[Make]: Running 'setup-auto-renewing-certs' target in Makefile..." && \
-	bash ./docker-deploy/scripts/setup-auto-renewing-certs.sh
+  bash ./docker-deploy/scripts/setup-auto-renewing-certs.sh
 
 setup-ci:
 	@echo "[Make]: Running 'setup-ci' target in Makefile..." && \
-  bash ./docker-deploy/scripts/setup-ci.sh && \
-	bash ./docker-deploy/scripts/show-variables-to-github-ci.sh
+  bash ./docker-deploy/scripts/setup-ci.sh
+  bash ./docker-deploy/scripts/show-variables-to-github-ci.sh
 
 install-docker-if-not-exists:
 	@echo "[Make]: Running 'install-docker-if-not-exists' target in Makefile..." && \
@@ -57,8 +57,8 @@ update:
   bash ./docker-deploy/scripts/update-deploy.sh
 
 all:
-	@echo "[Make]: Running 'all' target in Makefile..." && \
-  make install-docker-if-not-exists
+	@echo "[Make]: Running 'all' target in Makefile..."
+	make install-docker-if-not-exists
 	make setup-env-file
 	make generate-docker-compose
 	make generate-certs

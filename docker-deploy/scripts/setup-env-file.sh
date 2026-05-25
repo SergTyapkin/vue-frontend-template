@@ -1,5 +1,7 @@
+source ./docker-deploy/scripts/_echo-colors.sh &&
+echo_header "Setup .env" &&
+
 cp --no-clobber .env.example .env &&
-echo "" &&
 echo "Edit .env file." &&
 echo "Write right VITE_DEPLOY_HOSTNAME without https:// and url paths!" &&
 echo "If you want to serve only HTTP without HTTPS, set VITE_HTTPS=false and remove DEPLOY_NGINX_PORT_HTTPS" &&

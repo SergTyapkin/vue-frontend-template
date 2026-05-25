@@ -1,6 +1,10 @@
+source ./docker-deploy/scripts/_echo-colors.sh &&
+echo_step "Checking is docker installed..." &&
+
 # fully copied from https://docs.docker.com/engine/install/ubuntu/
 if ! command -v docker
 then
+  echo_step "Installing docker..." &&
   # Add Docker's official GPG key:
   sudo apt-get update &&
   sudo apt-get install -y ca-certificates curl &&
@@ -15,8 +19,8 @@ then
   sudo apt-get update &&
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&
   bash ./docker-deploy/scripts/set-docker-not-sudo.sh &&
-    echo "✅ Docker installed successfully" ||
-    echo "❌ Errors when installing Docker"
+  echo_success "Docker installed successfully" ||
+  echo_error "Errors when installing Docker"
 else
-  echo "✅ Docker already installed";
+  echo_step "Docker already installed";
 fi;

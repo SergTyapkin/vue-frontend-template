@@ -1,3 +1,6 @@
+source ./docker-deploy/scripts/_echo-colors.sh &&
+echo_step "Generating docker compose..." &&
+
 cat ./docker-deploy/docker-compose.template.yaml > ./docker-deploy/docker-compose.yaml
 final_networks_string="
 networks:
@@ -12,7 +15,7 @@ for proxy_num in $(seq 1 $proxy_services_count); do
   proxy_network_is_external=$(. "./.env"; eval "echo \${${proxy_network_var_is_external_name}} | tr -dc \"a-zA-Z\"" )
   if [[ -z ${proxy_network_name} ]]; then continue; fi
 
-  echo "- Added docker network with name: ${proxy_network_name}"
+  echo_step "- Added docker network with name: ${proxy_network_name}"
 
   echo "      - ${proxy_network_name}" >> ./docker-deploy/docker-compose.yaml;
   final_networks_string="${final_networks_string}  ${proxy_network_name}:
@@ -32,9 +35,9 @@ echo "${final_networks_string}" >> ./docker-deploy/docker-compose.yaml
 enable_https="$(. "./.env"; echo "$VITE_HTTPS" | tr -dc "a-zA-Z")"
 if [[ $enable_https == "true" ]] || [[ $enable_https == "True" ]] || [[ $enable_https == "TRUE" ]]
 then
-  echo "✅🔒 Docker-compose sets up to HTTPS configuration (VITE_HTTPS=true in .env)"
+  echo_success "🔒 Docker-compose sets up to HTTPS configuration (VITE_HTTPS=true in .env)"
 else
-  echo "✅ Docker-compose sets up without HTTPS configuration (VITE_HTTPS=false in .env)"
+  echo_success "Docker-compose sets up without HTTPS configuration (VITE_HTTPS=false in .env)"
   # Remove ports "433:433" in docker-compose.yaml
   sed -i -e '45d' ./docker-deploy/docker-compose.yaml
 fi

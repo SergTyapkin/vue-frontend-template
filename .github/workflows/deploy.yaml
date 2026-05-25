@@ -20,5 +20,5 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_DEPLOY_KEY }}
           script: |
-            cd ${{ vars.PROJECT_PATH }}
+            cd ${{ secrets.PROJECT_PATH }}
             make update

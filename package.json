@@ -1,10 +1,10 @@
 {
   "name": "frontend-vue-template",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "author": {
     "name": "Sergey Tyapkin",
-    "email": "Tyapkin2002@mail.ru",
+    "email": "s.s.tyapkin@mail.ru",
     "url": "https://github.com/SergTyapkin"
   },
   "license": "MIT",
