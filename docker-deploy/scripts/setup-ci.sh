@@ -22,10 +22,11 @@ echo_header "Setup CI" &&
 #echo 'Add this public rsa key to Deploy keys in your github directory: ' && \
 #sudo cat /home/github/.ssh/id_rsa.pub
 
+key_name="$(. "./.env"; eval "echo \${FRONTEND_COMPOSE_NAME}" | tr -dc "a-zA-Z0-9_.-")" &&
+
 echo "Now we generate new SSH key with name \"${key_name}\" and adds it into ~/.ssh/authorized_keys to access github actions on this computer" &&
 echo '[press Enter...]' &&
 read ENTER &&
-key_name="$(. "./.env"; eval "echo \${FRONTEND_COMPOSE_NAME}" | tr -dc "a-zA-Z0-9_.-")" &&
 
 ssh-keygen -f "/tmp/${key_name}" &&
 sudo mkdir -p ~/.ssh &&

@@ -33,7 +33,7 @@ setup-auto-renewing-certs:
 
 setup-ci:
 	@echo "[Make]: Running 'setup-ci' target in Makefile..." && \
-  bash ./docker-deploy/scripts/setup-ci.sh
+  bash ./docker-deploy/scripts/setup-ci.sh && \
   bash ./docker-deploy/scripts/show-variables-to-github-ci.sh
 
 install-docker-if-not-exists:

@@ -17,5 +17,5 @@ then
   echo_success "Auto renewing certificates sets up successfully" ||
   echo_error "Errors when setting up auto renewing certificates"
 else
-  echo_warn "HTTPS not enabled in .env and auto renewing certificates not started"
+  echo_info "HTTPS not enabled in .env and auto renewing certificates not started"
 fi
