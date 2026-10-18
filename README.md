@@ -1,105 +1,168 @@
-![GithubCI](https://github.com/sergtyapkin/vue-frontend-template/actions/workflows/deploy.yaml/badge.svg)
+# Forma · Nuxt product template
 
-# Фронтенд на Vue.js с авто-деплоем на _Nginx_ в докере и автоматическим получением сертификатов _Letsencrypt_
+Минималистичная основа коммерческого веб-приложения: Nuxt 4, Vue 3, TypeScript,
+Options API, Stylus, Naive UI. SSR включён. Без бизнес-сущностей и обязательного backend.
 
-Словом, всё необходимое, чтобы раскатить фронтенд за 10 минут на чистой машине с Ubuntu.
+## Быстрый старт
 
-### Все сконфигурированные пакеты и инструменты сборки:
+Node.js 24.15+ LTS (также 22.22.3+), pnpm 10, Git. Точный диапазон — в package.json.
 
-1. **Vite** - сборщик
-2. **Typescript** - типизация для JS
-3. **Vue.js** - высокоуровневый фреймворк
-4. **Stylus** - препроцессор для css-стилей
-5. **TypeDoc** - генератор HTML документации по JSDoc-комментариям
-6. **Jest** - фреймворк для запуска юнит-тестов
-7. **ESlint** - статический анализатор кода
-
-> **Плагины ESLint:**
->
-> - **JS / TS / Vue** - стандартные плагины
-> - **Compat** - проверка совместимости со старыми браузерами
-> - **No loops** - запрет использования "C-style" циклов for, while
-> - **Sonarjs** - проверка когнитивной сложности больших блоков кода
-> - **No use extend native** - запрет расширения классов стандартных типов данных
-> - **Optimize regex** - проверка качества написания ругулярных выражений
-> - **Promise** - проверка работы с промисами
-> - **Import** - проверка и оптимизация импортов _(отключен из-за проблем использования вместе с Vue)_
-
-8. **Prettier** - линтер для JS/TS
-9. **Stylelint** - линтер для Stylus
-10. **Husky/pre-commit** - инструменты для запуска линтеров перед каждым коммитом
-11. **Nginx/Docker/Make** - инструменты для запуска собранного приложения в выделенном контейнере
-
-#### Полный список команд Make:
-
-```SHELL
-make all  # Настроить env, установить докер, получить SSL-сертификаты, настроить автообновление сертификатов, запустить контейнер, настроить CI
-make update  # Обновить код до последней версии из ветки, собрать образ и перезапустить контейнер
-make build  # Собрать образ
-make run  # Перезапустить контейнер
-make down  # Остановить контейнер
-make logs  # Вывести логи в интерактивном режиме
-make generate-certs  # Получить SSL-сертификаты
-make renew-certs  # Обновить SSL-сертификаты
-make setup-ci  # Настроить CI, получить переменные для его настройки в Github
-make install-docker-if-not-exists  # Установить докер, если его ещё нет
-make set-docker-not-sudo  # Доавить текущего пользователя в группу docker, чтобы его можно было запускать без sudo
-make generate-docker-compose  # Сгенерировать docker-compose.yaml по конфигурации из .env
-make setup-env-file  # Создать .env, если его ещё нет, и открыть его в редакторе
+```sh
+corepack enable
+pnpm install
+pnpm dev
 ```
 
-## Развертка для разработки
+Install создаёт отсутствующий `.env.local`, локальные шрифты и рабочие каталоги,
+устанавливает Lefthook и подготавливает Nuxt. Повторный запуск сохраняет настройки.
+При отключённых lifecycle scripts выполните `pnpm project:init`.
 
-```SHELL
-npm run dev
+## Новый продукт
+
+1. Измените **`site.config.ts`**: название, описание, домен, темы, языки, SEO, PWA, SSO.
+2. Замените `public/branding/logo.svg`, выполните `pnpm branding:generate`.
+3. Добавляйте страницы и компоненты.
+
+Значения в site.config публичны и применяются при сборке. Секреты и адрес backend
+передаются через runtime env: `NUXT_API_UPSTREAM`, `NUXT_SESSION_PASSWORD`,
+`NUXT_OIDC_CLIENT_SECRET`. Production запускается с переменными окружения,
+а не с автоматически загружаемым `.env.local`.
+
+## Команды
+
+| Команда                             | Назначение                             |
+| ----------------------------------- | -------------------------------------- |
+| `pnpm dev`                          | Локальная разработка                   |
+| `pnpm project:init`                 | Повторная подготовка, без сборки       |
+| `pnpm typecheck`                    | Nuxt / vue-tsc                         |
+| `pnpm lint` / `pnpm lint:fix`       | ESLint, Stylelint, Prettier, SEO       |
+| `pnpm test` / `pnpm test:coverage`  | Инфраструктурные unit-тесты            |
+| `pnpm test:related path/to/file.ts` | Связанные тесты                        |
+| `pnpm test:e2e`                     | Playwright против SSR build            |
+| `pnpm build` / `pnpm start`         | Nitro Node server                      |
+| `pnpm build:spa`                    | Статический SPA в `.output-spa/public` |
+| `pnpm build:analyze`                | Анализ bundle                          |
+| `pnpm api:generate`                 | OpenAPI → типы                         |
+| `pnpm branding:generate`            | Иконки и OG из логотипа                |
+| `pnpm check`                        | lint + typecheck + unit + SSR build    |
+
+Перед первым e2e: `pnpm exec playwright install chromium`, затем `pnpm build`.
+В CI дополнительно выполняются браузерные тесты, Lighthouse, audit и secret scan.
+
+## Структура
+
+```text
+app/          Nuxt pages, providers, plugins, middleware
+features/     Независимые функциональные модули (сейчас только auth integration)
+shared/       UI, API client/generated types, validation, styles
+server/       Nitro BFF, health, OIDC endpoints
+i18n/         Lazy ru/en dictionaries
+mocks/        Явно включаемые MSW handlers
+pwa/          Workbox, cache policy, offline download engine
+scripts/      Кроссплатформенная подготовка и проверки
+tests/        Unit и браузерные тесты
 ```
 
-_У вас должна быть установлена `node`. [Установка Node.js](https://nodejs.org/en/download)_
+## Страница и feature
 
-# Развертка в деплой
+Добавьте `app/pages/about.vue`:
 
-Развертка выполняется через команды в `Makefile`
-
-## 1. Клонируем репозиторий:
-
-```SHELL
-git clone git@github.com:SergTyapkin/vue-frontend-template.git
+```vue
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { definePageMeta } from '@shared/lib/page-meta';
+definePageMeta({ public: true });
+export default defineComponent({ name: 'AboutPage' });
+</script>
+<template>
+  <AppContainer><AppHeading as="h1">О проекте</AppHeading></AppContainer>
+</template>
 ```
 
-## 2. Настраиваем вообще всё.
+SEO страницы переопределяется через инфраструктурный page mixin/plugin с `useSeoMeta`
+или Options-компонент `<Head><Title>…</Title><Meta name="description" content="…" /></Head>`.
+Для приватной страницы: `definePageMeta({ auth: true, sitemap: false, permissions: ['read:reports'] })`.
+Такие страницы должны исключаться из sitemap через `sitemap: false` в page metadata.
 
-В самом начале нужно будет настроить `.env` файл:
+Feature хранит компоненты, store и публичный entrypoint в `features/<name>/`.
+`shared` не импортирует `features` и `app`. Серверные сущности не дублируются в Pinia.
+Для локального состояния доступны `mapState`, `mapWritableState`, `mapActions`.
 
-> - `EXTERNAL_DOCKER_NETWORK_NAME` - если указано, подключается к существующей сети докера (какой-то прокси), как к external сети
-> - `API_HOST`, `API_PORT` - адрес проксирования на API. Если проксируется внутри сети докера, указывается _название контейнера_ как хост и его _внутренний_ порт
-> - `VITE_DEPLOY_HOSTNAME` - хост сайта без https:// в начале
-> - `VITE_HTTPS` - раздавать ли сайт по HTTPS, и получать ли для этого сертификаты. В случае, если _false_, раздача осуществляется только по HTTP, и DEPLOY_NGINX_PORT_HTTPS можно не указывать
-> - `DEPLOY_NGINX_PORT_HTTP`, `DEPLOY_NGINX_PORT_HTTPS` - порты для раздачи сайта по HTTP и HTTPS. Если `VITE_HTTPS` в значении _false_, то раздача осуществляется только по HTTP
+## API и SSR-ресурсы
 
-```SHELL
-cd vue-frontend-template
-make all # not just "make"!
+Укажите `NUXT_API_UPSTREAM=https://backend.example` — BFF проксирует `/api/v1/*`.
+Локальный `/api/v1/health` работает без backend. Реальный OpenAPI FastAPI:
+
+```sh
+OPENAPI_SOURCE=https://backend.example/openapi.json pnpm api:generate
 ```
 
-Всё. Наслаждаемся тем, что за нас всё сделали, установили докер, сайт раздаётся, сертификаты обновляются.
-Теперь `Github CI` сам будет проверять, собирается ли контейнер при **Pull Request**'ах, а при **Push**'ах в ветку `master` будет автоматически выполняться `make update` на сервере и обновлять деплой!
+В PowerShell: `$env:OPENAPI_SOURCE = 'https://backend.example/openapi.json'`.
+После генерации вызывайте `this.$api.GET('/path', { params: { query: { ... } }, signal })`.
+POST/PATCH/DELETE типизируются тем же контрактом. `ApiError` содержит status/detail/requestId.
+GET повторяется один раз только при 502/503/504; мутации не повторяются.
 
-_После выполнения не забываем прописать переменные, значения которых команда выдала в консоль, в настройки окружения репозитория на Github, как это написано в пункте 3._
+Для SSR добавьте в `mixins` результат `resourceOptions({ key: ['health'],
+load: async (app, signal) => (await app.$api.GET('/health', { signal })).data! })`.
+Доступны `resource.data/isLoading/isFetching/error`, `refreshResource()`,
+`clearResource()`, `disposeResource()`, `this.$query.invalidateQueries(...)`.
+QueryClient создаётся на каждый Nuxt запрос; SSR payload гидратирует клиентский cache.
+Ключ ресурса должен включать все параметры, влияющие на ответ. Подробнее — docs.
 
-### Полный список действий скриптов
+## Компоненты и формы
 
-1. Устанавливает `docker`, если его ещё нет
-2. Добавляет текущего пользователя в группу `Docker`, чтобы запускать его без `sudo`
-3. Предлагает настроить `.env` файл
-4. Получает сертификаты Letsencrypt
-5. Устанавливает и настраивает `cron` на ежемесячное обновление сертификатов
-6. Создаёт пару SSH ключей, публичный добавляет в `~/.ssh/authorized_keys`, приватный выводит в консоль, его нужно добавить как секретную переменную среды `SSH_DEPLOY_KEY` в настройках Github.
-7. Собирает приложение из последнего коммита в ветку, указанную в `.env` файле, запускает финальный docker-контейнер с ним.
-8. Показывает остальеые переменные, которые необходимо установить в настройках GitHub для настройки CI/CD.
+SFC используют `defineComponent()`, Options API и scoped `lang="stylus"`.
+Примитивы `AppButton/Card/Container/Stack/Grid/Section/Heading/Text/EmptyState/Image/Modal/Icon`
+задают интерфейс и оформление; остальные Naive UI компоненты импортируйте напрямую.
+Уведомления/диалоги: `this.$ui.message.success('Готово')`, `this.$ui.dialog.warning(...)`.
 
-## 3. Установка переменных
+Для формы импортируйте `Form`, `Field` из vee-validate и `formSchema` из shared/validation.
+В `data()` создайте `schema: formSchema(z.object({ email: z.email() }))`.
+Используйте `<Form :validation-schema="schema" v-slot="{ meta, isSubmitting, setErrors }">`
+и `<Field name="email" v-slot="{ field, errorMessage, meta }">` с Naive NInput:
+`:value="field.value" @update:value="field.onChange" @blur="field.onBlur"`.
+Submit handler возвращает Promise; серверные ошибки передаются в `setErrors(fieldErrors(error.detail))`.
+Zod async refinements поддерживаются. Постоянной демонстрационной формы нет.
 
-1. Заходим в `Settings` -> `Environments`, создаём новое окружение под названием `deploy` (важно).
-   ![](/README_res/1.png)
-2. Создаём внутри окружения все необходимые переменные. Их выведет `make all` после завершения выполнения, или можно прописать самому.
-   ![](/README_res/2.png)
+## Оформление, языки, медиа
+
+Тема system/light/dark сохраняется cookie и синхронизируется с ОС, Naive UI и CSS tokens.
+Палитра, шрифты и разрешения переключателей находятся в site.config.
+Inter latin/cyrillic self-hosted; `@nuxt/fonts` строит оптимизированные определения.
+Иной локальный шрифт положите в `public/fonts`, измените семейство в site.config.
+Переводы ru/en загружаются лениво. `i18n.prefixes` включает языковые URL.
+Одна локаль автоматически скрывает переключатель.
+
+Иконки: `<AppIcon name="lucide:plus" />`, также доступны `tabler:*`, `mdi:*`.
+Изображения: `<AppImage src="/images/photo.jpg" alt="Описание" :width="800" :height="600" />`.
+Для LCP задайте `priority`; sizes/srcset и остальные NuxtImg props передаются напрямую.
+SVG остаются SVG. Будущие пользовательские загрузки обрабатывает backend/CDN.
+
+## SSR, SPA, SSO, offline
+
+SSR выдаёт готовый HTML и требует Node/Nitro runtime: `.output/server/index.mjs`.
+SPA выбирается `rendering.ssr: false`; `pnpm build:spa` создаёт статическую версию.
+Статическому хостингу нужны fallback на index.html и внешний backend для `/api`/`/auth`.
+Nitro BFF/OIDC/health доступны только при работающем Nitro server.
+Route rules позволяют позже добавить prerender/hybrid. Деплой здесь не реализован.
+
+SSO выключен. Для включения задайте auth.enabled/issuer/clientId/scopes и домен сайта,
+зарегистрируйте `/auth/callback` у OIDC provider, задайте session password и client secret.
+Используется Code + PKCE, state и nonce; токены не передаются в клиентский JS.
+Базовый adapter возвращает только sub/name; роли/permissions требуют доверенного mapping.
+Backend независимо проверяет доступ. Подробнее об ограничениях — docs/architecture.md.
+
+PWA хранит только статические assets и явно разрешённые публичные ресурсы.
+Список `pwa.resources/publicPages/publicApi` централизован в site.config.
+Публичный HTML/API обязан иметь `Cache-Control: public`; приватный HTML не кэшируется.
+`this.$offline.download()/clear()/subscribe()` управляют загрузкой с реальным прогрессом.
+Precache сам по себе не означает готовность выбранного offline-набора.
+Изменение SW предлагает обновление. Работа SW проверяется production build на localhost/HTTPS.
+
+## Совместимость и развитие
+
+vee-validate 5 опубликован только как beta; выбран стабильный 4 с Zod adapter.
+Stylelint 16 выбран из-за peer support stylelint-stylus (17 пока не поддерживается).
+TypeScript 5.9 совместим с openapi-typescript и typescript-eslint; 7 пока несовместим.
+Прочие прямые зависимости закреплены точными версиями, транзитивные — pnpm-lock.yaml.
+Подробности: [архитектура](docs/architecture.md), [разработка](docs/development.md), [AGENTS](AGENTS.md).

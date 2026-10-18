@@ -1,31 +1,16 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
 node_modules
+.nuxt
+.output
+.output-spa
 dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Package files
-package-lock.json
-
-# Dirs
+pnpm-lock.yaml
+public
 coverage
-docs
+playwright-report
+test-results
+.cache
+.data
+.lighthouseci
+shared/api/generated
+**/*.vue
+**/*.styl

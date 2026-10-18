@@ -1,0 +1,31 @@
+{
+  "theme": "Theme",
+  "language": "Language",
+  "preferences": "Preferences",
+  "eyebrow": "A fresh start. Thoughtfully built.",
+  "headline": "Good things start",
+  "headlineAccent": "with a little space.",
+  "start": "Make it yours",
+  "yours": "Your idea. Your direction.",
+  "foundation": "Room to build",
+  "fast": { "title": "Move with purpose", "text": "A clear foundation, ready for your next step." },
+  "considered": {
+    "title": "Every detail matters",
+    "text": "Comfortable on every screen, in every light."
+  },
+  "open": { "title": "Make room for more", "text": "Start simple. Grow in your own direction." },
+  "footer": "Built for what comes next.",
+  "offline": "You are offline. A saved copy is shown. Some data may be out of date.",
+  "unavailable": "The server is unavailable. No saved copy is ready.",
+  "update": "A new version is available.",
+  "reload": "Update",
+  "download": "Save offline resources",
+  "clear": "Clear offline copy",
+  "notFound": "Page not found",
+  "home": "Back home",
+  "cookies": {
+    "title": "We use cookies",
+    "message": "By continuing to use this site, you agree to the use of cookies.",
+    "accept": "Okay"
+  }
+}

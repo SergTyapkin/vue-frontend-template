@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    staged:
+      run: pnpm exec lint-staged
+pre-push:
+  commands:
+    security:
+      run: pnpm security:check

@@ -1,9 +1,0 @@
-source ./docker-deploy/scripts/_echo-colors.sh &&
-
-# add user to docker group
-getent group docker || sudo groupadd docker && # Add group if not exists
-sudo usermod -aG docker "${USER}" &&
-newgrp docker &&
-sudo systemctl restart docker &&
-echo_success "Current user adds into group Docker" ||
-echo_error "Errors when adding user into group Docker"

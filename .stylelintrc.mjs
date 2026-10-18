@@ -1,28 +1,12 @@
-import { propertyGroups } from 'stylelint-config-clean-order';
-
-const propertiesOrder = propertyGroups.map(properties => ({
-  noEmptyLineBetween: true,
-  emptyLineBefore: 'never', // Don't add empty lines between order groups.
-  properties,
-}));
-
-/** @type {import('stylelint').Config} */
 export default {
-  plugins: ['stylelint-order'],
-  extends: ['stylelint-stylus/standard', 'stylelint-config-clean-order'],
-  rules: {
-    'order/properties-order': [
-      propertiesOrder,
-      {
-        severity: 'warning',
-        unspecified: 'bottomAlphabetical',
-      },
-    ],
-  },
+  extends: ['stylelint-stylus/standard'],
   overrides: [
-    {
-      files: ['*.css'],
-      extends: ['stylelint-config-standard'],
-    },
+    { files: ['**/*.vue'], customSyntax: 'postcss-html' },
+    { files: ['**/*.styl'], customSyntax: 'postcss-styl' },
   ],
+  rules: {
+    'selector-class-pattern': '^[a-z][a-z0-9-]*$',
+    'declaration-no-important': true,
+    'selector-max-id': 0,
+  },
 };

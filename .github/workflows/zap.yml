@@ -1,0 +1,24 @@
+name: Optional staging ZAP scan
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Explicitly authorized staging URL (never production)
+        required: true
+permissions:
+  contents: read
+jobs:
+  baseline:
+    if: vars.ENABLE_STAGING_ZAP == 'true'
+    runs-on: ubuntu-latest
+    environment: staging-security
+    steps:
+      - name: Validate staging origin
+        env:
+          TARGET: ${{ inputs.target }}
+          ALLOWED: ${{ vars.STAGING_ORIGIN }}
+        run: node -e "if (!process.env.ALLOWED || new URL(process.env.TARGET).origin !== new URL(process.env.ALLOWED).origin) process.exit(1)"
+      - uses: zaproxy/action-baseline@v0.15.0
+        with:
+          target: ${{ inputs.target }}
+          allow_issue_writing: false
