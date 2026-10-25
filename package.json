@@ -64,7 +64,7 @@
   "devDependencies": {
     "typescript": "5.9.3",
     "vue-tsc": "3.3.13",
-    "@types/node": "24.19.2",
+    "@types/node": "26.6.5",
     "stylus": "0.64.0",
     "postcss": "8.5.30",
     "autoprefixer": "10.6.1",
